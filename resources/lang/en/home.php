@@ -1,0 +1,38 @@
+<?php
+return [
+    'social' => 'Social',
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'tiktok' => 'Tiktok',
+    'linkedin' => 'Linkedin',
+    'google_map' => 'Open in Google Maps',
+    'all_rights_reserved' => 'Tetra Pharma — All Rights Reserved',
+    'faq' => 'FAQ',
+    'faq_title' => 'Frequently Asked Questions',
+    'faq_p' => 'We’ve got answers.',
+    'no_faq' => 'No faq questions',
+    'faq-index_p' => 'Answers to common questions about our products, quality, usage, and partnerships. If you don’t
+                find what you’re looking for, reach out—we’re here to help.',
+    'home' => 'Home',
+    'faq-index' => 'Frequently Asked Questions',
+    'faq-index_h3' => 'Need more help?',
+    'faq-index_pp' => 'We’d be happy to help you find the right product or ensure your safety.',
+    'contact' => 'Contact',
+    'read' => 'Read our blog',
+    'questions' => '  Got Some <em>Questions</em> for Us?<br/>
+            We are Happy to Help You!',
+    'your_message' => 'Your Message',
+    'full_name' => 'Full name',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'message' => 'Message',
+    'send' => 'SEND',
+    'contact-us' => 'We’re Happy to Help',
+    'contact-us_p' => 'Send us a message, or use the info below to reach our team.',
+    'contact_information' => 'Contact Information',
+    'links' => 'Links',
+    'copyright' => 'All Rights Reserved &copy; :year :company',
+    'sending' => 'Sending...',
+    'cv_file' => 'CV File',
+];
+?>
