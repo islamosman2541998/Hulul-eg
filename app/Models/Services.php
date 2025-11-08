@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Services extends Model
 {
-    use HasFactory,SoftDeletes, Translatable;
+    use HasFactory, SoftDeletes, Translatable;
 
     protected $fillable = [
         'image',
         'sort',
+        'service_category_id',
         'status',
         'feature',
         'news_ticker',
@@ -37,19 +38,25 @@ class Services extends Model
     protected $translationForeignKey = 'service_id';
 
 
-    public function trans()  
+    public function trans()
     {
         return $this->hasMany(ServicesTranslation::class, 'service_id', 'id');
     }
-
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\ServiceCategory::class, 'service_category_id', 'id');
+    }
     // Scopes ----------------------------
-    public function scopeActive($query){
+    public function scopeActive($query)
+    {
         return $query->where('status', 1);
     }
-    public function scopeFeature($query){
+    public function scopeFeature($query)
+    {
         return $query->where('feature', 1);
     }
-    public function scopeLang($query){
+    public function scopeLang($query)
+    {
         return $query->trans->where('locale',  app()->getLocale())->first();
     }
 }

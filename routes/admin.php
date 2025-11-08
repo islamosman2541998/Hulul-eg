@@ -30,9 +30,12 @@ use App\Http\Controllers\Admin\WhatsAppController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OccasionsController;
+use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\SubscribesController;
 use App\Http\Controllers\Admin\imageUploadController;
 use App\Http\Controllers\Admin\SpecialtiesController;
+use App\Http\Controllers\Admin\PortfolioTagController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ClientsReportsController;
 use App\Http\Controllers\Admin\OccasionGallerController;
@@ -46,7 +49,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Admin\Authorizations\RolesController;
 use App\Http\Controllers\Admin\ServiceCategoryEventsController;
 use App\Http\Controllers\Admin\Authorizations\PermissionsController;
-
+use App\Http\Controllers\Admin\CareerCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -163,7 +166,13 @@ Route::group([
                 Route::get('jobs/{job}/toggle-status', [App\Http\Controllers\Admin\JobController::class, 'toggleStatus'])->name('jobs.toggle-status');
                 Route::get('jobs/{job}/toggle-feature', [App\Http\Controllers\Admin\JobController::class, 'toggleFeature'])->name('jobs.toggle-feature');
 
+ /************************** start CareerCategory ************************************/
+                Route::resource('career_category', CareerCategoryController::class);
+                Route::get('career_category-update-featured/{id}', [CareerCategoryController::class, 'update_featured'])->name('career_category.update-featured');
+                Route::get('career_category-update-status/{id}', [CareerCategoryController::class, 'update_status'])->name('career_category.update-status');
+                Route::post('career_category/actions', [CareerCategoryController::class, 'actions'])->name('career_category.actions');
 
+                /************************** end CareerCategory ************************************/
                 // ----- Partners -----------------------------------------------
                 Route::resource('partners', PartnerController::class);
                 Route::get('partners/{partner}/toggle-status', [PartnerController::class, 'toggleStatus'])->name('partners.toggle-status');
@@ -271,6 +280,30 @@ Route::group([
 
                 /************************** end products ************************************/
 
+                /************************** start portfolio ************************************/
+                Route::resource('portfolio', PortfolioController::class);
+                Route::get('portfolio-update-featured/{id}', [PortfolioController::class, 'update_featured'])->name('portfolio.update-featured');
+                Route::get('portfolio-update-status/{id}', [PortfolioController::class, 'update_status'])->name('portfolio.update-status');
+                Route::post('portfolio/actions', [PortfolioController::class, 'actions'])->name('portfolio.actions');
+
+                /************************** end portfolio ************************************/
+                /************************** start statistic  ************************************/
+                Route::resource('statistic', StatisticController::class);
+                Route::get('statistic-update-featured/{id}', [StatisticController::class, 'update_featured'])->name('statistic.update-featured');
+                Route::get('statistic-update-status/{id}', [StatisticController::class, 'update_status'])->name('statistic.update-status');
+                Route::post('statistic/actions', [StatisticController::class, 'actions'])->name('statistic.actions');
+
+                /************************** end statistic ************************************/
+
+
+                /************************** start tags ************************************/
+                Route::resource('portfolio-tags', PortfolioTagController::class);
+                Route::get('portfolio-tags-update-featured/{id}', [PortfolioTagController::class, 'update_featured'])->name('portfolio-tags.update-featured');
+                Route::get('portfolio-tags-update-status/{id}', [PortfolioTagController::class, 'update_status'])->name('portfolio-tags.update-status');
+                Route::post('portfolio-tags/actions', [PortfolioTagController::class, 'actions'])->name('portfolio-tags.actions');
+
+                /************************** end portfolio tags ************************************/
+
 
 
                 /************************** start products gallery ************************************/
@@ -322,7 +355,6 @@ Route::group([
 
                 /************************** start service categories ************************************/
                 Route::resource('service', ServiceCategoryController::class);
-                Route::get('landscape', [ServiceCategoryController::class, 'getLandScape'])->name('get_landscape.get');
 
 
                 Route::get('service-update-featured/{id}', [ServiceCategoryController::class, 'updateFeature'])->name('service.update-featured');

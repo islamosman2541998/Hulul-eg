@@ -35,8 +35,8 @@ class ServiceCategory extends Model
         'meta_title',
         'meta_description',
         'meta_key',
-        'info_title',      
-        'info_description', 
+        'info_title',
+        'info_description',
     ];
 
     public function translations()
@@ -49,10 +49,10 @@ class ServiceCategory extends Model
         return $this->hasMany(ServiceCategoryTranslation::class, 'service_cat_id', 'id');
     }
 
-public function getFollowings()
-{
-    return $this->hasMany(EventFollowing::class, 'event_id');
-}
+    public function getFollowings()
+    {
+        return $this->hasMany(EventFollowing::class, 'event_id');
+    }
     public function transNow()
     {
         return $this->hasOne(ServiceCategoryTranslation::class, 'service_cat_id')->where('locale', app()->getLocale());
@@ -67,6 +67,11 @@ public function getFollowings()
     {
         return $this->belongsTo(Gallery::class, 'gallery_id');
     }
+    public function services()
+    {
+        return $this->hasMany(Services::class, 'service_category_id', 'id');
+    }
+
 
     public function occasions()
     {
@@ -132,7 +137,6 @@ public function getFollowings()
     public function infoImagePath()
     {
         return '/attachments/service_category/info_images/';
-        
     }
     public function infoImageInView()
     {
@@ -141,8 +145,6 @@ public function getFollowings()
         } else {
             return '/attachments/no_image/no_image.png';
         }
-
-        
     }
 
     public function pathInView()

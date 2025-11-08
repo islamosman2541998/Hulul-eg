@@ -1,57 +1,38 @@
 @php
     $settings     = \App\Settings\SettingSingleton::getInstance();
     $show_slider    = (int) $settings->getHome('show_slider');
-    // dd($show_slider);
-        $firstVideoSlide = $slides->firstWhere('video', '!=', null);
+    
 @endphp
 
-@if ( $show_slider)
-@if ($firstVideoSlide)
+   <!-- Hero Section Begin -->
+    <section class="hero" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+        <div class="hero__slider owl-carousel">
 
-    <div class="heroVideo">
-
-        <video class="video" autoplay muted loop playsinline>
-            <source src="{{ asset($firstVideoSlide->videoInView()) }}" type="video/mp4">
-        </video>
-        <div class="filter"></div>
-        <div class="videocontent">
-            <h1 class="headerh1">
-                {{ optional($firstVideoSlide->transNow)->title ??
-                    ($firstVideoSlide->trans->where('locale', app()->getLocale())->first()->title ?? '') }}
-            </h1>
-            <p class="headerP">
-                {!! $firstVideoSlide->transNow?->description ??
-                    (optional($firstVideoSlide->trans->where('locale', app()->getLocale())->first())->description ?? '') !!}
-            </p>
-            <a href="{{ route('site.products.index') }}"><button class="btn">{{ __('messages.explore_product') }}</button></a>
-        </div>
-    </div>
-@else
-    <div class="swiper banner">
-        <div class="swiper-wrapper">
             @forelse ($slides as $slide)
-                <div class="swiper-slide">
-                    <a href="{{ $slide->url }}">
-                        <img src="{{ asset($slide->pathInView()) }}" alt="Slide {{ $loop->index + 1 }}">
-                    </a>
+            <div class="hero__item set-bg bgImg"
+            {{-- style="background-image: url('{{ asset($slide->pathInView()) }}') !important;" --}}
+             data-setbg="{{ asset($slide->pathInView()) }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <span>{!!  $slide->description !!} </span>
+                                <h2>{{ $slide->title }}</h2>
+                                <a href="#" class="primary-btn">See more about us</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
             @empty
-                <div class="swiper-slide">
-                    <img src="{{ asset('site/img/default-slide.jpg') }}" class="img-fluid" alt="Default Slide" />
-                </div>
-            @endforelse
+            
+
+
+            @endforelse 
+          
+          
         </div>
-        <div class="swiper-pagination"></div>
-    </div>
-@endif
-@endif
+    </section>
+    <!-- Hero Section End -->
 
-
-
-<style>
-    .heroVideo {
-        position: relative !important;
-        height: 100vh !important;
-        overflow: hidden !important;
-    }
-</style>
+  

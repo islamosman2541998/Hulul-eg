@@ -31,6 +31,7 @@ return [
 
     'status_changed_sucessfully'  => 'Status Changed Sucessfully',
     'delete_all_sucessfully'      => 'Portfolios Deleted Sucessfully',
+    'count'                       => 'Count',
 
 ];
 

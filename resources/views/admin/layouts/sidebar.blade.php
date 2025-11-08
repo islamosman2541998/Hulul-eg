@@ -160,7 +160,8 @@
                 {{--                        <span> @lang('admin.blogs')</span> --}}
                 {{--                    </a> --}}
                 {{--                    <ul class="sub-menu" aria-expanded="false"> --}}
-                {{--                        --}}{{-- services --------------------------------------------------------------- --}}
+                {{--                        --}}
+                {{-- services --------------------------------------------------------------- --}}
                 {{--                        <li> --}}
                 {{--                            <a href="javascript: void(0);" class="has-arrow waves-effect"> --}}
                 {{--                                <i class="fa fa-smile"></i> --}}
@@ -391,18 +392,70 @@
                         @lang('admin.blogs')</a>
                 </li>
 
+                {{--           portfolio             --}}
+
+                <li><a href="{{ route('admin.portfolio.index') }}">
+                        <i class="fas fa-images"></i>
+                        @lang('admin.portfolio')</a></li> 
+
+
+                {{--           portfolio tags            --}}
+
+                <li><a href="{{ route('admin.portfolio-tags.index') }}">
+                        <i class="fas fa-tags"></i>
+                        @lang('admin.portfolio-tags')</a></li> 
+
+
                 {{--           products             --}}
 
-                <li><a href="{{ route('admin.products.index') }}">
+                {{-- <li><a href="{{ route('admin.products.index') }}">
                         <i class="fas fa-boxes"></i>
-                        @lang('admin.products')</a></li>
+                        @lang('admin.products')</a></li> --}}
 
                 {{--           categories             --}}
 
-                <li><a href="{{ route('admin.product_category.index') }}">
+                {{-- <li><a href="{{ route('admin.product_category.index') }}">
                         <i class="fas fa-tags"></i>
-                        @lang('admin.product_category')</a></li>
- 
+                        @lang('admin.product_category')</a></li> --}}
+
+
+                {{-- services --------------------------------------------------------------- --}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fa fa-smile"></i>
+                        <span> @lang('services.services')</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin.services.index') }}"> @lang('services.show_services')</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.services.create') }}"> @lang('services.create_services')</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                {{-- End services ----------------------------------------------------------- --}}
+                {{-- services categories --------------------------------------------------------------- --}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fa fa-smile-beam"></i>
+                        <span> @lang('services.services_categories')</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin.service.index') }}"> @lang('services.show_services_categories')</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.service.create') }}"> @lang('services.create_services_categories')</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                {{-- End services ----------------------------------------------------------- --}}
+
                 {{--         News             --}}
 
                 <li><a href="{{ route('admin.news.index') }}">
@@ -415,6 +468,13 @@
                         <i class="fas fa-briefcase"></i>
                         @lang('admin.jobs')</a></li>
                 {{--         jobs             --}}
+
+                {{--         career_category             --}}
+                <li><a href="{{ route('admin.career_category.index') }}">
+                        <i class="fas fa-briefcase"></i>
+                        @lang('admin.career_category')</a></li>
+                {{--         career_category             --}}
+                
                 <li><a href="{{ route('admin.cvs.index') }}">
                         <i class="fas fa-id-card"></i>
                         @lang('admin.cvs')</a></li>
@@ -424,6 +484,13 @@
                 <li><a href="{{ route('admin.partners.index') }}">
                         <i class="fas fa-handshake"></i>
                         @lang('admin.partners')</a></li>
+
+                         {{--           statistic             --}}
+
+                <li><a href="{{ route('admin.statistic.index') }}">
+                        <i class="fas fa-images"></i>
+                        @lang('admin.statistic')</a></li> 
+
 
                 {{--  about us --}}
 
@@ -471,9 +538,9 @@
                                 {{-- <li><a href="{{ route('admin.payment-methods.index') }}"> @lang('admin.payment_methods')</a>
                                 </li> --}}
 
-                                {{-- <li>
+                                <li>
                                     <a href="{{ route('admin.home-settings.index') }}"> @lang('admin.setting_home')</a>
-                                </li> --}}
+                                </li>
                             </ul>
                         </li>
                         {{-- Themes --------------------------------------------------------------- --}}

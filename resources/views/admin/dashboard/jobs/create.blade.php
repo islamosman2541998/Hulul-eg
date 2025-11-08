@@ -4,106 +4,7 @@
 @section('title_page', __('job.create'))
 
 @section('content')
-    {{-- <div class="container-fluid">
-        <div class="row mb-3 text-end">
-            <div class="col-12">
-                <a href="{{ route('admin.jobs.index') }}" class="btn btn-secondary btn-sm">@lang('button.cancel')</a>
-            </div>
-        </div>
 
-        <form action="{{ route('admin.jobs.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-md-9">
-                    @foreach ($languages as $key => $locale)
-                        <div class="accordion mb-3" id="accordionLang{{ $key }}">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseLang{{ $key }}">
-                                        @lang('lang.' . \Locale::getDisplayName($locale))
-                                    </button>
-                                </h2>
-
-                                <div id="collapseLang{{ $key }}" class="accordion-collapse collapse show"
-                                    data-bs-parent="#accordionLang{{ $key }}">
-                                    <div class="accordion-body">
-                                        <div class="mb-3">
-                                            <label class="form-label">@lang('job.title')</label>
-                                            <input type="text" name="{{ $locale }}[title]" class="form-control"
-                                                value="{{ old($locale . '.title') }}">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">@lang('job.short_description')</label>
-                                            <textarea name="{{ $locale }}[short_description]" class="form-control" rows="3">{{ old($locale . '.short_description') }}</textarea>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">@lang('job.description')</label>
-                                            <textarea id="description{{ $key }}" name="{{ $locale }}[description]" class="form-control"
-                                                rows="6">{{ old($locale . '.description') }}</textarea>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label">@lang('job.requirements')</label>
-                                            <textarea name="{{ $locale }}[requirements]" class="form-control" rows="4">{{ old($locale . '.requirements') }}</textarea>
-                                        </div>
-                              
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card mb-3">
-                        <div class="card-header">@lang('admin.settings')</div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label class="form-label">@lang('job.slug')</label>
-                                <input type="text" name="slug" class="form-control" value="{{ old('slug') }}"
-                                    required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">@lang('job.employment_type')</label>
-                                <input type="text" name="employment_type" class="form-control"
-                                    value="{{ old('employment_type') }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">@lang('job.location')</label>
-                                <input type="text" name="location" class="form-control" value="{{ old('location') }}">
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label class="form-label">@lang('admin.sort')</label>
-                                <input type="number" name="sort" class="form-control" value="{{ old('sort', 0) }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-check-label">@lang('admin.status')</label><br>
-                                <input type="checkbox" name="status" value="1" checked>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3 text-end">
-                    <div>
-                        <a href="{{ route('admin.jobs.index') }}"
-                            class="btn btn-primary waves-effect waves-light ml-3 btn-sm">@lang('button.cancel')</a>
-                        <button type="submit"
-                            class="btn btn-outline-success waves-effect waves-light ml-3 btn-sm">@lang('button.save')</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> --}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 m-3">
@@ -130,8 +31,7 @@
                                                     <button class="accordion-button fw-medium " type="button"
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#collapseOne{{ $locale }}"
-                                                        aria-expanded="true"
-                                                        aria-controls="collapseOne{{ $locale }}">
+                                                        aria-expanded="true" aria-controls="collapseOne{{ $locale }}">
                                                         {{ __('products.' . $locale) }}
                                                     </button>
                                                 </h2>
@@ -207,7 +107,8 @@
                                                                 class="col-sm-2 col-form-label">{{ trans('products.short_description') . trans('lang.' . Locale::getDisplayName($locale)) }}</label>
                                                             <div class="col-sm-10">
 
-                                                                <textarea class="form-control" id="short_description{{ $key }}" name="{{ $locale }}[short_description]">
+                                                                <textarea class="form-control" id="short_description{{ $key }}"
+                                                                    name="{{ $locale }}[short_description]">
                                                         {{ old($locale . '.short_description') }}
                                                         </textarea>
 
@@ -345,7 +246,7 @@
                                     <!----------end meta ---------->
 
 
-                                  
+
 
                                 </div>
 
@@ -365,31 +266,62 @@
                                             <div id="collapseTwo" class="accordion-collapse collapse show"
                                                 aria-labelledby="headingtwo" data-bs-parent="#accordionExample1">
                                                 <div class="accordion-body">
+                                                    {{-- type category ------------------------------------------------------------------------------- --}}
+                                                 <div class="col-12">
+                                                            <div class="row mb-3">
+                                                                <label for="example-number-input">
+                                                                    @lang('admin.career_category'):</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-select form-select-sm select2"
+                                                                        name="career_category_id">
+                                                                        <option value="" selected disabled>
+                                                                            {{ trans('admin.career_category') }}</option>
+                                                                        @foreach ($careerCategories as $careerCategory)
+                                                                            <option value="{{ $careerCategory->id }}"
+                                                                                {{ old('career_category_id') == $careerCategory->id ? 'selected' : '' }}>
+                                                                                {{ @$careerCategory->trans->where('locale', $current_lang)->first()->title }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            @error('career_category_id')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
 
-                                                   {{-- employment_type ------------------------------------------------------------------------------------- --}}
-                                                <div class="row mb-3">
-                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.employment_type') }}</label>
-                                                    <div class="col-sm-8">
-                                                        <input class="form-control" type="text" name="employment_type" value="{{ old('employment_type') }}">
+
+                                                    {{-- employment_type ------------------------------------------------------------------------------------- --}}
+                                                    <div class="row mb-3">
+                                                        <label for="example-text-input"
+                                                            class="col-sm-4 col-form-label">{{ trans('products.employment_type') }}</label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" type="text"
+                                                                name="employment_type"
+                                                                value="{{ old('employment_type') }}">
+                                                        </div>
+                                                        @if ($errors->has('employment_type'))
+                                                            <span
+                                                                class="missiong-spam">{{ $errors->first('employment_type') }}</span>
+                                                        @endif
                                                     </div>
-                                                    @if ($errors->has('employment_type'))
-                                                    <span class="missiong-spam">{{ $errors->first('employment_type') }}</span>
-                                                    @endif
-                                                </div>
-                                                   {{-- location ------------------------------------------------------------------------------------- --}}
-                                                <div class="row mb-3">
-                                                    <label for="example-text-input" class="col-sm-4 col-form-label">{{ trans('products.location') }}</label>
-                                                    <div class="col-sm-8">
-                                                        <input class="form-control" type="text" name="location" value="{{ old('location') }}">
+                                                    {{-- location ------------------------------------------------------------------------------------- --}}
+                                                    <div class="row mb-3">
+                                                        <label for="example-text-input"
+                                                            class="col-sm-4 col-form-label">{{ trans('products.location') }}</label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" type="text" name="location"
+                                                                value="{{ old('location') }}">
+                                                        </div>
+                                                        @if ($errors->has('location'))
+                                                            <span
+                                                                class="missiong-spam">{{ $errors->first('location') }}</span>
+                                                        @endif
                                                     </div>
-                                                    @if ($errors->has('location'))
-                                                    <span class="missiong-spam">{{ $errors->first('location') }}</span>
-                                                    @endif
-                                                </div>
 
-                                       
 
-                                               
+
+
 
                                                     {{-- sort ------------------------------------------------------------------------------------- --}}
                                                     <div class="row mb-3">
@@ -406,11 +338,11 @@
                                                     </div>
 
 
-                                                 
+
 
 
                                                     {{-- feature ------------------------------------------------------------------------------------- --}}
-                                                    {{-- <div class="col-12 col-sm-12">
+                                                    <div class="col-12 col-sm-12">
                                                         <label class="col-sm-12 col-form-label"
                                                             for="available">{{ trans('admin.feature') }}</label>
                                                         <div class="col-sm-10">
@@ -424,7 +356,7 @@
                                                     </div>
                                                     @if ($errors->has('feature'))
                                                         <span class="missiong-spam">{{ $errors->first('feature') }}</span>
-                                                    @endif --}}
+                                                    @endif
                                                     {{-- Status ------------------------------------------------------------------------------------- --}}
                                                     <div class="col-12">
                                                         <label class="col-sm-12 col-form-label"
@@ -444,7 +376,7 @@
                                                     </div>
 
                                                     <hr>
-                                           
+
 
 
                                                 </div>
@@ -454,7 +386,7 @@
 
                                 </div>
 
-                              
+
 
 
                                 {{-- Butoooons ------------------------------------------------------------------------- --}}

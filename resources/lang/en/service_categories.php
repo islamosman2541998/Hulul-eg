@@ -18,5 +18,16 @@ return [
     'sort' => ' Sort',
     'occasions' => 'Occasions',
     'edit_service_categories' => 'Edit Service',
+    'main_image' => 'Main Image',
+    'description' => 'Description',
+    'meta_title' => 'Meta title',
+    'meta_desc' => 'Meta Desc',
+    'meta_key' => 'Meta Key',
+    'slug' => 'Slug',
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'meta_info' => 'Search Engines',
+    'image' => 'Image',
+    'create_service_categories' => 'Create Service',
 
 ];

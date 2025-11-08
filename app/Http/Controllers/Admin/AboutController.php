@@ -82,7 +82,6 @@ class AboutController extends Controller
             $about->translateOrNew($locale)->vision = $trans['vision'] ?? null;
             $about->translateOrNew($locale)->mission = $trans['mission'] ?? null;
             $about->translateOrNew($locale)->at_a_glance = $trans['at_a_glance'] ?? null;
-            $about->translateOrNew($locale)->core_values = $trans['core_values'] ?? [];
 
         }
         $about->save();

@@ -31,6 +31,9 @@ return [
 
     'status_changed_sucessfully'  => 'تم تغيير الحالة بنجاح',
     'delete_all_sucessfully'      => 'المقالات المحذوفة بنجاح',
+    'services_categories'         => 'اقسام الخدمات',
+    'create_services_categories'  => 'انشاء قسم جديد',
+    'show_services_categories'    => 'عرض القسم',
 
 ];
 

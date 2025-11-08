@@ -8,6 +8,7 @@
         "php": "^8.2",
         "ext-json": "*",
         "astrotomic/laravel-translatable": "^11.16",
+        "doctrine/dbal": "^4.3",
         "guzzlehttp/guzzle": "^7.9",
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^9.19",

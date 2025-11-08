@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\JobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use App\Models\CareerCategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Admin\JobRequest;
 use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
+
+     public $careerCategories;
+
+    public function __construct()
+    {
+        $this->careerCategories = CareerCategory::query()->with('trans')->get();
+    }
     // Index: list jobs
     public function index(Request $request)
 {
-    $query = Job::with('translations')->orderBy('created_at', 'desc');
+$query = Job::with(['translations', 'career_category.trans'])->orderBy('created_at', 'desc');
+
+    $careerCategories = $this->careerCategories;
 
     if ($request->filled('title')) {
         $title = trim($request->input('title'));
@@ -22,14 +32,16 @@ class JobController extends Controller
     }
 
     $jobs = $query->paginate(20)->appends($request->only(['title']));
-    return view('admin.dashboard.jobs.index', compact('jobs'));
+    return view('admin.dashboard.jobs.index', compact('jobs' , 'careerCategories'));
 }
 
     // Show create form
     public function create()
     {
         $languages = config('translatable.locales', ['en']);
-        return view('admin.dashboard.jobs.create', compact('languages'));
+            $careerCategories = $this->careerCategories;
+
+        return view('admin.dashboard.jobs.create', compact('languages', 'careerCategories'));
     }
 
     // Store new job
@@ -51,7 +63,9 @@ class JobController extends Controller
     public function edit(Job $job)
     {
         $languages = config('translatable.locales', ['en']);
-        return view('admin.dashboard.jobs.edit', compact('job', 'languages'));
+            $careerCategories = $this->careerCategories;
+
+        return view('admin.dashboard.jobs.edit', compact('job', 'languages', 'careerCategories'));
     }
 
     // Update
@@ -60,7 +74,7 @@ class JobController extends Controller
 
                $data = $request->validated();
 
-                Job::create($data);
+                $job->update($data);
 
 
      
@@ -75,7 +89,9 @@ class JobController extends Controller
     // Show single
     public function show(Job $job)
     {
-        return view('admin.dashboard.jobs.show', compact('job'));
+            $careerCategories = $this->careerCategories;
+
+        return view('admin.dashboard.jobs.show', compact('job', 'careerCategories'));
     }
 
     // Delete

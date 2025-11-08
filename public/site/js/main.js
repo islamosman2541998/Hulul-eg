@@ -1,465 +1,274 @@
+/*  ---------------------------------------------------
+    Template Name: Dreams
+    Description: Dreams wedding template
+    Author: Colorib
+    Author URI: https://colorlib.com/
+    Version: 1.0
+    Created: Colorib
+---------------------------------------------------------  */
 
-new WOW().init();
-		const lazyloadRunObserver = () => {
-			const lazyloadBackgrounds = document.querySelectorAll(`.e-con.e-parent:not(.e-lazyloaded)`);
-			const lazyloadBackgroundObserver = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						let lazyloadBackground = entry.target;
-						if (lazyloadBackground) {
-							lazyloadBackground.classList.add('e-lazyloaded');
-						}
-						lazyloadBackgroundObserver.unobserve(entry.target);
-					}
-				});
-			}, { rootMargin: '200px 0px 200px 0px' });
-			lazyloadBackgrounds.forEach((lazyloadBackground) => {
-				lazyloadBackgroundObserver.observe(lazyloadBackground);
-			});
-		};
-		const events = [
-			'DOMContentLoaded',
-			'elementor/lazyload/observe',
-		];
-		events.forEach((event) => {
-			document.addEventListener(event, lazyloadRunObserver);
-		});
-	
+'use strict';
 
-(function () {
-  const nav       = document.getElementById('mainNav');
-  const burger    = nav.querySelector('.burger');
-  const offcanvas = document.getElementById('offcanvas');
-  const backdrop  = nav.querySelector('.backdrop');
+(function ($) {
 
-  // Overlay -> White on scroll
-  const onScroll = () => {
-    const overlay = nav.classList.contains('overlay') || nav.dataset.overlay === 'true';
-    if (!overlay) return;
-    nav.classList.toggle('scrolled', (window.scrollY || document.documentElement.scrollTop) > 10);
-  };
-  window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('load', onScroll);
+    /*------------------
+        Preloader
+    --------------------*/
+    $(window).on('load', function () {
+        $(".loader").fadeOut();
+        $("#preloder").delay(200).fadeOut("slow");
 
-  // Off-canvas open/close
-  const openMenu  = () => { document.body.classList.add('nav-open');  burger.classList.add('is-open');  burger.setAttribute('aria-expanded','true');  offcanvas.setAttribute('aria-hidden','false'); backdrop.hidden = false; };
-  const closeMenu = () => { document.body.classList.remove('nav-open'); burger.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); offcanvas.setAttribute('aria-hidden','true');  backdrop.hidden = true;  };
-  burger.addEventListener('click', () => document.body.classList.contains('nav-open') ? closeMenu() : openMenu());
-  backdrop.addEventListener('click', closeMenu);
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
-  offcanvas.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-
-  // Language dropdowns (desktop + mobile) – bind all
-  const applyLang = (code) => {
-    const html = document.documentElement;
-    if (code === 'ar') { html.lang='ar'; html.dir='rtl'; }
-    else { html.lang='en'; html.dir='ltr'; }
-    document.querySelectorAll('.dropdown.lang .current').forEach(s => s.textContent = code.toUpperCase());
-    try { localStorage.setItem('tplang', code); } catch(e){}
-  };
-  try {
-    const saved = localStorage.getItem('tplang');
-    if (saved) applyLang(saved);
-  } catch(e){}
-
-  const bindDropdown = (root) => {
-    const trigger = root.querySelector('.lang-trigger');
-    const menu    = root.querySelector('.lang-menu');
-    const close   = () => { root.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); };
-    trigger.addEventListener('click', (e)=>{ e.stopPropagation(); const open = !root.classList.contains('open'); root.classList.toggle('open', open); trigger.setAttribute('aria-expanded', open); });
-    menu.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', ()=>{ applyLang(btn.dataset.lang); close(); }));
-    document.addEventListener('click', (e)=>{ if(!root.contains(e.target)) close(); });
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
-  };
-  document.querySelectorAll('.dropdown.lang').forEach(bindDropdown);
-
- 
-  const markActive = () => {
-    const here = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.links a, .mobile-links a').forEach(a=>{
-      const file = a.getAttribute('href')?.split('/').pop();
-      a.classList.toggle('active', file && here.includes(file));
+        /*------------------
+            Portfolio filter
+        --------------------*/
+        $('.portfolio__filter li').on('click', function () {
+            $('.portfolio__filter li').removeClass('active');
+            $(this).addClass('active');
+        });
+        if ($('.portfolio__gallery').length > 0) {
+            var containerEl = document.querySelector('.portfolio__gallery');
+            var mixer = mixitup(containerEl);
+        }
     });
-  };
-  markActive();
-})();
 
-const swiperReview = new Swiper(".ReviewSlider", {
-    // Optional parameters
-    loop: true,
-    autoplay: {
-        delay: 2000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        320: {
-            slidesPerView: 1,
-        },
-        768: {
-            slidesPerView: 3,
-        },
-        1024: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-        },
-    },
-});
+    /*------------------
+        Background Set
+    --------------------*/
+    $('.set-bg').each(function () {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+    });
 
-const categoryReview = new Swiper(".categorySlider", {
-  // Optional parameters
-  autoplay: true,
-  loop: false,
-  slidesPerView: 'auto',
-  navigation: {
-    nextEl: ".category-button-next",
-    prevEl: ".category-button-prev",
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  breakpoints: {
-      320: {
-          slidesPerView: 1,
-      },
-      768: {
-          slidesPerView: 3,
-      },
-      1024: {
-          slidesPerView: 5,
-      },
-  },
-});
+    //Masonary
+    $('.work__gallery').masonry({
+        itemSelector: '.work__item',
+        columnWidth: '.grid-sizer',
+        gutter: 10
+    });
 
-// Simple carousel logic (safe init)
-window.addEventListener('DOMContentLoaded', () => {
-  const slides = document.querySelectorAll('#tsl .slide');
-  const dots   = document.querySelectorAll('#dots .dot');
+    /*------------------
+		Navigation
+	--------------------*/
+    $(".mobile-menu").slicknav({
+        prependTo: '#mobile-menu-wrap',
+        allowParentLinks: true
+    });
 
-  if (!slides.length || !dots.length) {
-    console.warn('Carousel elements not found. Check IDs #tsl and #dots.');
-    return;
-  }
+    /*------------------
+		Hero Slider
+	--------------------*/
+       const isRtl = document.documentElement.getAttribute('dir') === 'rtl' ||
+                  document.querySelector('section.hero')?.getAttribute('dir') === 'rtl';
 
-  let i = 0, auto = true, timer;
+    // 2) init OwlCarousel with rtl option
+    $('.hero__slider').owlCarousel({
+        loop: true,
+        dots: true,
+        mouseDrag: false,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        items: 1,
+        margin: 0,
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
+        rtl: isRtl,             // << important
+        nav: true,
+        navText: ['‹','›']
+    });
 
-  function show(n) {
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s, idx) => s.style.display = (idx === i ? 'block' : 'none'));
-    dots.forEach((d, idx) => d.style.background = (idx === i ? '#000' : 'transparent'));
-  }
+    var dot = $('.hero__slider .owl-dot');
+    dot.each(function () {
+        var index = $(this).index() + 1;
+        if (index < 10) {
+            $(this).html('0').append(index);
+        } else {
+            $(this).html(index);
+        }
+    });
 
-  dots.forEach((d, idx) => {
-    d.type = 'button';                 // منع أي submit لو جوّه فورم
-    d.style.cursor = 'pointer';
-    d.style.zIndex = 2;
-    d.addEventListener('click', () => { auto = false; show(idx); restart(); });
+    /*------------------
+        Testimonial Slider
+    --------------------*/
+    $(".testimonial__slider").owlCarousel({
+        loop: true,
+        margin: 0,
+        items: 3,
+        dots: true,
+        dotsEach: 2,
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
+        responsive: {
+            992: {
+                items: 3
+            },
+            768: {
+                items: 2
+            },
+            320: {
+                items: 1
+            }
+        }
+    });
+
+    /*------------------
+        Latest Slider
+    --------------------*/
+    $(".latest__slider").owlCarousel({
+        loop: true,
+        margin: 0,
+        items: 3,
+        dots: true,
+        dotsEach: 2,
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
+        responsive: {
+            992: {
+                items: 3
+            },
+            768: {
+                items: 2
+            },
+            320: {
+                items: 1
+            }
+        }
+    });
+
+    /*------------------
+        Logo Slider
+    --------------------*/
+    $(".logo__carousel").owlCarousel({
+        loop: true,
+        margin: 100,
+        items: 6,
+        dots: false,
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
+        responsive: {
+            992: {
+                items: 5
+            },
+            768: {
+                items: 4
+            },
+            480: {
+                items: 3
+            },
+            320: {
+                items: 2
+            }
+        }
+    });
+
+    /*------------------
+        Video Popup
+    --------------------*/
+    $('.video-popup').magnificPopup({
+        type: 'iframe'
+    });
+
+    /*------------------
+        Counter
+    --------------------*/
+    $('.counter_num').each(function () {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+})(jQuery);
+/* ===== Filters & search ===== */
+const deptSel = document.getElementById('dept');
+const typeSel = document.getElementById('type');
+const searchIn = document.getElementById('q');
+const clearBtn = document.getElementById('clear');
+
+function applyFilters(){
+  const d = deptSel.value.trim().toLowerCase();
+  const t = typeSel.value.trim().toLowerCase();
+  const q = searchIn.value.trim().toLowerCase();
+
+  const filtered = JOBS.filter(j=>{
+    const okDept = !d || j.dept.toLowerCase() === d;
+    const okType = !t || j.type.toLowerCase() === t;
+    const text = [j.title, j.dept, j.type, j.location, j.desc, ...(j.tags||[])].join(" ").toLowerCase();
+    const okQ = !q || text.includes(q);
+    return okDept && okType && okQ;
   });
 
-  function next(){ show(i + 1); }
-  function restart(){
-    clearInterval(timer);
-    if (auto) timer = setInterval(next, 5000);
-  }
-
-  show(0);
-  restart();
+  renderJobs(filtered);
+}
+deptSel.addEventListener('change', applyFilters);
+typeSel.addEventListener('change', applyFilters);
+searchIn.addEventListener('input', applyFilters);
+clearBtn.addEventListener('click', ()=>{
+  deptSel.value=""; typeSel.value=""; searchIn.value=""; renderJobs(JOBS);
 });
-// faq sec
- (function(){
-      const root  = document.getElementById('tetra-faq');
-      if(!root) return;
-      const items = Array.from(root.querySelectorAll('.tf-item'));
 
-      function closeAll(){
-        items.forEach(it=>{
-          const btn = it.querySelector('.tf-q');
-          const pan = it.querySelector('.tf-a');
-          const ic  = it.querySelector('.tf-ic');
-          btn.setAttribute('aria-expanded','false');
-          pan.style.maxHeight = '0px';
-          pan.style.paddingTop = '0px';
-          pan.style.paddingBottom = '0px';
-          if(ic) ic.style.transform = 'rotate(0deg)';
-          it.classList.remove('open');
-        });
+ const applyModal = document.getElementById('applyModal');
+    applyModal.addEventListener('show.bs.modal', function (event) {
+      const btn = event.relatedTarget;
+      const jobTitle = btn?.getAttribute('data-job') || '—';
+      document.getElementById('applyJobTitle').textContent = jobTitle;
+      document.getElementById('applyPosition').value = jobTitle;
+    });
+
+    /* ====== Job Details Modal: */
+   
+    const jobModal = document.getElementById('jobModal');
+    jobModal.addEventListener('show.bs.modal', function (event) {
+      const btn = event.relatedTarget;
+      const key = btn?.getAttribute('data-job') || '';
+      const data = JOB_DB[key] || null;
+
+      const titleEl = document.getElementById('jobTitle');
+      const metaEl = document.getElementById('jobMeta');
+      const introEl = document.getElementById('jobIntro');
+      const respEl = document.getElementById('jobResp');
+      const reqEl = document.getElementById('jobReq');
+
+      titleEl.textContent = key || 'Job Details';
+      if (data) {
+        metaEl.textContent = `${data.dept} • ${data.type} • ${data.location} • ${data.salary}`;
+        introEl.textContent = data.intro;
+        respEl.innerHTML = data.resp.map(i => `<li>${i}</li>`).join('');
+        reqEl.innerHTML = data.req.map(i => `<li>${i}</li>`).join('');
+      } else {
+        metaEl.textContent = '';
+        introEl.textContent = 'Details will be updated soon.';
+        respEl.innerHTML = '';
+        reqEl.innerHTML = '';
       }
 
-      function openItem(it){
-        const btn = it.querySelector('.tf-q');
-        const pan = it.querySelector('.tf-a');
-        const ic  = it.querySelector('.tf-ic');
-        btn.setAttribute('aria-expanded','true');
+      const jobApplyBtn = document.getElementById('jobApplyBtn');
+      jobApplyBtn.setAttribute('data-bs-toggle', 'modal');
+      jobApplyBtn.setAttribute('data-bs-target', '#applyModal');
+      jobApplyBtn.setAttribute('data-job', key);
+    });
+
+    document.getElementById('applyForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = new FormData(this);
+      alert('Thanks! Your application has been submitted.');
+      const modal = bootstrap.Modal.getInstance(applyModal);
+      modal.hide();
+    });
+    
+document.querySelectorAll('.card[data-href]').forEach(card=>{
+  card.addEventListener('click', ()=> {
+    window.location.href = card.dataset.href;
+  });
+});
+
 
    
-        const innerH = pan.firstElementChild ? pan.firstElementChild.scrollHeight : pan.scrollHeight;
-        pan.style.paddingTop = '12px';
-        pan.style.paddingBottom = '12px';
-        pan.style.maxHeight = (innerH + 24) + 'px';
-        if(ic) ic.style.transform = 'rotate(180deg)';
-        it.classList.add('open');
-      }
-
-      closeAll();
-
-      
-      items.forEach((it, idx)=>{
-        const btn = it.querySelector('.tf-q');
-        btn.type = 'button';
-        btn.addEventListener('click', ()=>{
-          const isOpen = btn.getAttribute('aria-expanded') === 'true';
-          closeAll();
-          if(!isOpen) openItem(it);
-        });
-  
-        btn.addEventListener('keydown', (e)=>{
-          if(e.key==='Enter' || e.key===' '){ e.preventDefault(); btn.click(); }
-          else if(e.key==='ArrowDown'){ e.preventDefault(); (items[(idx+1)%items.length].querySelector('.tf-q')).focus(); }
-          else if(e.key==='ArrowUp'){ e.preventDefault(); (items[(idx-1+items.length)%items.length].querySelector('.tf-q')).focus(); }
-        });
-      });
-
-
-      window.addEventListener('resize', ()=>{
-        const opened = root.querySelector('.tf-item.open .tf-a');
-        if(opened){
-          const innerH = opened.firstElementChild ? opened.firstElementChild.scrollHeight : opened.scrollHeight;
-          opened.style.maxHeight = (innerH + 24) + 'px';
-        }
-      });
-    })();
-//  about script 
-    document.addEventListener('DOMContentLoaded', () => {
-      const current = (location.pathname || '').toLowerCase();
-      document.querySelectorAll('.nav a[href]').forEach(a => {
-        const href = a.getAttribute('href').toLowerCase();
-        if (current.endsWith(href) || (href.includes('about') && current.includes('about'))) {
-          a.classList.add('active');
-        }
-      });
-    });
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.ac-card .ac-toggle').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        const card = btn.closest('.ac-card');
-        const open = card.classList.toggle('is-open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        btn.textContent = open ? 'See less' : 'See more';
-      });
-    });
-  });
-//  document.getElementById('y_foot').textContent = new Date().getFullYear();
-// 
-(function () {
-						const items = document.querySelectorAll('#our-products .reveal');
-						if (!('IntersectionObserver' in window)) { return; }
-
-						const io = new IntersectionObserver((entries) => {
-							entries.forEach(e => {
-								if (e.isIntersecting) {
-									e.target.style.animationPlayState = 'running';
-									io.unobserve(e.target);
-								}
-							});
-						}, { threshold: 0.15 });
-
-						items.forEach(el => {
-							// نوقف الأنيميشن لحد ما يدخل في الشاشة
-							el.style.animationPlayState = 'paused';
-							io.observe(el);
-						});
-					})();
-          // home
-          (function () {
-			var el = document.getElementById('y_foot');
-			if (el) el.textContent = new Date().getFullYear();
-		})();
-
-    	(function () {
-			var c = document.body.className;
-			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-			document.body.className = c;
-		})();
-    document.addEventListener('DOMContentLoaded', () => {
-  const p = location.pathname.toLowerCase();
-  if (p.endsWith('/') || p.endsWith('/index.html')) {
-    document.querySelector('#mainNav .links a[href$="index.html"]')?.classList.add('active');
-  }
-});
-		function initElements($scope) {
-			if (typeof elementor !== "undefined" && typeof elementor.widgetsCache["aheto_custom-post-types"].controls !== "undefined") {
-				elementor.widgetsCache["aheto_custom-post-types"].controls.taxonomies.select2options.ajax = {
-					url: 'https://snapster.foxthemes.me/wp-admin/admin-ajax.php',
-					dataType: 'json',
-					data: function (params) {
-						return {
-							query: params.term,
-							action: 'autocomplete_aheto_taxonomies'
-						}
-					},
-					processResults: function (data) {
-						return {
-							results: data
-						}
-					}
-				}
-				elementor.widgetsCache["aheto_custom-post-types"].controls.exclude.select2options.ajax = {
-					url: 'https://snapster.foxthemes.me/wp-admin/admin-ajax.php',
-					dataType: 'json',
-					data: function (params) {
-						return {
-							query: params.term,
-							action: 'autocomplete_aheto_exclude_field_search',
-							postType: jQuery('select', '.elementor-control-post_type.elementor-control-type-select').val()
-						}
-					},
-					processResults: function (data) {
-						return {
-							results: data
-						}
-					}
-				}
-				elementor.widgetsCache["aheto_custom-post-types"].controls.include.select2options.ajax = {
-					url: 'https://snapster.foxthemes.me/wp-admin/admin-ajax.php',
-					dataType: 'json',
-					data: function (params) {
-						return {
-							query: params.term,
-							action: 'autocomplete_aheto_include_field_search'
-						}
-					},
-					processResults: function (data) {
-						return {
-							results: data
-						}
-					}
-				}
-			}
-		}
-		window.addEventListener('load', function () {
-			setTimeout(() => {
-				initElements();
-			}, 4000);
-		});
-		(typeof elementor !== "undefined") && elementor.hooks.addAction('panel/open_editor/widget', function (panel, model, view) {
-			if ('aheto_custom-post-types' === model.attributes.widgetType) {
-				initElements();
-				setTimeout(() => {
-					initElements();
-				}, 1000);
-			}
-		});
-    		function initElements($scope) {
-			if (typeof elementor !== "undefined" && typeof elementor.widgetsCache["aheto_custom-post-types"].controls !== "undefined") {
-				elementor.widgetsCache["aheto_custom-post-types"].controls.taxonomies.select2options.ajax = {
-					url: 'https://snapster.foxthemes.me/wp-admin/admin-ajax.php',
-					dataType: 'json',
-					data: function (params) {
-						return {
-							query: params.term,
-							action: 'autocomplete_aheto_taxonomies'
-						}
-					},
-					processResults: function (data) {
-						return {
-							results: data
-						}
-					}
-				}
-				elementor.widgetsCache["aheto_custom-post-types"].controls.exclude.select2options.ajax = {
-					url: 'https://snapster.foxthemes.me/wp-admin/admin-ajax.php',
-					dataType: 'json',
-					data: function (params) {
-						return {
-							query: params.term,
-							action: 'autocomplete_aheto_exclude_field_search',
-							postType: jQuery('select', '.elementor-control-post_type.elementor-control-type-select').val()
-						}
-					},
-					processResults: function (data) {
-						return {
-							results: data
-						}
-					}
-				}
-				elementor.widgetsCache["aheto_custom-post-types"].controls.include.select2options.ajax = {
-					url: 'https://snapster.foxthemes.me/wp-admin/admin-ajax.php',
-					dataType: 'json',
-					data: function (params) {
-						return {
-							query: params.term,
-							action: 'autocomplete_aheto_include_field_search'
-						}
-					},
-					processResults: function (data) {
-						return {
-							results: data
-						}
-					}
-				}
-			}
-		}
-		window.addEventListener('load', function () {
-			setTimeout(() => {
-				initElements();
-			}, 4000);
-		});
-		(typeof elementor !== "undefined") && elementor.hooks.addAction('panel/open_editor/widget', function (panel, model, view) {
-			if ('aheto_custom-post-types' === model.attributes.widgetType) {
-				initElements();
-				setTimeout(() => {
-					initElements();
-				}, 1000);
-			}
-		});
-
-
-    // blog
-        // Toggle Read more / Read less لكل كرت
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.exp-toggle');
-  if (!btn) return;
-
-  const sel = btn.getAttribute('data-target');
-  const target = document.querySelector(sel);
-  if (!target) return;
-
-  // لو محددة عدد سطور مختلف
-  const lines = target.getAttribute('data-lines');
-  if (lines) target.style.setProperty('--lines', lines);
-
-  target.classList.toggle('expanded');
-  const expanded = target.classList.contains('expanded');
-  btn.textContent = expanded ? 'Read less' : 'Read more';
-  btn.setAttribute('aria-expanded', expanded);
-});
-
-// contact
- (function () {
-    const burger = document.querySelector('.burger');
-    const menu   = document.getElementById('site-menu');
-    if (!burger || !menu) return;
-
-    function toggle(open){
-      burger.classList.toggle('is-open', open);
-      menu.classList.toggle('open', open);
-      burger.setAttribute('aria-expanded', String(open));
-      document.body.style.overflow = open ? 'hidden' : ''; // منع سكرول خلف المنيو
-    }
-
-    burger.addEventListener('click', () => toggle(!menu.classList.contains('open')));
-    // اقفل لما تضغطي على أي لينك
-    menu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => toggle(false));
-    });
-  })();
-
-  // تفعيل لينك الصفحة الحالية (لو حابة)
-  (function () {
-    const current = location.pathname.split('/').pop().toLowerCase();
-    document.querySelectorAll('.links a[href]').forEach(a=>{
-      const href = (a.getAttribute('href')||'').split('/').pop().toLowerCase();
-      if (href && href === current) a.classList.add('active');
-    });
-  })();
-  

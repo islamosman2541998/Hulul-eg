@@ -412,49 +412,9 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row mb-3">
-                                                        <label for="example-text-input"
-                                                               class="col-sm-2 col-form-label">{{ trans('service_categories.occasions')   }}</label>
-                                                        <div class="col-sm-10">
-                                                            {{--                                                            <input class="form-control" type="number"--}}
-                                                            {{--                                                                   name="status"--}}
-                                                            {{--                                                                   value="{{old('status')}}">--}}
 
 
-                                                            <select multiple class="form-select form-select-sm select2"
-                                                                    name="occasions[]">
-{{--                                                                                                                                <option value="" selected--}}
-{{--                                                                                                                                        disabled> {{ trans('service_categories.occasions') }}</option>--}}
-                                                                @forelse($occasions as $key1 => $val1)
-
-                                                                    <option
-                                                                        value="{{$val1->id}}" {{ old('occasions.' . $key1) == $val1->id   ? 'selected' : '' }}>
-                                                                        {{   isset($val1->transNow->title)  ?  $val1->transNow->title : ''}}
-                                                                    </option>
-                                                                @empty
-                                                                @endforelse
-
-                                                            </select>
-
-                                                        </div>
-                                                        @if ($errors->has($locale . '.status'))
-                                                            <span
-                                                                class="missiong-spam">{{ $errors->first($locale . '.status') }}</span>
-                                                        @endif
-                                                    </div>
-
-
-                                                    <div class="row mb-3">
-                                                        <label for="example-text-input"
-                                                               class="col-sm-2 col-form-label">{{ trans('service_categories.service_unique_name')   }}</label>
-                                                        <div class="col-sm-10">
-                                                            <input  class="form-control" name="service_unique_name">
-                                                         </div>
-                                                        @if ($errors->has('service_unique_name'))
-                                                            <span
-                                                                class="missiong-spam">{{ $errors->service_unique_name }}</span>
-                                                        @endif
-                                                    </div>
+                                              
 
 
 

@@ -43,7 +43,7 @@ class ServiceCategoryController extends Controller
             'trans' => function ($q) {
                 $q->where('locale', app()->getLocale());
             }
-        ])->with('occasions')->where('service_unique_name', '<>', 'events')->orderBy('id', 'DESC');
+        ])->orderBy('id', 'DESC');
 
 
         if ($request->feature != '') {
@@ -482,5 +482,21 @@ class ServiceCategoryController extends Controller
         //     dd('  no images  ');  
         // }
         return view('admin/dashboard/service_category/edit', compact('service_category', 'occasions'));
+    }
+
+        public function updateStatus($id)
+    {
+        $article = ServiceCategory::findOrfail($id);
+        $article->status == 1 ? $article->status = 0 : $article->status = 1;
+        $article->save();
+        return redirect()->back();
+    }
+
+    public function updateFeature($id)
+    {
+        $article = ServiceCategory::findOrfail($id);
+        $article->feature == 1 ? $article->feature = 0 : $article->feature = 1;
+        $article->save();
+        return redirect()->back();
     }
 }

@@ -26,6 +26,7 @@ class Job extends Model
 
     protected $fillable = [
 
+        'career_category_id',
         'employment_type',
         'location',
         'image',
@@ -41,7 +42,10 @@ class Job extends Model
         return $this->hasMany(Cv::class);
     }
 
-
+  public function career_category()
+    {
+        return $this->belongsTo(CareerCategory::class, 'career_category_id')->with('trans');
+    }
     public function trans()
     {
         return $this->hasMany(JobTranslation::class, 'job_id');

@@ -96,7 +96,7 @@
                                         </th>
                                         <th>#</th>
                                         <th>@lang('admin.title')</th>
-                                        <th>@lang('admin.image')</th>
+                                        <th>@lang('admin.media')</th>
                                         <th>@lang('tags.tags')</th>
                                         <th>@lang('admin.sort')</th>
                                         <th>@lang('admin.created_at')</th>
@@ -114,14 +114,27 @@
                                             </td>
                                             <td>{{ $items->firstItem() + $key }}</td>
                                             <td>{{ @$item->trans->where('locale', $current_lang)->first()->title }} </td>
-                                            <td> <a href="{{ asset($item->image) }}" target="_blank"><img
-                                                        src="{{ asset($item->image) }}" alt="" width="100"></a>
+                                            <td>
+                                                @if ($item->type == 'image')
+                                                    <a href="{{ asset($item->image) }}" target="_blank"><img
+                                                            src="{{ asset($item->image) }}" alt=""
+                                                            width="100"></a>
+                                                @elseif($item->type == 'video')
+                                                    <video width="30%" height="30%" controls>
+                                                        <source src="{{ asset($item->image) }}" type="video/mp4">
+                                                    </video>
+                                                @elseif($item->type == 'pdf')
+                                                    <embed src="{{ asset($item->image) }}" width="50%"
+                                                        height="30%" type="application/pdf">
+                                                @endif
+
+
                                             </td>
                                             <td>
-                                                @if(@$item->tag)
-                                                <span
-                                                    class="badge bg-success">{{ @$item->tag->trans->where('locale', $current_lang)->first()->title }}
-                                                </span>
+                                                @if (@$item->tag)
+                                                    <span
+                                                        class="badge bg-success">{{ @$item->tag->trans->where('locale', $current_lang)->first()->title }}
+                                                    </span>
                                                 @endif
                                             </td>
                                             <td>{{ $item->sort }}</td>

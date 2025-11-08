@@ -38,6 +38,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>@lang('job.title')</th>
+                                    <th>@lang('admin.career_category')</th>
+
                                     <th>@lang('admin.status')</th>
                                     <th>@lang('admin.sort')</th>
                                     <th class="text-end">@lang('admin.actions')</th>
@@ -48,6 +50,15 @@
                                     <tr>
                                         <td>{{ $job->id }}</td>
                                         <td>{{ optional($job->translate(app()->getLocale()))->title ?? '—' }}</td>
+                                        <td>
+                                            @if ($job->career_category)
+                                                <span class="badge bg-success">
+                                                    {{ optional($job->career_category->translate(app()->getLocale()))->title ?? (optional($job->career_category->translate(config('app.fallback_locale')))->title ?? '—') }}
+                                                </span>
+                                            @else
+                                                —
+                                            @endif
+                                        </td>
 
                                         <td>
                                             @if ($job->status)

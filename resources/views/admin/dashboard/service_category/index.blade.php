@@ -14,8 +14,8 @@
                     <div class="card-body  search-group">
                         <div class="row">
                             <div class="col-md-12 text-end mb-2">
-{{--                                <a href="{{ route('admin.service.create') }}"--}}
-{{--                                   class="btn btn-outline-success btn-sm">@lang('admin.create')</a>--}}
+                               <a href="{{ route('admin.service.create') }}"
+                                 class="btn btn-outline-success btn-sm">@lang('admin.create')</a>
                             </div>
                         </div>
                         {{-- Start Form search --}}
@@ -146,7 +146,7 @@
                                     <th>@lang('admin.image')</th>
 
                                     <th>@lang('admin.title')</th>
-                                    <th> @lang('admin.service_unique_name') </th>
+                                    {{-- <th> @lang('admin.service_unique_name') </th> --}}
 {{--                                    <th>@lang('admin.price')</th>--}}
                                     <th>@lang('articles.sort')</th>
 {{--                                    <th>@lang('articles.page')</th>--}}
@@ -178,19 +178,10 @@
                                             {{ isset($item->transNow )?  $item->transNow->title : ''}}
 
                                         </td>
-                                        <td>
-                                            {{$item->service_unique_name}}
 
-                                        </td>
-{{--                                        <td>--}}
-{{--                                            {{ $item->price }}--}}
 
-{{--                                        </td>--}}
                                         <td>{{ $item->sort }}</td>
-{{--                                        <td>--}}
-{{--                                            <a class="btn btn-sm btn-info"--}}
-{{--                                               href="{{url( '/admin/pages/' . $item->page_id . '/' . '?service=123' )}}">@lang('admin.page_show')</a>--}}
-{{--                                        </td>--}}
+
 
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
@@ -232,11 +223,11 @@
                                                    class="btn btn-outline-primary btn-sm m-1"><i
                                                         class="fas fa-pencil-alt"></i></a>
 
-{{--                                                <a class="btn btn-outline-danger btn-sm m-1"--}}
-{{--                                                   title="@lang('admin.delete')" data-bs-toggle="modal"--}}
-{{--                                                   data-bs-target="#exampleModal{{ $item->id }}">--}}
-{{--                                                    <i class="fas fa-trash-alt"> </i>--}}
-{{--                                                </a>--}}
+                                               <a class="btn btn-outline-danger btn-sm m-1"
+                                                  title="@lang('admin.delete')" data-bs-toggle="modal"
+                                                  data-bs-target="#exampleModal{{ $item->id }}">
+                                                   <i class="fas fa-trash-alt"> </i>
+                                               </a>
 
                                             </div>
                                         </td>

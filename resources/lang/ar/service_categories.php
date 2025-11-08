@@ -18,5 +18,16 @@ return [
     'sort' => 'الترتيب  ',
     'occasions' => 'المناسبات',
     'edit_service_categories' => 'تعديل الخدمة',
+    'main_image' => 'الصورة الرئيسية',
+    'description' => 'الوصف',
+    'meta_title' => 'عنوان الميتا',
+    'meta_desc' => 'وصف الميتا',
+    'meta_key' => 'مفاتيح الميتا',
+    'slug' => 'الاسم الرابط',
+    'create' => 'إنشاء',
+    'edit' => 'تعديل',
+    'meta_info' => 'محركات البحث',
+    'image' => 'الصورة',
+
 
 ];

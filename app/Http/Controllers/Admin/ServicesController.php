@@ -11,7 +11,7 @@ class ServicesController extends Controller
 { 
     public function index(Request $request)
     {
-        $query = Services::query()->with('trans')->orderBy('id', 'ASC');
+        $query = Services::query()->with(['trans','category.trans'])->orderBy('id', 'ASC');
 
     
         if($request->status  != ''){
@@ -26,19 +26,24 @@ class ServicesController extends Controller
             $query = $query->orWhereTranslationLike('description', '%' . request()->input('description') . '%');
 
         }
+        
         $items = $query->paginate($this->pagination_count);
         return view('admin.dashboard.services.index', compact('items'));
     }
 
     public function create()
     {
-        return view('admin.dashboard.services.create');
+            $categories = \App\Models\ServiceCategory::with('trans')->active()->orderBy('sort')->get();
+
+        return view('admin.dashboard.services.create', compact('categories'));
     }
 
 
     public function store(ServicesRequest $request)
     {
         $data = $request->getSanitized();
+            $data['service_category_id'] = $request->input('service_category_id');
+
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->upload_file($request->file('image'), ('services'));
@@ -57,7 +62,9 @@ class ServicesController extends Controller
 
     public function edit(Services $service)
     {
-        return view('admin.dashboard.services.edit', compact('service'));
+                    $categories = \App\Models\ServiceCategory::with('trans')->active()->orderBy('sort')->get();
+
+        return view('admin.dashboard.services.edit', compact('service','categories'));
     }
 
 

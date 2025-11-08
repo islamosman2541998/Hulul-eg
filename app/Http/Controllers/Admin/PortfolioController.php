@@ -51,9 +51,32 @@ class PortfolioController extends Controller
     {
         $data = $request->getSanitized();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->upload_file($request->file('image'), ('portfolio'));
+        
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $ext = $file->getClientOriginalExtension();
+        $mime = $file->getMimeType();
+
+        // 
+        if (str_starts_with($mime, 'image/')) {
+            $sub = 'images';
+            $mediaType = 'image';
+        } elseif (str_starts_with($mime, 'video/')) {
+            $sub = 'videos';
+            $mediaType = 'video';
+        } elseif ($mime === 'application/pdf' || $ext === 'pdf') {
+            $sub = 'pdfs';
+            $mediaType = 'pdf';
+        } else {
+            $sub = 'others';
+            $mediaType = 'other';
         }
+
+        $data['image'] = $this->upload_file($request->file('image'), 'portfolio');
+
+       
+        $data['type'] = $mediaType;
+    }
         Portfolios::create($data);
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return back();

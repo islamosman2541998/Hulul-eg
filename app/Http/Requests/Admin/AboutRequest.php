@@ -34,9 +34,7 @@ class AboutRequest extends FormRequest
             $rules["{$locale}.vision"] = 'nullable|string';
             $rules["{$locale}.mission"] = 'nullable|string';
             $rules["{$locale}.at_a_glance"] = 'nullable|string';
-           $rules[$locale . '.core_values'] = 'nullable|array';
-        $rules[$locale . '.core_values.*.title'] = 'required_with:'.$locale.'.core_values|string';
-        $rules[$locale . '.core_values.*.description'] = 'nullable|string';
+    
             
         }
 

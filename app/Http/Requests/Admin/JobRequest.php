@@ -27,6 +27,7 @@ class JobRequest extends FormRequest
             'status' => 'nullable',
             'feature' => 'nullable',
             'sort' => 'nullable|integer',
+            'career_category_id' => 'required|integer|exists:career_categories,id',
         ];
 
         // per-locale fields

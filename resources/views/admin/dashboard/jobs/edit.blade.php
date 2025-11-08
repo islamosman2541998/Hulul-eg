@@ -4,103 +4,7 @@
 @section('title_page', __('job.edit'))
 
 @section('content')
-    {{-- <div class="container-fluid">
-    <div class="row mb-3 text-end">
-        <div class="col-12">
-            <a href="{{ route('admin.jobs.index') }}" class="btn btn-secondary btn-sm">@lang('button.cancel')</a>
-        </div>
-    </div>
 
-    <form action="{{ route('admin.jobs.update', $job->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="row">
-            <div class="col-md-9">
-                @foreach ($languages as $key => $locale)
-                    <div class="accordion mb-3" id="accordionLang{{ $key }}">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang{{ $key }}">
-                                  @lang('lang.' . \Locale::getDisplayName($locale))  
-                                </button>
-                            </h2>
-
-                            <div id="collapseLang{{ $key }}" class="accordion-collapse collapse show" data-bs-parent="#accordionLang{{ $key }}">
-                                <div class="accordion-body">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('job.title')</label>
-                                        <input type="text" name="{{ $locale }}[title]" class="form-control" value="{{ old($locale . '.title', optional($job->translate($locale))->title) }}">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('job.short_description')</label>
-                                        <textarea name="{{ $locale }}[short_description]" class="form-control" rows="3">{{ old($locale . '.short_description', optional($job->translate($locale))->short_description) }}</textarea>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('job.description')</label>
-                                        <textarea id="description{{ $key }}" name="{{ $locale }}[description]" class="form-control" rows="6">{{ old($locale . '.description', optional($job->translate($locale))->description) }}</textarea>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('job.requirements')</label>
-                                        <textarea name="{{ $locale }}[requirements]" class="form-control" rows="4">{{ old($locale . '.requirements', optional($job->translate($locale))->requirements) }}</textarea>
-                                    </div>
-
-                               
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="col-md-3">
-                <div class="card mb-3">
-                    <div class="card-header">@lang('admin.settings')</div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">@lang('job.slug')</label>
-                            <input type="text" name="slug" class="form-control" value="{{ old('slug', $job->slug) }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">@lang('job.employment_type')</label>
-                            <input type="text" name="employment_type" class="form-control" value="{{ old('employment_type', $job->employment_type) }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">@lang('job.location')</label>
-                            <input type="text" name="location" class="form-control" value="{{ old('location', $job->location) }}">
-                        </div>
-
-                     
-
-                        <div class="mb-3">
-                            <label class="form-label">@lang('admin.sort')</label>
-                            <input type="number" name="sort" class="form-control" value="{{ old('sort', $job->sort) }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-check-label">@lang('admin.status')</label><br>
-                            <input type="checkbox" name="status" value="1" {{ $job->status ? 'checked' : '' }}>
-                        </div>
-
-                      
-                    </div>
-                </div>
-            </div>
-              <div class="row mb-3 text-end">
-                    <div>
-                        <a href="{{ route('admin.jobs.index') }}"
-                            class="btn btn-primary waves-effect waves-light ml-3 btn-sm">@lang('button.cancel')</a>
-                        <button type="submit"
-                            class="btn btn-outline-success waves-effect waves-light ml-3 btn-sm">@lang('button.save')</button>
-                    </div>
-                </div>
-        </div>
-    </form>
-</div> --}}
     <div class="container-fluid">
         <div class="row">
             <div class="row">
@@ -565,6 +469,29 @@
                                                 <div class="accordion-body">
 
 
+                                                    {{-- type category ------------------------------------------------------------------------------- --}}
+                                                    <div class="col-12">
+                                                        <div class="row mb-3">
+                                                            <label for="example-number-input">
+                                                                @lang('admin.career_category'):</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-select form-select-sm select2"
+                                                                    name="career_category_id">
+                                                                    <option value="" disabled selected>
+                                                                        {{ trans('admin.career_category') }}</option>
+                                                                    @foreach ($careerCategories as $career_category)
+                                                                        <option value="{{ $career_category->id }}"
+                                                                            {{ $job->career_category_id == $career_category->id ? 'selected' : '' }}>
+                                                                            {{ @$career_category->trans->where('locale', $current_lang)->first()->title }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('career_category_id')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
 
 
 
@@ -612,13 +539,19 @@
                                                     </div>
 
                                                     {{-- feature ------------------------------------------------------------------------------------- --}}
-                                                    {{-- <div class="col-12">
-                                                    <label class="col-sm-2 col-form-label" for="available">{{ trans('admin.feature') }}</label>
-                                                    <div class="col-sm-10">
-                                                        <input class="form-check form-switch" name="feature" type="checkbox" id="switch1" switch="success" {{ $product->feature == 1 || old('feature') == 1 ? 'checked' : '' }} value="1">
-                                                        <label class="form-label" for="switch1" data-on-label=" @lang('admin.yes') " data-off-label=" @lang('admin.no')"></label>
+                                                    <div class="col-12">
+                                                        <label class="col-sm-2 col-form-label"
+                                                            for="available">{{ trans('admin.feature') }}</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-check form-switch" name="feature"
+                                                                type="checkbox" id="switch1" switch="success"
+                                                                {{ $job->feature == 1 || old('feature') == 1 ? 'checked' : '' }}
+                                                                value="1">
+                                                            <label class="form-label" for="switch1"
+                                                                data-on-label=" @lang('admin.yes') "
+                                                                data-off-label=" @lang('admin.no')"></label>
+                                                        </div>
                                                     </div>
-                                                </div> --}}
                                                     {{-- Status ------------------------------------------------------------------------------------- --}}
                                                     <div class="col-12">
                                                         <label class="col-sm-2 col-form-label"

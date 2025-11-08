@@ -106,25 +106,53 @@
                                                     aria-labelledby="headingTwo" data-bs-parent="#accordionExampleTwo">
                                                     <div class="accordion-body">
                                                         <div class="col-sm-3 col-md-6 mb-3">
-                                                            @if ($portfolio->image != null)
-                                                                <img src="{{ asset($portfolio->image) }}" alt=""
-                                                                    style="width:100%">
+                                                            @if ($portfolio->type == 'image')
+                                                                <div class="col-sm-3 col-md-6 mb-3">
+                                                                    @if ($portfolio->image != null)
+                                                                        <img src="{{ asset($portfolio->image) }}"
+                                                                            alt="" style="width:100%">
+                                                                    @endif
+                                                                </div>
+                                                            @elseif ($portfolio->type == 'video')
+                                                                <div class="col-sm-3 col-md-6 mb-3">
+                                                                    @if ($portfolio->image != null)
+                                                                        <video width="100%" height="100%" controls>
+                                                                            <source src="{{ asset($portfolio->image) }}"
+                                                                                type="video/mp4">
+                                                                        </video>
+                                                                    @endif
+                                                                </div>
+                                                            @elseif ($portfolio->type == 'pdf')
+                                                                <a href="{{ asset($portfolio->image) }}" target="_blank">
+                                                                    <div class="col-sm-3 col-md-6 mb-3">
+                                                                        @if ($portfolio->image != null)
+                                                                            <embed src="{{ asset($portfolio->image) }}"
+                                                                                width="100%" height="100%"
+                                                                                type="application/pdf">
+                                                                        @endif
+                                                                    </div>
+                                                                </a>
+
+
                                                             @endif
                                                         </div>
                                                         {{-- image ------------------------------------------------------------------------------------- --}}
                                                         <div class="col-12">
                                                             <div class="row mb-3">
                                                                 <label for="example-number-input" col-form-label>
-                                                                    @lang('admin.image'):</label>
+                                                                    @lang('admin.media'):</label>
                                                                 <div class="col-sm-12">
                                                                     <input class="form-control" type="file"
-                                                                        placeholder="@lang('admin.image'):"
+                                                                        placeholder="@lang('admin.media'):"
                                                                         id="example-number-input" name="image"
                                                                         value="{{ old('image') }}">
+                                                                    <small class="text-muted">Allowed: jpg, png, gif,
+                                                                        mp4,mov, avi, pdf</small>
+
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {{-- type  ------------------------------------------------------------------------------- --}}
+                                                        {{-- type category ------------------------------------------------------------------------------- --}}
                                                         <div class="col-12">
                                                             <div class="row mb-3">
                                                                 <label for="example-number-input">
@@ -158,14 +186,14 @@
                                                                         name="type">
                                                                         <option value="" selected disabled>
                                                                             {{ trans('admin.type') }}</option>
-                                                                        <option value="graphic_design">
-                                                                            {{ trans('admin.graphic_design') }}
+                                                                        <option value="image">
+                                                                            {{ trans('admin.image') }}
                                                                         </option>
-                                                                        <option value="motion_video">
-                                                                            {{ trans('admin.motion_video') }}
+                                                                        <option value="video">
+                                                                            {{ trans('admin.video') }}
                                                                         </option>
-                                                                        <option value="web_app">
-                                                                            {{ trans('admin.web_app') }}
+                                                                        <option value="pdf">
+                                                                            {{ trans('admin.pdf') }}
                                                                         </option>
                                                                     </select>
                                                                 </div>
@@ -248,5 +276,5 @@
 
 @section('style')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-     <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
 @endsection

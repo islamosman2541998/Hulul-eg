@@ -31,6 +31,9 @@ return [
 
     'status_changed_sucessfully'  => 'Status Changed Sucessfully',
     'delete_all_sucessfully'      => 'Articles Deleted Sucessfully',
+    'services_categories'         => 'Services Categories',
+    'create_services_categories'  => 'Create Categories',
+    'show_services_categories'    => 'Show Categories',
 
 ];
 

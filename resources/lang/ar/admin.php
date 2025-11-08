@@ -564,6 +564,19 @@ return [
     'total_jobs' => 'الوظائف',
     'total_partners' => 'الشركاء',
     'total_new' => 'الاخبار',
+    'portfolio' => 'البورتفليو',
+    'portfolio-tags' => 'مواضيع البورتفليو',
+    'media' => 'الميديا',
+    'pdf' => 'pdf ',
+    'statistic' => 'الاحصاءات',
+      'mission_in' => ' المهمة',
+    'mission_ar' => ' المهمة',
+    'vision_in' => ' الرؤية',
+    'vision_ar' => ' الرؤية',
+    'career_category' => 'اقسام الوظائف',
+    'show_career_category' => 'عرض القسم الوظيفي',
+    'edit_career_category' => 'تعديل القسم الوظيفي',
+
 
 
 

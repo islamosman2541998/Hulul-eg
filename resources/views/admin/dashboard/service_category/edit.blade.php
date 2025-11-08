@@ -613,110 +613,10 @@
                                             </div>
                                         </div>
 
-                                    </div> --}}
-
-                                             <template id="following-template">
-                                        <div class="following mb-3">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <label>@lang('admin.following_image')</label>
-                                                    <input type="file" name="new_following[__INDEX__][image]"
-                                                        class="form-control" />
-                                                </div>
-                                                @foreach ($languages as $lang)
-                                                    <div class="col-6">
-                                                        <label>
-                                                            @lang('admin.following_title_in') {{ trans('lang.' . $lang) }}
-                                                        </label>
-                                                        <input type="text"
-                                                            name="new_following[__INDEX__][{{ $lang }}][title]"
-                                                            class="form-control" />
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label>
-                                                            @lang('admin.following_description_in') {{ trans('lang.' . $lang) }}
-                                                        </label>
-                                                        <textarea name="new_following[__INDEX__][{{ $lang }}][description]" class="form-control"></textarea>
-                                                    </div>
-                                                @endforeach
-                                                <div class="col-12 mt-2">
-                                                    <button type="button"
-                                                        class="btn btn-danger remove_following form-control">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    </template>
+                              
 
                                     {{-- followings --}}
-                                    <div class="accordion mt-4 mb-4" id="accordionFollowing">
-                                        <div class="accordion-item border rounded">
-                                            <h2 class="accordion-header" id="headingFollowing">
-                                                <button class="accordion-button fw-medium" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseFollowing"
-                                                    aria-expanded="true" aria-controls="collapseFollowing">
-                                                    @lang('admin.following')
-                                                </button>
-                                            </h2>
-                                            <div id="collapseFollowing" class="accordion-collapse collapse show mt-3"
-                                                aria-labelledby="headingFollowing" data-bs-parent="#accordionFollowing">
-                                                <div class="accordion-body">
-                                                    <div id="followings_section">
-                                                        @foreach ($service_category->followings as $following)
-                                                            <div class="following mb-3">
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <label>@lang('admin.following_image')</label>
-                                                                        <img src="{{ asset($following->image) }}"
-                                                                            style="width:100px;" />
-                                                                        <input type="file"
-                                                                            name="following[{{ $following->id }}][image]"
-                                                                            class="form-control" />
-                                                                    </div>
-                                                                    @foreach ($languages as $lang)
-                                                                        <div class="col-6">
-                                                                            <label>
-                                                                                @lang('admin.following_title_in')
-                                                                                {{ trans('lang.' . $lang) }}
-                                                                            </label>
-                                                                            <input type="text"
-                                                                                name="following[{{ $following->id }}][{{ $lang }}][title]"
-                                                                                value="{{ $following->translate($lang)->title ?? '' }}"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <label>
-                                                                                @lang('admin.following_description_in')
-                                                                                {{ trans('lang.' . $lang) }}
-                                                                            </label>
-                                                                            <textarea name="following[{{ $following->id }}][{{ $lang }}][description]]" class="form-control">{{ $following->translate($lang)->description ?? '' }}</textarea>
-                                                                        </div>
-                                                                    @endforeach
-                                                                    <div class="col-12 mt-2">
-                                                                        <a class="btn btn-outline-danger btn-sm"
-                                                                            href="{{ route('admin.service.following.delete', $following->id) }}"
-                                                                            onclick="return confirm('{{ __('messages.are_you_sure') }}')">
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <hr>
-                                                            </div>
-                                                        @endforeach
-
-                                                        <div id="new_followings"></div>
-
-                                                        <button type="button" class="btn btn-success form-control mt-3"
-                                                            id="add_following">
-                                                            @lang('admin.add_following')
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                 
 
 
 
@@ -908,7 +808,7 @@
 
                                                     {{-- info image --}}
 
-                                                    <div class="col-12">
+                                                    {{-- <div class="col-12">
                                                         <div class="row mb-3">
                                                             <label class="col-sm-4 col-form-label">
                                                                 @lang('admin.info_image')
@@ -922,7 +822,7 @@
                                                                     name="info_image" />
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
 
                                                     {{-- info image --}}
 

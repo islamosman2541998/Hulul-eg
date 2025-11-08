@@ -61,6 +61,8 @@ class ServicesRequest extends FormRequest
         $req += ['news_ticker' =>'nullable'];
         $req += ['updated_by' =>'nullable'];
         $req += ['created_by' =>'nullable'];
+        $req += ['service_category_id' =>'required'];
+
 
 
 
@@ -72,9 +74,11 @@ class ServicesRequest extends FormRequest
 
         $data = $this->validated();
         
+        
         $data['status'] = isset($data['status']) ? true : false;
         $data['feature'] = isset($data['feature']) ? true : false;
         $data['news_ticker'] = isset($data['news_ticker']) ? true : false;
+
         foreach(config('translatable.locales') as $locale){
             $data[$locale]['slug'] = slug($data[$locale]['slug']);
         }

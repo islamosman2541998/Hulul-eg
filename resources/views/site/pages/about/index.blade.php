@@ -5,144 +5,212 @@
 @section('meta_description', @$metaSetting->where('key', 'about_meta_description_' . $current_lang)->first()->value)
 
 @section('content')
-<!-- HERO -->
-<section class="hero" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="container hero-grid">
-        <div class="hero-copy wow bounceInRight">
-            <span class="eyebrow color_red">{{ $about->subtitle }}</span>
-            <h1 class="color_blue">{{ $about->title }}</h1>
-            <p class="lead">
-                {{ $about->description }}
-            </p>
-        </div>
-
-        <div class="hero-card wow bounceInLeft">
-            <img class="hero-cardImg" src="{{ asset('storage/' . $about->image_background) }}" alt="logo watermark" />
-
-            <div class="quote">
-
-                {{ $about->sub_description }}
-            </div>
-            <div class="logo-line">
-                <span class="dot"></span>
-                <span class="rule"></span>
-                <span class="dot"></span>
+   <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad set-bg" data-setbg="img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>About us</h2>
+                        <div class="breadcrumb__links">
+                            <a href="#">Home</a>
+                            <span>About</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</section>
+    <!-- Breadcrumb End -->
 
-<!-- STORY + CEO -->
-<section class="section about-cards wow fadeInDown" id="story" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="container">
-        <!-- Card 1: Our Story -->
-        <article class="ac-card d-flex">
-            <div>
-                <div class="ac-head">
-                    <span class="ac-badge">@lang('about.ceo_message')</span>
-                    <h3 class="ac-title">{{ $about->ceo_title }}</h3>
+    <!-- About Section Begin -->
+    <section class="about spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about__pic">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="about__pic__item about__pic__item--large set-bg about3"
+                                    data-setbg="img/about/about-1.jpg"></div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="about__pic__item set-bg about1" data-setbg="img/about/about-2.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="about__pic__item set-bg about2" data-setbg="img/about/about-3.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="about__text">
+                        <div class="section-title">
+                            <span>About Hulul</span>
+                            <h2>WHo we are?</h2>
+                        </div>
+          
+                    <div class="about__text__desc">
+                        <p>We are a creative digital agency that transforms ideas into reality.
+                            At HULUL, we believe that every brand has a unique story to tell — and our mission is to
+                            help bring that story to life through modern digital experiences.
+                            We specialize in web development, mobile app design, digital marketing, branding, and video
+                            production, crafting innovative solutions that connect brands with their audience in
+                            meaningful ways.
 
-                <div class="ac-body">
-                    <p>
-                        {{ $about->ceo_description }}
-                    </p>
+                            Our team of designers, developers, and marketers works together to deliver tailored
+                            solutions that combine creativity, strategy, and technology.
+                            Whether you’re a startup looking to make an impact or an established brand ready to expand
+                            your reach, we create digital experiences that inspire engagement and deliver measurable
+                            results.
+
+                            At HULUL, we don’t just build websites or campaigns — we build lasting digital relationships
+                            that drive success.</p>
+                    </div>
                 </div>
-                <button class="ac-toggle" aria-expanded="false" type="button">@lang('about.see_more')</button>
-
+               </div>
+        </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+    <!-- Vision & Mission Section -->
+    <section class="vision-mission spad">
+        <div class="container">
+            <div class="section-title section-title1 text-center">
+                <h2>Our Vision & Mission</h2>
+                <p>At HULUL, we believe in creating digital solutions that inspire growth and innovation.</p>
             </div>
 
-            <div class="ac-image card-img ">
-                <img class="rounded-5 ceo-image " src="{{ asset('storage/' . $about->ceo_image) }}" alt="ceo_image">
+            <div class="row">
+                <!-- Vision -->
+                <div class="col-lg-6 col-md-6">
+                    <div class="vm-box">
+                        <h3>Our Vision</h3>
+                        <p>To be a leading digital agency that transforms creativity into technology — empowering brands
+                            to connect, inspire, and grow in the digital world.</p>
+                    </div>
+                </div>
+
+                <!-- Mission -->
+                <div class="col-lg-6 col-md-6">
+                    <div class="vm-box">
+                        <h3>Our Mission</h3>
+                        <p>Our mission is to deliver innovative digital experiences that combine design, strategy, and
+                            technology to help businesses achieve sustainable success.</p>
+                    </div>
+                </div>
             </div>
-        </article>
-        <!-- Card 2: CEO Message -->
-
-
-    </div>
-</section>
-
-<!-- VISION / MISSION / SNAPSHOT -->
-<section class="section muted" id="vision" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="container grid-3">
-        <div class="card wow bounceInUp" style="animation-delay: 0.1s;">
-            <span class="badge color_blue">@lang('about.vision')</span>
-            <p class="color_black pt-2">
-                {{ $about->vision }}
-            </p>
         </div>
-        <div class="card wow bounceInUp" style="animation-delay: 0.2s;">
-            <span class="badge color_blue">@lang('about.mission')</span>
-            <p class="color_black pt-2">
-                {{ $about->mission }}
-            </p>
-        </div>
-        <div class="card mini-list wow bounceInUp" style="animation-delay: 0.3s;">
-            <span class="badge color_blue">@lang('about.at_a_glance')</span>
-            <ul>
-                <p class="color_black pt-2">
-                    {{ $about->at_a_glance }}
-                </p>
-            </ul>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- VALUES -->
-
-<!-- Core Values Section -->
-<section class="cv-section" id="core-values" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="cv-container">
-
-        <div class="cv-head">
-            <span class="cv-badge color_blue">@lang('about.core_values')</span>
-            <h2 class="cv-title color_blue">@lang('about.core_values_title')</h2>
-        </div>
-
-        <div class="cv-grid">
-            <!-- 1 -->
-            @forelse ($coreValues as $key => $item)
-            <article class="cv-item wow fadeInRight" style="animation-delay: 0.{{ $key }}s;">
-                <div class="cv-icon" aria-hidden="true">
-                    <!-- Star -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.9L12 3z" />
-                    </svg>
+    <!-- Testimonial Section Begin -->
+    <section class="testimonial spad set-b testimonialbg" data-setbg="img/testimonial-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title center-title">
+                        <span>Loved By Clients</span>
+                        <h2>What clients say?</h2>
+                    </div>
                 </div>
-                <div class="cv-text">
-                    <h3>{{ $item['title'] }}</h3>
-                    <p>{{ $item['description'] }}</p>
+            </div>
+            <div class="row">
+                <div class="testimonial__slider owl-carousel">
+                    <div class="col-lg-4">
+                        <div class="testimonial__item">
+                            <div class="testimonial__text">
+                                <p>Delivers such a great service that it can benefit all kinds of people from any number
+                                    of industries.</p>
+                            </div>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__pic">
+                                    <img src="img/testimonial/ta-1.jpg" alt="">
+                                </div>
+                                <div class="testimonial__author__text">
+                                    <h5>Krista Attorn</h5>
+                                    <span>Web Designer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="testimonial__item">
+                            <div class="testimonial__text">
+                                <p>Videographer delivers such a great service that it can benefit all kinds of people
+                                    from any number.</p>
+                            </div>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__pic">
+                                    <img src="img/testimonial/ta-2.jpg" alt="">
+                                </div>
+                                <div class="testimonial__author__text">
+                                    <h5>Krista Attorn</h5>
+                                    <span>Web Designer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="testimonial__item">
+                            <div class="testimonial__text">
+                                <p>Videographer delivers such a great service that it can benefit all kinds of people
+                                    from any number.</p>
+                            </div>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__pic">
+                                    <img src="img/testimonial/ta-3.jpg" alt="">
+                                </div>
+                                <div class="testimonial__author__text">
+                                    <h5>Krista Attorn</h5>
+                                    <span>Web Designer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="testimonial__item">
+                            <div class="testimonial__text">
+                                <p>Delivers such a great service that it can benefit all kinds of people from any number
+                                    of industries.</p>
+                            </div>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__pic">
+                                    <img src="img/testimonial/ta-1.jpg" alt="">
+                                </div>
+                                <div class="testimonial__author__text">
+                                    <h5>Krista Attorn</h5>
+                                    <span>Web Designer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="testimonial__item">
+                            <div class="testimonial__text">
+                                <p>Videographer delivers such a great service that it can benefit all kinds of people
+                                    from any number.</p>
+                            </div>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__pic">
+                                    <img src="img/testimonial/ta-2.jpg" alt="">
+                                </div>
+                                <div class="testimonial__author__text">
+                                    <h5>Krista Attorn</h5>
+                                    <span>Web Designer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </article>
-            @empty
-            <p> @lang('No products available') </p>
-            @endforelse
+            </div>
         </div>
-
-        <div class="cv-actions">
-            <a class="cv-btn primary blue_btn" href="{{ route('site.products.index') }}">@lang('about.our_products')</a>
-            <a class="cv-btn light color_blue" href="{{ route('site.site.blogs.index') }}">@lang('about.our_blog')</a>
-        </div>
-    </div>
-</section>
+    </section>
+    <!-- Testimonial Section End -->
 @endsection
 
-<style>
-    .hero {
-        margin-top: 70px !important;
-    }
-    .ceo-image{
-        border-radius: 10px !important;
-    }
-
-    @media (max-width: 768px) {
-        .ac-card{
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 20px !important;
-        }
-    }   
-
-</style>

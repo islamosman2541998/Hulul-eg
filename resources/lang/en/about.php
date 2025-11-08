@@ -50,4 +50,8 @@ return [
     'our_blog' => ' Read our latest blogs',
     'see_more' => 'Read more',
     'ceo_image' => 'CEO Image',
+    'image1' => 'Image 1',
+    'image2' => 'Image 2',
+    'image3' => 'Image 3',
+   
 ];
