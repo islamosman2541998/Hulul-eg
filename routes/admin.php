@@ -37,8 +37,10 @@ use App\Http\Controllers\Admin\imageUploadController;
 use App\Http\Controllers\Admin\SpecialtiesController;
 use App\Http\Controllers\Admin\PortfolioTagController;
 use App\Http\Controllers\Admin\PaymentMethodController;
+use App\Http\Controllers\Admin\CareerCategoryController;
 use App\Http\Controllers\Admin\ClientsReportsController;
 use App\Http\Controllers\Admin\OccasionGallerController;
+use App\Http\Controllers\Admin\ServiceRequestController;
 use App\Http\Controllers\Admin\HomeSettingPageController;
 use App\Http\Controllers\Admin\MainPageGalleryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
@@ -49,7 +51,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Admin\Authorizations\RolesController;
 use App\Http\Controllers\Admin\ServiceCategoryEventsController;
 use App\Http\Controllers\Admin\Authorizations\PermissionsController;
-use App\Http\Controllers\Admin\CareerCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -233,7 +234,13 @@ Route::group([
                
                 Route::delete('/cvs/{cv}', [AdminCvController::class, 'destroy'])->name('cvs.destroy');
 
-                // ----- End Cv -------------------------------------------
+                // ----- End ServiceRequest -------------------------------------------
+                // ----- Cv -----------------------------------------------
+                Route::get('/service_request', [ServiceRequestController::class, 'index'])->name('service_request.index');
+               
+                Route::delete('/service_request/{service_request}', [ServiceRequestController::class, 'destroy'])->name('service_request.destroy');
+
+                // ----- End ServiceRequest -------------------------------------------
 
                 // ----- faqs -----------------------------------------------
                 Route::resource('faqs', App\Http\Controllers\Admin\FaqController::class);

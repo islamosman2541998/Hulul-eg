@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ServiceRequest;
 use App\Models\ServicesTranslation;
 use App\Models\ServicesTranslations;
 use Illuminate\Database\Eloquent\Model;
@@ -46,6 +47,7 @@ class Services extends Model
     {
         return $this->belongsTo(\App\Models\ServiceCategory::class, 'service_category_id', 'id');
     }
+   
     // Scopes ----------------------------
     public function scopeActive($query)
     {

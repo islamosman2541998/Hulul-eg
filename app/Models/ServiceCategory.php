@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\ServiceRequest;
+use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class ServiceCategory extends Model
 {
@@ -57,7 +58,10 @@ class ServiceCategory extends Model
     {
         return $this->hasOne(ServiceCategoryTranslation::class, 'service_cat_id')->where('locale', app()->getLocale());
     }
-
+   public function serviceRequest()
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
     public function page()
     {
         return $this->belongsTo(Pages::class, 'page_id');

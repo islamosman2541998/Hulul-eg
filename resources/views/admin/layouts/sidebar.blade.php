@@ -471,9 +471,15 @@
 
                 {{--         career_category             --}}
                 <li><a href="{{ route('admin.career_category.index') }}">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas fa-graduation-cap"></i>
                         @lang('admin.career_category')</a></li>
                 {{--         career_category             --}}
+
+                {{--         service_request             --}}
+                <li><a href="{{ route('admin.service_request.index') }}">
+                        <i class="fas fa-comment"></i>
+                        @lang('admin.serviceRequest')</a></li>
+                {{--         service_request             --}}
                 
                 <li><a href="{{ route('admin.cvs.index') }}">
                         <i class="fas fa-id-card"></i>

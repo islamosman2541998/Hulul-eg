@@ -559,6 +559,12 @@ return [
     'career_category' => 'Jobs Category',
     'show_career_category' => 'Show job Category',
     'edit_career_category' => 'Edit job Category',
+    'service' => 'Services',
+    'company' => 'Company',
+    'timeline' => 'Timeline',
+    'attachment' => 'Attachment',
+    'serviceRequest' => 'Service Request',
+
 
 
 

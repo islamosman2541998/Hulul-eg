@@ -576,6 +576,11 @@ return [
     'career_category' => 'اقسام الوظائف',
     'show_career_category' => 'عرض القسم الوظيفي',
     'edit_career_category' => 'تعديل القسم الوظيفي',
+    'service' => 'الخدمات',
+    'company' => 'الشركة',
+    'timeline' => 'الوقت',
+    'attachment' => 'المرفقات',
+    'serviceRequest' => 'طلب الخدمة',
 
 
 
