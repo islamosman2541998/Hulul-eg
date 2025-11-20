@@ -478,7 +478,7 @@ ol {
 .header__nav__menu ul {
   display: flex;
   align-items: center;
-  gap: 45px;
+  gap: 31px;
   margin: 0;
   padding: 0;
 }
@@ -502,6 +502,7 @@ ol {
   position: relative;
   padding: 6px 0;
   margin-left: -1rem;
+
 
 }
 
@@ -2048,8 +2049,14 @@ ol {
 
   .btn {
     width: 9rem;
-    font-size: 0.6rem;
+    font-size: 0.9rem;
   }
+  .header__actions {
+ 
+  margin-right: 3rem;
+
+
+}
 
   .counter__content {
     padding: 0px 145px 0 50px;

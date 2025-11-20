@@ -9,7 +9,7 @@
                             class="logoImg" alt=""></a>
                 </div>
             </div>
-            <div class="col-lg-10" >
+            <div class="col-lg-10">
                 <div class="header__nav__option" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
                     <nav class="header__nav__menu mobile-menu" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
                         <ul>
@@ -27,40 +27,52 @@
                             @endphp
                             @include('site.layouts.menuItem')
                             <li> <a href="./img/HULUL.EG (1).pdf" class="profile-link" aria-label="Our Profile">
-                                    <span class="hide-on-mobile text-white"> Profile</span>
+                                    <span class="hide-on-mobile text-white">@lang('messages.Profile')</span>
                                 </a>
                             </li>
                             <div class="header__actions ">
                                 <a href="./requestService.html" class="btn request-btn " id="startBtn">
-                                    <i class="fa-regular fa-pen-to-square "></i> Request Service
+                                    <i class="fa-regular fa-pen-to-square "></i> @lang('messages.request_service')
                                 </a>
                             </div>
+                            <div class="lang-switch d-flex align-items-center ms-lg-3"> 
+                                @foreach ($locals as $lang)
+                                    @php
+                                        $url = LaravelLocalization::getLocalizedURL($lang);
+                                        $isActive = app()->getLocale() === $lang;
+                                    @endphp
 
-                        </ul>
-
-                    </nav>
-
-                    <div class="dropdown d-none d-sm-block">
-                        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-globe main-color m-0 p-0 "></i>
-                            {{ strtoupper(app()->getLocale()) }}
-                        </a>
-                        <ul class="dropdown-menu main-color-bg">
-                            @foreach ($locals as $lang)
-                                <li class="text-center ">
-                                    <a class="dropdown-item" href=" {{ LaravelLocalization::getLocalizedURL($lang) }} ">
-                                        {{ $lang == 'en' ? 'English' : 'العربية' }}
+                                    <a href="{{ $url }}"
+                                        class="text-white d-inline-flex align-items-center me-3 {{ $isActive ? 'fw-bold text-decoration-underline' : '' }}"
+                                        rel="alternate" hreflang="{{ $lang }}">
+                                        @if ($lang == 'en')
+                                            <i class="fa-solid fa-globe m-2"></i>
+                                            English
+                                        @else
+                                            <i class="fa-solid fa-language me-1"></i>
+                                            عربي
+                                        @endif
                                     </a>
-                                </li>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </ul>
-                    </div>
-
+                       
+                    </nav>
 
                 </div>
             </div>
         </div>
-        <div id="mobile-menu-wrap"  ></div>
+<div id="mobile-menu-wrap" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}" data-locale="{{ app()->getLocale() }}"></div>
     </div>
 </header>
 <!-- Header End -->
+
+<style>
+   [dir="rtl"]  .slicknav_btn {
+    position: absolute;
+    left: 10px !important ;
+    right: auto !important ;
+    top: 26px;
+    background: #00bfe7;
+  }
+</style>

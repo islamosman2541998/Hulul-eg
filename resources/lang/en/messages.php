@@ -254,6 +254,8 @@ return [
     'our_products' => 'Trusted supplements for a healthier life.',
     'explore_product' => 'Explore Our Products',
     'no_products' => 'No Products',
+    'request_service' => 'Request Service',
+    'Profile' => 'Profile',
     
 
 

@@ -59,13 +59,13 @@
     <link rel="stylesheet" href="{{ asset('site/css//font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/elegant-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/owl.carousel.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/magnific-popup.css') }}" />
+    <link rel="stylesheet" href="{{ asset('site/css/magnific-popup.css') }}" /> 
     <link rel="stylesheet" href="{{ asset('site/css/slicknav.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper-bundle.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.10') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/custom.css?v=0.0.10') }}" />
+    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.11') }}" />
+    <link rel="stylesheet" href="{{ asset('site/css/custom.css?v=0.0.11') }}" />
 
 
 

@@ -88,7 +88,6 @@
                                                         class="missiong-spam">{{ $errors->first($locale . '.mission') }}</span>
                                                 @endif
                                             </div>
-
                                             <script type="text/javascript">
                                                 CKEDITOR.replace('mission{{ $key }}', {
                                                     filebrowserUploadUrl: "{{ route('admin.ckeditor.upload', ['_token' => csrf_token()]) }}",
@@ -96,22 +95,12 @@
                                                 });
                                             </script>
                                         </div>
-
-
-
-
-
-
-
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-
                 <div class="col-md-3">
                     <div class="card p-3">
                         <h5>@lang('admin.settings')</h5>
@@ -124,7 +113,6 @@
                                         style="width:100%; max-height:150px; object-fit:cover;">
                                 </div>
                             @endif
-
                             <input type="file" name="ceo_image" class="form-control" accept="ceo_image/*">
                         </div>
                         <div class="mb-3">
@@ -148,13 +136,6 @@
                             @endif
                             <input type="file" name="image_background" class="form-control" accept="image/*">
                         </div>
-
-
-
-
-
-
-
                     </div>
                 </div>
                 <div class="row mb-3 text-end">
@@ -168,8 +149,6 @@
         </form>
     </div>
 @endsection
-
-
 @section('style')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
