@@ -149,10 +149,28 @@ ol {
   background: linear-gradient(135deg, #0a012b 0%, #1a1c6e 40%, #2e38a3 70%, #00d8ff 100%) !important;
   content: "";
 }
+[dir="rtl"] .section-title h2:after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  width: 70px;
+  background: linear-gradient(135deg, #0a012b 0%, #1a1c6e 40%, #2e38a3 70%, #00d8ff 100%) !important;
+  content: "";
+}
 
 .section-title1 h2:after {
   position: absolute;
   left: 33rem;
+  bottom: 0;
+  height: 5px;
+  width: 70px;
+  background: linear-gradient(135deg, #0a012b 0%, #1a1c6e 40%, #2e38a3 70%, #00d8ff 100%) !important;
+  content: "";
+}
+[dir="rtl"] .section-title1 h2:after {
+  position: absolute;
+  right: 33rem;
   bottom: 0;
   height: 5px;
   width: 70px;

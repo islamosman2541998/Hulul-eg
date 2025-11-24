@@ -34,5 +34,9 @@ return [
     'copyright' => 'All Rights Reserved &copy; :year :company',
     'sending' => 'Sending...',
     'cv_file' => 'CV File',
+    'Services' => 'Our Services',
+    'services_description' => 'We offer creative and technical digital solutions to help your business grow, connect, and
+                            stand out online.
+                            From strategy to execution, our team delivers professional results tailored to your brand.',
+    'what_we_do' => 'What We do?',
 ];
-?>

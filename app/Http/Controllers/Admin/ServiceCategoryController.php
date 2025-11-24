@@ -499,4 +499,22 @@ class ServiceCategoryController extends Controller
         $article->save();
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        $serviceCategory = ServiceCategory::findOrFail($id);
+        $this->deleteImage($serviceCategory, 'image');
+
+        if ($serviceCategory->galleryGroup) {
+            foreach ($serviceCategory->galleryGroup->images as $img) {
+                $this->deleteImageOfGallery($img->path("service_category"), $img, 'image');
+                $img->delete();
+            }
+            $serviceCategory->galleryGroup->delete();
+        }
+
+        $serviceCategory->delete();
+        session()->flash('success', trans('message.admin.deleted_sucessfully'));
+        return redirect()->back();
+    }
 }

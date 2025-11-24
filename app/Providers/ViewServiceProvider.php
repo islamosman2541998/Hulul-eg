@@ -28,9 +28,9 @@ class ViewServiceProvider extends ServiceProvider
             $settings  = SettingSingleton::getInstance();
 
 
-            $contacts = WhatsAppContact::active()->with('transNow')->get();
+            // $contacts = WhatsAppContact::active()->with(relations: 'transNow')->get();
 
-            view()->share('contacts', $contacts);
+            // view()->share('contacts', $contacts);
 
             //  meta setting  ---------------------------------------------------------
             $metaSetting =  $settings->getMetaSetting();

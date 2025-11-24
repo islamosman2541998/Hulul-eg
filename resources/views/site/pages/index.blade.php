@@ -10,6 +10,14 @@
     <!-- Slider -->
     <x-slider />
 
+     <!-- services -->
+    @include('site.pages.services')
+
+
+     <!-- Portfolios -->
+    @include('site.pages.Portfolios')
+
+
    <!-- About -->
     @include('site.pages.about')
 

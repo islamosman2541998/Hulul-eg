@@ -47,7 +47,10 @@ class Services extends Model
     {
         return $this->belongsTo(\App\Models\ServiceCategory::class, 'service_category_id', 'id');
     }
-   
+      public function transNow()
+    {
+        return $this->hasOne(ServicesTranslation::class, 'service_id')->where('locale', app()->getLocale());
+    }
     // Scopes ----------------------------
     public function scopeActive($query)
     {

@@ -2,16 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Site\FaqController;
 use App\Http\Controllers\Site\JobController;
+use App\Http\Controllers\Site\NewController;
 use App\Http\Controllers\Site\BlogController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\AboutController;
-use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ProductController;
+use App\Http\Controllers\Site\CategoryController;
+use App\Http\Controllers\Site\ServicesController;
 use App\Http\Controllers\Site\ContactUsController;
-use App\Http\Controllers\Site\FaqController;
-use App\Http\Controllers\Site\NewController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -52,6 +53,9 @@ Route::group([
 
     Route::get('/news', [NewController::class, 'index'])->name('news.index');
     Route::get('/news/{news}', [NewController::class, 'show'])->name('news.show');
+
+    Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
+    Route::get('/services/{services}', [ServicesController::class, 'show'])->name('services.show');
 
     Route::get('categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
