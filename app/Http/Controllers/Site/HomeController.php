@@ -10,6 +10,7 @@ use App\Models\Partner;
 use App\Models\Product;
 use App\Models\Services;
 use App\Models\PromoCode;
+use App\Models\Statistic;
 use App\Models\Portfolios;
 use App\Models\PaymentMethod;
 use App\Models\PortfolioTags;
@@ -18,6 +19,7 @@ use App\Models\ServiceCategory;
 use App\Models\AboutTranslation;
 use App\Settings\SettingSingleton;
 use App\Http\Controllers\Controller;
+use App\Models\HomeSettingPage;
 
 class HomeController extends Controller
 {
@@ -30,7 +32,7 @@ class HomeController extends Controller
             $about_us = new About();
             $about_us->transNow = new AboutTranslation();
         }
-        $blogs = Blog::with('translations')->where('status', 1)->take(3)->get();
+        $blogs = Blog::with('translations')->feature()->active()->orderBy('sort', 'ASC')->get();
         $partners = Partner::with('translations')->where('status', 1)->get();
         $news = News::with('translations')->where('status', 1)->take(3)->get();
         $faq_questions = Faq::with('translations')->where('status', 1)->get();
@@ -38,16 +40,18 @@ class HomeController extends Controller
         $products = Product::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(3)->get();
         $categoryProducts = ProductCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
         $servicesCategories = ServiceCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
+        $statistics = Statistic::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
 
         $page_name = 'home';
 
 
-  $portfolios = Portfolios::active()->feature()
-        
-        ->take(7)
-        ->with('trans','tag.trans')
-        ->get();
-                //    $portfolios = Portfolios::active()->feature()->inRandomOrder()->take(7)->with('trans','tag.trans')->get();
+        $portfolios = Portfolios::active()->feature()
+
+            ->take(7)
+            ->with('trans', 'tag.trans')
+            ->get();
+            $services_section = HomeSettingPage::with('trans')->where('title_section', 'services')->first();
+            
 
         return view('site.pages.index', compact(
             'current_lang',
@@ -60,7 +64,9 @@ class HomeController extends Controller
             'news',
             'faq_questions',
             'servicesCategories',
-            'portfolios'
+            'portfolios',
+            'statistics',
+            'services_section'
         ));
     }
 }

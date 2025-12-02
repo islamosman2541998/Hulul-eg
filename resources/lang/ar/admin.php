@@ -593,7 +593,11 @@ return [
     'get_in_touch' => 'اتصل بنا',
     'Projects' => 'المشاريع',
     'icon_image' => 'صورة الايقونة',
-   
+    'read_more' => 'قراءة المزيد',
+    'our_work' => 'اعمالنا',
+    'newsletter' => 'النشرة الإخبارية',
+    'newsletter_description' => 'اشترك في نشرتنا الإخبارية للحصول على آخر التحديثات والأخبار.',
+   'your_message_has_been_sent_successfully' => 'تم ارسال رسالتك بنجاح',
 
 
 

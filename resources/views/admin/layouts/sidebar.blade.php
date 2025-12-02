@@ -82,12 +82,12 @@
 
 
                         {{-- subscribes Us ----------------------------------------------------------- --}}
-                        {{-- <li>
+                        <li>
                             <a href="{{ route('admin.subscribes.index') }}" class="waves-effect">
                                 <i class="far fa-handshake"></i>
                                 <span>{{ trans('admin.subscribes') }}<span>
                             </a>
-                        </li> --}}
+                        </li>
                         {{-- End subscribes Us ------------------------------------------------------- --}}
 
                         {{-- whatsapp contacts   ----------------------------------------------------------- --}}
@@ -396,14 +396,14 @@
 
                 <li><a href="{{ route('admin.portfolio.index') }}">
                         <i class="fas fa-images"></i>
-                        @lang('admin.portfolio')</a></li> 
+                        @lang('admin.portfolio')</a></li>
 
 
                 {{--           portfolio tags            --}}
 
                 <li><a href="{{ route('admin.portfolio-tags.index') }}">
                         <i class="fas fa-tags"></i>
-                        @lang('admin.portfolio-tags')</a></li> 
+                        @lang('admin.portfolio-tags')</a></li>
 
 
                 {{--           products             --}}
@@ -480,7 +480,7 @@
                         <i class="fas fa-comment"></i>
                         @lang('admin.serviceRequest')</a></li>
                 {{--         service_request             --}}
-                
+
                 <li><a href="{{ route('admin.cvs.index') }}">
                         <i class="fas fa-id-card"></i>
                         @lang('admin.cvs')</a></li>
@@ -491,11 +491,11 @@
                         <i class="fas fa-handshake"></i>
                         @lang('admin.partners')</a></li>
 
-                         {{--           statistic             --}}
+                {{--           statistic             --}}
 
                 <li><a href="{{ route('admin.statistic.index') }}">
                         <i class="fas fa-images"></i>
-                        @lang('admin.statistic')</a></li> 
+                        @lang('admin.statistic')</a></li>
 
 
                 {{--  about us --}}

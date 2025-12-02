@@ -577,7 +577,11 @@ return [
     'get_in_touch' => 'Get In Touch',
     'Projects' => 'Our Projects',
     'icon_image' => 'Icon Image',
-
+    'read_more' => 'Read More',
+    'our_work' => 'Our Work',
+    'newsletter' => 'Newsletter',
+    'newsletter_description' => 'HULUL Media Agency offers creative digital solutions in branding, marketing, and design. Subscribe to get our latest news and creative insights.',
+'your_message_has_been_sent_successfully' => 'Your message has been sent successfully',
 
 
 ];

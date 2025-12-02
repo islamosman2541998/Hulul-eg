@@ -13,6 +13,7 @@ use App\Http\Controllers\Site\ProductController;
 use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ServicesController;
 use App\Http\Controllers\Site\ContactUsController;
+use App\Http\Controllers\Site\SubscribeController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -56,6 +57,8 @@ Route::group([
 
     Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
     Route::get('/services/{services}', [ServicesController::class, 'show'])->name('services.show');
+    
+    Route::post('/subscribe', [SubscribeController::class, 'store'])->name('subscribe.store');
 
     Route::get('categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');

@@ -29,8 +29,8 @@ class ContactForm extends Component
         $data = $this->validate();
         Contactus::create($data);
         $this->reset(['name','email','phone','message']);
-        $this->dispatchBrowserEvent('contact-sent', ['message' => __('Your message has been sent successfully!')]);
-    }
+
+        session()->flash('success', __('admin.your_message_has_been_sent_successfully'));}
 
     public function render()
     {

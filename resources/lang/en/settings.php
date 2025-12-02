@@ -135,6 +135,7 @@ return [
     
     'about_us' => 'About Us Page',
     'categories' => 'Categories',
+    'show_statistics' => 'Show Statistics',
 
 
 

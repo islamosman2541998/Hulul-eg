@@ -9,10 +9,9 @@
                     <img src="{{ asset($portfolios[6]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>Corporate Special Gifts</h4>
+                        <h4>{{ @$portfolios[6]->title }}</h4>
                         <ul>
-                            <li>Customized Corporate Gifts</li>
-                            <li>Premium Giveaways</li>
+                            <li>{!! Str::limit($portfolios[6]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -20,9 +19,9 @@
                     <img src="{{ asset($portfolios[5]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>Printing</h4>
+                        <h4>{{ @$portfolios[5]->title }}</h4>
                         <ul>
-                            <li>Customized Corporate Prints</li>
+                            <li>{!! Str::limit($portfolios[5]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -30,9 +29,9 @@
                     <img src="{{ asset($portfolios[4]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>ٍSocial media design</h4>
+                        <h4>{{ @$portfolios[4]->title }}</h4>
                         <ul>
-                            <li>Creative Poster Designs</li>
+                            <li>{!! Str::limit($portfolios[4]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -40,9 +39,9 @@
                     <img src="{{ asset($portfolios[0]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>ٍSocial media design</h4>
+                        <h4>{{ @$portfolios[0]->title }}</h4>
                         <ul>
-                            <li>Creative Poster Designs</li>
+                            <li>{!! Str::limit($portfolios[0]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -50,9 +49,9 @@
                     <img src="{{ asset($portfolios[1]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>ٍSocial media design</h4>
+                        <h4>{{ @$portfolios[1]->title }}</h4>
                         <ul>
-                            <li>Creative Poster Designs</li>
+                            <li>{!! Str::limit($portfolios[1]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -60,9 +59,9 @@
                     <img src="{{ asset($portfolios[3]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>Corporate Special Gifts</h4>
+                        <h4>{{ @$portfolios[3]->title }}</h4>
                         <ul>
-                            <li>Customized Corporate Gifts</li>
+                            <li>{!! Str::limit($portfolios[3]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>
@@ -70,11 +69,9 @@
                     <img src="{{ asset($portfolios[2]->image) }}" alt="">
 
                     <div class="work__item__hover">
-                        <h4>Brand Identity</h4>
+                        <h4>{{ @$portfolios[2]->title }}</h4>
                         <ul>
-                            <li>Logo & Visual Identity</li>
-                            <li>Brand Guidelines</li>
-
+                            <li>{!! Str::limit($portfolios[2]->description, 100) !!}</li>
                         </ul>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ return [
     'email' => 'Email',
     'message' => 'Message',
     'send' => 'SEND',
-    'contact-us' => 'We’re Happy to Help',
+    'contact-us' => '  Contact Us',
     'contact-us_p' => 'Send us a message, or use the info below to reach our team.',
     'contact_information' => 'Contact Information',
     'links' => 'Links',

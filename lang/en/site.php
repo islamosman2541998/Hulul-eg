@@ -24,7 +24,7 @@ return [
     'our_services'      => 'Our Services',
     'copyright'         => 'Copyright',
     'designed_by'       => 'Designed by',
-    'all_right_reserved' => 'All Rights Reserved',
+    'all_right_reserved' => 'All Rights Reserved For Hulul Media Agency',
     'your_name'         => 'Your Name',
     'your_email'         => 'Your Email',
     'subject'           => 'Subject',

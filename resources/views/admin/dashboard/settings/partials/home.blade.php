@@ -87,6 +87,32 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                         <div class="row mb-3">
+                                                            <label class="col-sm-2 col-form-label">
+                                                                {{ __('settings.show_statistics') }}
+                                                            </label>
+                                                            <div class="col-sm-10 d-flex align-items-center">
+                                                                @php
+                                                                    $show_statistics =
+                                                                        (int) ($settings['show_statistics'] ?? 0);
+                                                                @endphp
+
+
+                                                                <input type="hidden" name="show_statistics" value="0">
+
+                                                                <!-- Bootstrap Custom Switch -->
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        role="switch" name="show_statistics" value="1"
+                                                                        id="show_statistics"
+                                                                        {{ $show_statistics ? 'checked' : '' }}>
+                                                                    <label class="form-check-label" for="show_statistics">
+                                                                        <span class="switch-text-on">ON</span>
+                                                                        <span class="switch-text-off">OFF</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="row mb-3">
                                                             <label class="col-sm-2 col-form-label">
                                                                 {{ __('settings.show_product') }}

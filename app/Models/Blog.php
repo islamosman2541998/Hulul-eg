@@ -46,6 +46,15 @@ class Blog extends Model
     {
         return $this->hasOne(BlogTranslation::class, 'blog_id')->where('locale', app()->getLocale());
     }
+ // Scopes ---------------------------------------------------------------------------------
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+    public function scopeFeature($query)
+    {
+        return $query->where('feature', 1);
+    }
 
 
     public function getTransNowAttribute()

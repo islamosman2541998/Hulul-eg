@@ -73,6 +73,22 @@
           </div>
       </div>
   </section>
+
+  <div class="contact__form">
+    @if (session('success'))
+          <div class="alert alert-success">
+              {{ session('success') }}
+          </div>
+      @endif
+              <h3>@lang('admin.get_in_touch')</h3>
+              <form action="#">
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="number" placeholder="Phone" />
+                <textarea placeholder="Message"></textarea>
+                <button type="submit" class="site-btn">Send Message</button>
+              </form>
+            </div>
   @endif
  
 

@@ -10,4 +10,5 @@ return [
 'blogs_p' => 'Research highlights, wellness education, and product stories — all aligned with our pioneering journey and core values.',
 'title' => 'Title',
 'description' => 'Description',
+'latest_blogs' => 'Latest Blogs',
 ];

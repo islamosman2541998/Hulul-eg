@@ -11,6 +11,7 @@
 
 (function ($) {
 
+
     /*------------------
         Preloader
     --------------------*/
@@ -31,6 +32,46 @@
         }
     });
 
+     document.addEventListener('DOMContentLoaded', function () {
+        const isRTL = "{{ app()->getLocale() }}" === "ar";
+
+        const blogsSwiper = new Swiper(".blogs-swiper", {
+            loop: true,
+            rtl: isRTL, 
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            spaceBetween: 24,
+            pagination: {
+                el: ".blogs-swiper .swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".blogs-button-next",
+                prevEl: ".blogs-button-prev",
+            },
+           
+            breakpoints: {
+                0: {        
+                    slidesPerView: 1,
+                },
+                576: {      
+                    slidesPerView: 1,
+                },
+                768: {      
+                    slidesPerView: 2,
+                },
+                992: {      
+                    slidesPerView: 4,
+                },
+                1200: {     
+                    slidesPerView: 3,
+                }
+            }
+        });
+    });
+   
     /*------------------
         Background Set
     --------------------*/
@@ -270,5 +311,4 @@ document.querySelectorAll('.card[data-href]').forEach(card=>{
   });
 });
 
-
-   
+ 

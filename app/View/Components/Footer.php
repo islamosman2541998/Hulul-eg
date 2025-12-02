@@ -3,10 +3,11 @@
 namespace App\View\Components;
 
 use App\Models\Menue;
+use App\Models\Portfolios;
 use App\Models\SettingsValues;
+use Illuminate\View\Component;
 use App\Settings\SettingSingleton;
 use Illuminate\Support\Facades\App;
-use Illuminate\View\Component;
 
 class Footer extends Component
 {
@@ -26,6 +27,9 @@ class Footer extends Component
     public $facebookLink;
     public $instagramLink;
 
+    public $our_work;
+
+
     public function __construct()
     {
 
@@ -35,8 +39,12 @@ class Footer extends Component
 
         $this->footerLinks = Menue::with('trans')->footer()->active()->get();
 
+        $this->our_work = Portfolios::active()->feature()
 
-        $this->facebookLink = $this->settings->getItem('facebook') ?? 'not found';
+            ->take(5)
+            ->with('trans')
+            ->get();
+            $this->facebookLink = $this->settings->getItem('facebook') ?? 'not found';
         $this->instagramLink = $this->settings->getItem('instagram') ?? 'not found';
         $this->tiktokLink = $this->settings->getItem('tiktok') ?? 'not found';
         $this->linkedinLink = $this->settings->getItem('linkedin') ?? 'not found';

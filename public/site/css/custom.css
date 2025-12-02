@@ -55,7 +55,7 @@
 
 .careerImg {
   background-color: #353575bf;
-  height: 25rem;
+  /* height: 25rem; */
 
 }
 
@@ -64,11 +64,12 @@
 
 }
 
-.applicationImg {
-  position: absolute !important;
-  right: -5rem !important;
-  top: -4.5rem !important;
-  height: 31rem !important;
+.applicationImg
+ {
+    position: absolute !important;
+    right: -5rem !important;
+    top: 0.5rem !important;
+    height: 22rem !important;
 }
 
 .applicatonSpan {

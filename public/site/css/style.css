@@ -271,6 +271,9 @@ ol {
   padding: 14px 34px 12px;
   width: 100%;
 }
+[dir="rtl"] .site-btn {
+ margin-right: 20px !important;
+}
 
 /* Preloder */
 #preloder {
@@ -1028,6 +1031,9 @@ ol {
 .footer__top__social {
   text-align: right;
 }
+[dir="rtl"] .footer__top__social {
+  text-align: left ! important;
+}
 
 .footer__top__social a {
   display: inline-block;
@@ -1176,7 +1182,7 @@ ol {
   color: #ffffff;
   font-weight: 300;
   display: inline-block;
-  margin-right: 32px;
+  /* margin-right: 32px; */
   position: relative;
 }
 
@@ -1184,7 +1190,7 @@ ol {
   position: absolute;
   right: -22px;
   top: -3px;
-  content: "/";
+  content: "";
   color: #adadad;
   font-size: 20px;
 }
@@ -1941,11 +1947,14 @@ ol {
   line-height: 80px;
   text-align: center;
   border-radius: 50%;
-  float: left;
   margin-right: 30px;
 }
-
+[dir="rtl"] .contact__widget__item__icon {
+  margin-right: 0;
+  /* margin-left: 30px; */
+}
 .contact__widget__item__icon i {
+  margin-top: 20px;
   font-size: 30px;
   color: #ffffff;
 }
@@ -2029,6 +2038,9 @@ ol {
   -webkit-transition: all, 0.3s;
   -o-transition: all, 0.3s;
   transition: all, 0.3s;
+}
+[dir="rtl"] .contact__form form textarea {
+  margin-right: 20px !important;
 }
 
 .contact__form form textarea:placeholder {
