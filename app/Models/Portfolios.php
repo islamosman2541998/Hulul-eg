@@ -44,7 +44,11 @@ class Portfolios extends Model
     {
         return $this->belongsTo(PortfolioTags::class, 'tag_id')->with('trans');
     }
-
+public function transNow()
+{
+    return $this->hasOne(PortfoliosTranslation::class, 'portfolio_id')
+                ->where('locale', app()->getLocale());
+}
     public function projects()
     {
         return $this->hasMany(Projects::class, 'portfolio_id', 'id')->with('trans');

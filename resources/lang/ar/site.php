@@ -54,6 +54,7 @@ return [
     'view_all_products'       => 'مشاهدة كل المنتجات',
     'view_all_blogs'       => 'مشاهدة كل المقالات',
     'view_all_faq_questions'       => 'مشاهدة كل الاسئلة الشائعة',
+    'our_portfolio'       => 'مشاريعنا',
     
     
     

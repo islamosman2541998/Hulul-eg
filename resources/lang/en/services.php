@@ -34,6 +34,13 @@ return [
     'services_categories'         => 'Services Categories',
     'create_services_categories'  => 'Create Categories',
     'show_services_categories'    => 'Show Categories',
+    'learn_more'                  => 'Learn More',
+    'no_services'                 => 'No Services Available at the Moment',
+    'our_services'              => 'Our Services',
+    'home'                      => 'Home',
+    'service_request'           => 'Service Request',
+    
+
 
 ];
 

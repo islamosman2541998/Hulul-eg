@@ -598,6 +598,8 @@ return [
     'newsletter' => 'النشرة الإخبارية',
     'newsletter_description' => 'اشترك في نشرتنا الإخبارية للحصول على آخر التحديثات والأخبار.',
    'your_message_has_been_sent_successfully' => 'تم ارسال رسالتك بنجاح',
+   'all' => 'الكل',
+   'no_portfolios' => 'لا يوجد بورتفوليو',
 
 
 

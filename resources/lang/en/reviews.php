@@ -15,5 +15,6 @@ return [
     'create_reviews'             => 'Create Reviews',
     'edit_reviews'               => 'Edit Reviews',
     'create_new_reviews'         => 'Create New Reviews',
+    'what_clients_say'           => 'What Clients Say'
 ];
 

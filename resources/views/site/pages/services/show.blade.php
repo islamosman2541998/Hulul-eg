@@ -1,47 +1,69 @@
 @extends('site.app')
 
-@section('title', @$service->trans->where('locale',$current_lang)->first()->meta_title)
-@section('meta_key', @$service->trans->where('locale',$current_lang)->first()->meta_key)
-@section('meta_description', @$service->trans->where('locale',$current_lang)->first()->meta_description)
+{{-- @section('title', @$service->trans->where('locale', $current_lang)->first()->meta_title)
+@section('meta_key', @$service->trans->where('locale', $current_lang)->first()->meta_key)
+@section('meta_description', @$service->trans->where('locale', $current_lang)->first()->meta_description) --}}
 
 @section('content')
-<!--Bath-->
-<div class="bath py-3 ">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('site.home') }}">@lang('Home')</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('site.services.index') }}">@lang('services.services')</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            {{ $service->trans->where('locale',$current_lang)->first()->title }}
-                        </li>
-                    </ol>
-                </nav>
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>{{ $category->transNow->title ?? '' }}</h2>
+                        <div class="breadcrumb__links">
+                            <a href="{{ route('site.home') }}">@lang('services.home')</a>
+                            <span>{{ $category->transNow->title ?? '' }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!--Bath-->
+    <!-- Breadcrumb End -->
+    <!-- Digital Marketing Content -->
+    <section class="services-soft">
+        <div class="wrap">
 
-<div class="container page my-5 rounded">
-    <div class="row py-5">
-        <div class="col-lg-8 col-12 text text-center wow bounceInLeft">
-            <h1 class="text-main"> {{ @$service->trans->where('locale', $current_lang)->first()->title }}</h1>
-            <h5 class="my-5 px-5 text-secound">
-                {!! @$service->trans->where('locale', $current_lang)->first()->description !!}
-            </h5>
+            <header class="head">
+                <span class="eyebrow text-white">{{ $category->transNow->title ?? '' }}</span>
+                {{-- <h2 class="text-white">We Prioritize Your Growth</h2> --}}
+                <p>{!! $category->transNow->description ?? '' !!}</p>
+            </header>
+
+            <div class="grid">
+
+                @forelse($services as $service)
+                    <!-- Card 1 -->
+                    <a class="card highlight" href="{{ route('site.service_request.index') }}">
+                        <span class="icon" aria-hidden="true">
+                            <img src="{{ asset(path: $service->image) }}" alt="{{ $service->transNow->title ?? '' }}"
+                                style="width: 40px; height: 40px;">
+
+                        </span>
+                        <h3 class="text-white">{{ $service->transNow->title ?? '' }}</h3>
+                        <p>{!! $service->transNow->description ?? '' !!}</p>
+                        <span class="more">@lang('services.service_request') →</span>
+                    </a>
+                @empty
+                    <p>@lang('services.no_services')</p>
+                @endforelse
+
+
+
+
+            </div>
         </div>
-        <div class="col-lg-4 col-12 wow bounceInRight">
-            <img src="{{ asset(@$service->image) }}" class="img-fluid rounded" alt="">
-        </div>
-    </div>
-</div>
+    </section>
+    <!-- End of this section  -->
+    <style>
+    .card {
 
+        background: #3b436d3d !important;
+    }
 
-<!--INFO-->
-@include('site.components.info')
-<!--INFO-->
-
+    
+</style>
 @endsection
+

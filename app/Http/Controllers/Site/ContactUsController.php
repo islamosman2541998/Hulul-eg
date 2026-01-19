@@ -14,7 +14,7 @@ class ContactUsController extends Controller
 
     public function index()
     {
-        return view('site.pages.contact-us.index');
+        return view('site.pages.contact-us');
     }
 
     public function store(ContactUSRequest $request)

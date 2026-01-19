@@ -79,7 +79,7 @@
                                         <td>{{ $service_request->timeline ?? '—' }}</td>
 
                                         <td class="">
-                                            <a href="{{ asset('storage/' . $service_request->attachment) }}"
+                                            <a href="{{ asset('storage/service_requests/' . $service_request->attachment) }}"
                                                 class="btn btn-info btn-sm" target="_blank"><i
                                                     class="fas fa-download"></i></a>
                                         </td>

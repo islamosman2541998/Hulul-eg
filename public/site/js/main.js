@@ -95,6 +95,8 @@
         allowParentLinks: true
     });
 
+    
+
     /*------------------
 		Hero Slider
 	--------------------*/
@@ -128,30 +130,44 @@
         }
     });
 
-    /*------------------
-        Testimonial Slider
-    --------------------*/
-    $(".testimonial__slider").owlCarousel({
-        loop: true,
-        margin: 0,
-        items: 3,
-        dots: true,
-        dotsEach: 2,
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        responsive: {
-            992: {
-                items: 3
-            },
-            768: {
-                items: 2
-            },
-            320: {
-                items: 1
-            }
-        }
+  
+const testimonialsElement = document.querySelector(".testimonials-swiper");
+  if (testimonialsElement) {
+    const Cardswiper = new Swiper(".testimonials-swiper", {
+      loop: true,
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+      },
+      slidesPerView: 3,
+      spaceBetween: 30,
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+        1008: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        1400: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+      },
+      navigation: {
+        nextEl: ".testimonials-button-next",
+        prevEl: ".testimonials-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
     });
+  }
 
     /*------------------
         Latest Slider

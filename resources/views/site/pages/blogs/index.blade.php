@@ -6,38 +6,67 @@
 
 
 @section('content')
-    <header class="hero  wow fadeInDown" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
         <div class="container">
-            <h1 class="color_blue">@lang('blogs.take_a_look_at_our_blogs')</h1>
-            <p class="breadcrumb"><a class="color_red" href="{{ route('site.home') }}">@lang('blogs.home')</a> / 
-                @lang('blogs.blogs')</p>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2> @lang('blogs.blogs')</h2>
+                        <div class="breadcrumb__links">
+                            <a href="{{ route('site.home') }}">@lang('site.home') /</a>
+                            <span>@lang('blogs.blogs')</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
-    <section class="section" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
         <div class="container">
-            <div class="blog-grid">
+            <div class="row">
+
                 @forelse ($blogs as $key =>$blog)
-                    <article class="post-card wow bounceInUp" style="animation-delay: 0.{{ ($key + 1) }}s;">
-                        <img class="card-img" src="{{ asset($blog->pathInView()) }}" alt="Science-based approach">
-                        <div class="card-body">
-                            <h4 class="">{{ $blog->title }}</h4>
-                            <p id="ex1" class="excerpt exp-text" data-lines="3">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="blog__item latest__item">
+                            <h4>{{ $blog->title }} </h4>
+                            <ul>
+                                <li>{{ $blog->created_at->format('M d, Y') }}</li>
+                            </ul>
+                            <p>
                                 {!! Str::limit($blog->description, 200) !!}
                             </p>
-                            <a href="{{ route('site.site.blogs.show', $blog->id) }}"> <button class="btn ghost exp-toggle" data-target="#ex1"
-                                    aria-expanded="false">@lang('blogs.read_more')</button>
-                            </a>
+                            <a href="{{ route('site.site.blogs.show', $blog->id) }}">@lang('admin.read_more') <span class="arrow_right"></span></a>
                         </div>
-                    </article>
+                    </div>
                 @empty
                     <h3>@lang('blogs.no_blogs')</h3>
                 @endforelse
+
             </div>
+            {{-- <div class="row">
+                <div class="col-lg-12">
+                    <div class="pagination__option blog__pagi">
+                        <a href="#" class="arrow__pagination left__arrow"><span class="arrow_left"></span> Prev</a>
+                        <a href="#" class="number__pagination">1</a>
+                        <a href="#" class="number__pagination">2</a>
+                        <a href="#" class="arrow__pagination right__arrow">Next <span class="arrow_right"></span></a>
+                    </div>
+                </div>
+            </div> --}}
         </div>
     </section>
+    <!-- Blog Section End -->
+ 
+
+
+
 @endsection
-<style>
-    .hero{
-        margin-top: 60px !important;
-    }
-</style>
+
+
+

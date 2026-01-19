@@ -36,6 +36,11 @@ class PortfolioTags extends Model
     {
         return $this->hasMany(Portfolios::class, 'tag_id', 'id');
     }
+    public function transNow()
+{
+    return $this->hasOne(PortfolioTagsTranslation::class, 'tag_id')
+                ->where('locale', app()->getLocale());
+}
 
     // Scopes ----------------------------
     public function scopeActive($query)

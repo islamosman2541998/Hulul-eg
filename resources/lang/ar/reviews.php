@@ -14,5 +14,6 @@ return [
     'show_reviews'               => 'عرض مراجعات العملاء',
     'create_reviews'             => 'اضافة مراجعات العملاء',
     'edit_reviews'               => 'تعديل مراجعات العملاء',
+    'what_clients_say'           => 'ماذا يقول العملاء'
 ];
 

@@ -19,6 +19,8 @@ class AboutController extends Controller
             $raw = $trans->core_values;
             $coreValues = is_array($raw) ? $raw : (json_decode($raw, true) ?? []);
         }
+
+        // dd($about);
         return view('site.pages.about.index', compact('about', 'coreValues'));
     }
 }

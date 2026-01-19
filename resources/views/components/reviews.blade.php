@@ -6,58 +6,62 @@
     $show_reviews    = (int) $settings->getHome('show_reviews');
 @endphp
 @if ($show_reviews)
-    <div class="Review testimonial my-4 p-5 text-center  wow fadeInUp">
+ 
+{{-- Reviews --}}
 
-    <div class="container">
-            <h2 class="testimonialh2">@lang('reviews.reviews')</h2>
-
-        
-        <div class="swiper ReviewSlider">
-            <div class="swiper-wrapper mt-3">
-                @forelse ($reviews as $review)
-                    <div class="swiper-slide">
-                        <div class="Reviewbox d-flex flex-column align-items-center mx-auto p-3 rounded" 
-                             data-bs-toggle="modal" 
-                             data-bs-target="#reviewModal" 
-                             data-name="{{ $review->customer_name }}" 
-                             data-description="{{ $review->description }}" 
-                             data-image="{{ asset($review->pathInView()) }}" 
-                             data-rate="{{ $review->rate }}">
-                            <img src="{{ asset($review->pathInView()) }}" class="img-fluid rounded-circle" alt="{{ $review->customer_name }}" style="width: 100px; height: 100px; object-fit: cover;">
-                            <h4 class="mt-3">
-                                {{ Str::limit($review->customer_name, 20, '...') }}
-                              </h4>
-                              <p class="mt-2">
-                                {{ Str::limit($review->description, 30, '...') }}
-                              </p>
-                         
-                        </div>
+ <section class="testimonial spad set-b testimonialbg" data-setbg="img/testimonial-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title center-title">
+                        <span>@lang('reviews.reviews')</span>
+                        <h2>@lang('reviews.what_clients_say')</h2>
                     </div>
-                @empty
-                    <p>{{ app()->getLocale() == 'ar' ? 'لا يوجد تقييمات متاحة' : 'No reviews available' }}</p>
-                @endforelse
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+            <div class="row">
+                <div class="col-12">
+                    <div class=" swiper testimonials-swiper">
+                        <div class="swiper-wrapper">
 
-<!-- Review Modal -->
-<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reviewModalLabel">{{ app()->getLocale() == 'ar' ? 'تفاصيل التقييم' : 'Review Details' }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex flex-column align-items-center mx-auto text-center">
-                <img id="modalImage" src="" class="img-fluid rounded-circle" alt="" style="width: 100px; height: 100px; object-fit: cover;">
-                <h4 id="modalName" class="mt-3"></h4>
-                <p id="modalDescription" class="mt-2"></p>
-                {{-- <div class="rate text-center mt-2" id="modalRate"></div> --}}
+                          
+                              @forelse ($reviews as $review)
+                                   <div class="swiper-slide">
+                                <div class="testimonial__item">
+                                    <div class="testimonial__text">
+                                        <p>{!!  $review->description !!}</p>
+                                    </div>
+                                    <div class="testimonial__author">
+                                        <div class="testimonial__author__pic">
+                                            <img src="{{ asset($review->pathInView()) }}" alt="">
+                                        </div>
+                                        <div class="testimonial__author__text">
+                                            <h5>{{ $review->customer_name }}</h5>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                              @empty
+                                  <p>No reviews available</p>
+                              @endforelse
+                           
+
+                            
+                         
+
+                            
+                        </div>
+
+                        <!-- Pagination + Navigation -->
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev testimonials-button-prev" aria-label="Previous"></div>
+                        <div class="swiper-button-next testimonials-button-next" aria-label="Next"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endif
 
 

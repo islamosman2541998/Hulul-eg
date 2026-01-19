@@ -34,6 +34,11 @@ return [
     'services_categories'         => 'اقسام الخدمات',
     'create_services_categories'  => 'انشاء قسم جديد',
     'show_services_categories'    => 'عرض القسم',
+    'learn_more'                  => 'اعرف اكثر',
+    'no_services'                 => 'لا توجد خدمات في الوقت الحالي',
+    'our_services'              => 'خدماتنا',
+    'home'                      => 'الرئيسية',
+    'service_request'           => 'طلب خدمة',
 
 ];
 

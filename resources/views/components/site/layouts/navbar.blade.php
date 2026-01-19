@@ -26,12 +26,12 @@
                                 }
                             @endphp
                             @include('site.layouts.menuItem')
-                            <li> <a href="./img/HULUL.EG (1).pdf" class="profile-link" aria-label="Our Profile">
+                            <li> <a href="{{ asset('site/img/HULUL.EG (1).pdf') }}" class="profile-link" target="_blank" aria-label="Our Profile">
                                     <span class="hide-on-mobile text-white">@lang('messages.Profile')</span>
                                 </a>
                             </li>
                             <div class="header__actions ">
-                                <a href="./requestService.html" class="btn request-btn " id="startBtn">
+                                <a href="{{ route('site.service_request.index') }}" class="btn request-btn " id="startBtn">
                                     <i class="fa-regular fa-pen-to-square "></i> @lang('messages.request_service')
                                 </a>
                             </div>

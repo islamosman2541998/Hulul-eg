@@ -27,4 +27,10 @@ class NewController extends Controller
 
         return view('site.pages.news.show', compact('news'));
     }
+   public function maya( )
+    {
+       
+
+        return view('site.pages.maya');
+    }
 }

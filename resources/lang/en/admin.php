@@ -582,6 +582,8 @@ return [
     'newsletter' => 'Newsletter',
     'newsletter_description' => 'HULUL Media Agency offers creative digital solutions in branding, marketing, and design. Subscribe to get our latest news and creative insights.',
 'your_message_has_been_sent_successfully' => 'Your message has been sent successfully',
+'all' => 'All',
+'no_portfolios' => 'No Portfolios',
 
 
 ];

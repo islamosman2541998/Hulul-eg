@@ -6,22 +6,39 @@
 
 
 @section('content')
-<div class="container hero blog-page pt-5 py-5 " dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="row">
-        <div class="col-md-12 d-flex flex-column align-items-center wow bounceInUp">
-            @if($blog->image)
-                <img src="{{ asset(@$blog->pathInView()) }}"
-                     class="img-thumbnail w-50" alt="{{ @$blog->transNow->title }}">
-            @endif 
-        </div>
-        <div class="col-md-12 mt-5 fs-5 d-flex flex-column align-items-center wow bounceInUp">
-               <h1 class="mb-3 wow bounceInRight">{{ @$blog->transNow->title }}</h1>
-            <div class="blog-description wow bounceInLeft">
-                {!! @$blog->transNow->description !!}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>@lang('blogs.blogs')</h2>
+                        <div class="breadcrumb__links">
+                            <a href="{{ route('site.home') }}"> @lang('site.home') /</a>
+                            <span>@lang('blogs.blogs')</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+  <div class="container">
+      <h1 class="text-white theH1 mt-4">{{ @$blog->transNow->title }}</h1>
+    </div>
+
+  <main class="container">
+    <figure class="cover">
+      <img src="{{ asset(@$blog->pathInView()) }}" class="blogImg" alt="Share a Video on Social Media">
+    </figure>
+
+         <p class="single-meta">{!!  @$blog->transNow->description !!} </p>
+
+  </main>
+    <!-- Blog Section End -->
+
 @endsection
 <style>
     .blog-page{
