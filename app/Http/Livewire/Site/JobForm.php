@@ -7,64 +7,60 @@ use App\Models\Job;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-
 class JobForm extends Component
 {
-
     use WithFileUploads;
+
+    public $jobId;
     public $name;
     public $email;
     public $phone;
-    public $cv_file;
-    public $job_slug;
+    public $cv;
+    public $message;
+
     protected $rules = [
-        'name'    => 'required|string|max:255',
-        'email'   => 'required|email|max:255',
-        'phone'   => 'nullable|string|max:50',
-        'cv_file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:20',
+        'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+        'message' => 'nullable|string|max:1000',
     ];
-      public function mount($job_slug = null)
-    {
-        $this->job_slug = $job_slug;
-    }
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-   public function submit()
-    {
-        $data = $this->validate();
 
-       
-        if ($this->cv_file) {
-            $path = $this->cv_file->store('cvs', 'public');
-            $data['cv_file'] = $path;
-        }
+    protected $messages = [
+        'name.required' => 'Full name is required',
+        'email.required' => 'Email is required',
+        'email.email' => 'Please enter a valid email',
+        'phone.required' => 'Phone number is required',
+        'cv.required' => 'Please upload your CV',
+        'cv.mimes' => 'CV must be PDF or Word document',
+        'cv.max' => 'CV must be less than 5MB',
+    ];
 
-      
-        if ($this->job_slug) {
-            $slug = $this->job_slug;
-           $job = Job::whereHas('transNow', function($q) use ($slug) {
-    $q->where('slug', $slug);
-})->first();
-            if (!$job) {
-                $this->addError('job_slug', 'Job not found.');
-                return;
-            }
-            $data['job_id'] = $job->id;
-        } else {
-           
-            $this->addError('job_slug', 'Job identifier missing.');
-            return;
-        }
+    public function submit()
+{
+    $this->validate();
 
-        
-        Cv::create($data);
+    // Upload CV
+    $cvPath = $this->cv->store('cvs', 'public');
 
-        $this->reset(['name', 'email', 'phone', 'cv_file']);
-        $this->dispatchBrowserEvent('job-sent', ['message' => __('Your message has been sent successfully!')]);
-    }
+    // Save to database
+    Cv::create([
+        'job_id' => $this->jobId,
+        'name' => $this->name,
+        'email' => $this->email,
+        'phone' => $this->phone,
+        'cv_file' => $cvPath,  
+        'message' => $this->message,
+    ]);
+
+    // Reset form
+    $this->reset(['name', 'email', 'phone', 'cv', 'message']);
+
+    // Show success & close modal
+    session()->flash('success', 'Application submitted successfully!');
+    $this->dispatchBrowserEvent('close-apply-modal');
+}
+
     public function render()
     {
         return view('livewire.site.job-form');

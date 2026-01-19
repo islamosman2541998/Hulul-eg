@@ -11,13 +11,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CareerCategory extends Model
 {
     use HasFactory, Translatable, SoftDeletes;
+    
     public $translatedAttributes = [
         'title',
         'slug',
         'locale',
         'career_category_id'
     ];
+    
     protected $translationForeignKey = 'career_category_id';
+    
     protected $fillable = [
         'sort',
         'feature',
@@ -32,6 +35,12 @@ class CareerCategory extends Model
         return $this->hasMany(CareerCategoryTranslation::class, 'career_category_id');
     }
 
+    public function transNow()
+    {
+        return $this->hasOne(CareerCategoryTranslation::class, 'career_category_id')
+                    ->where('locale', app()->getLocale());
+    }
+
     public function job()
     {
         return $this->hasMany(Job::class, 'career_category_id', 'id');
@@ -42,6 +51,7 @@ class CareerCategory extends Model
     {
         return $query->where('status', 1);
     }
+    
     public function scopeFeature($query)
     {
         return $query->where('feature', 1);

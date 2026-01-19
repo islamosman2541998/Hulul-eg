@@ -1,65 +1,86 @@
-<div class="card p-4">
-
-
-    <form wire:submit.prevent="submit" class="form-wrap">
-
-
-        <div class="form-row mb-2">
-            <label class="label">@lang('home.full_name')</label>
-            <input class="input form-control" type="text" wire:model.defer="name" placeholder="@lang('home.full_name')" />
-            @error('name')
-                <div class="text-danger small">{{ $message }}</div>
-            @enderror
+<form wire:submit.prevent="submit">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+    @endif
 
-        <div class="form-row mb-2">
-            <label class="label">@lang('home.phone')</label>
-            <input class="input form-control" type="text" wire:model.defer="phone" placeholder="@lang('home.phone')" />
-            @error('phone')
-                <div class="text-danger small">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="form-row mb-2">
-            <label class="label">@lang('home.email')</label>
-            <input class="input form-control" type="email" wire:model.defer="email" placeholder="@lang('home.email')" />
-            @error('email')
-                <div class="text-danger small">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="form-row mb-2">
-            <label class="label">@lang('home.cv_file')</label>
-            <input class="input form-control" type="file" wire:model="cv_file" />
-            <div wire:loading wire:target="cv_file">Uploading...</div>
-            @error('cv_file')
-                <div class="text-danger small">{{ $message }}</div>
-            @enderror
-        </div>
-
-
-
-
-        <div class="d-grid">
-            <button class="btn btn-primary" type="submit" wire:loading.attr="disabled">
-                <span wire:loading.remove>@lang('home.send')</span>
-                <span wire:loading>... @lang('home.sending')</span>
-            </button>
-        </div>
-    </form>
-</div>
-
-<div class="position-fixed top-0 end-0 p-3" style="z-index: 1080">
-    <div id="livewireToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-body text-white rounded-2 bg-success "></div>
+    <div class="form-group">
+        <label>Full Name *</label>
+        <input 
+            wire:model.defer="name" 
+            type="text" 
+            class="form-control @error('name') is-invalid @enderror" 
+            placeholder="John Doe"
+        >
+        @error('name')
+            <span class="invalid-feedback">{{ $message }}</span>
+        @enderror
     </div>
-</div>
 
-<script>
-    window.addEventListener('job-sent', event => {
-        const toastEl = document.getElementById('livewireToast');
-        toastEl.querySelector('.toast-body').textContent = event.detail.message;
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-    });
-</script>
+    <div class="form-group">
+        <label>Email *</label>
+        <input 
+            wire:model.defer="email" 
+            type="email" 
+            class="form-control @error('email') is-invalid @enderror" 
+            placeholder="you@email.com"
+        >
+        @error('email')
+            <span class="invalid-feedback">{{ $message }}</span>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label>Phone *</label>
+        <input 
+            wire:model.defer="phone" 
+            type="tel" 
+            class="form-control @error('phone') is-invalid @enderror" 
+            placeholder="+20 1X XXX XXXX"
+        >
+        @error('phone')
+            <span class="invalid-feedback">{{ $message }}</span>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label>Upload Your CV (PDF/Doc) *</label>
+        <input 
+            wire:model="cv" 
+            type="file" 
+            class="form-control-file @error('cv') is-invalid @enderror" 
+            accept=".pdf,.doc,.docx"
+        >
+        @error('cv')
+            <span class="text-danger small">{{ $message }}</span>
+        @enderror
+        
+        <div wire:loading wire:target="cv" class="text-info small mt-1">
+            <i class="fa fa-spinner fa-spin"></i> Uploading...
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Message</label>
+        <textarea 
+            wire:model.defer="message" 
+            class="form-control" 
+            rows="3"
+            placeholder="Tell us about yourself..."
+        ></textarea>
+    </div>
+
+    <button 
+        type="submit" 
+        class="btn btn-info btn-block"
+        wire:loading.attr="disabled"
+    >
+        <span wire:loading.remove wire:target="submit">
+            <i class="fa fa-paper-plane"></i> Submit Application
+        </span>
+        <span wire:loading wire:target="submit">
+            <i class="fa fa-spinner fa-spin"></i> Submitting...
+        </span>
+    </button>
+</form>
