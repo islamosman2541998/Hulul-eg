@@ -510,6 +510,7 @@ body {
   align-items: center;
   gap: .6rem;
   padding: 12px 18px;
+  margin: 0 10px;
   border-radius: 12px;
   border: 1px solid var(--stroke);
   background: linear-gradient(135deg, var(--c1), var(--c2));

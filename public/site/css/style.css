@@ -149,6 +149,7 @@ ol {
   background: linear-gradient(135deg, #0a012b 0%, #1a1c6e 40%, #2e38a3 70%, #00d8ff 100%) !important;
   content: "";
 }
+
 [dir="rtl"] .section-title h2:after {
   position: absolute;
   right: 0;
@@ -168,6 +169,7 @@ ol {
   background: linear-gradient(135deg, #0a012b 0%, #1a1c6e 40%, #2e38a3 70%, #00d8ff 100%) !important;
   content: "";
 }
+
 [dir="rtl"] .section-title1 h2:after {
   position: absolute;
   right: 33rem;
@@ -271,8 +273,9 @@ ol {
   padding: 14px 34px 12px;
   width: 100%;
 }
+
 [dir="rtl"] .site-btn {
- margin-right: 20px !important;
+  margin-right: 20px !important;
 }
 
 /* Preloder */
@@ -441,8 +444,8 @@ ol {
   display: block;
   text-transform: uppercase;
   position: relative;
-    padding: 6px 15px;
-  }
+  padding: 6px 14px !important;
+}
 
 .header__nav__menu ul li a:after {
   position: absolute;
@@ -1031,6 +1034,7 @@ ol {
 .footer__top__social {
   text-align: right;
 }
+
 [dir="rtl"] .footer__top__social {
   text-align: left ! important;
 }
@@ -1949,10 +1953,12 @@ ol {
   border-radius: 50%;
   margin-right: 30px;
 }
+
 [dir="rtl"] .contact__widget__item__icon {
   margin-right: 0;
   /* margin-left: 30px; */
 }
+
 .contact__widget__item__icon i {
   margin-top: 20px;
   font-size: 30px;
@@ -2039,6 +2045,7 @@ ol {
   -o-transition: all, 0.3s;
   transition: all, 0.3s;
 }
+
 [dir="rtl"] .contact__form form textarea {
   margin-right: 20px !important;
 }
@@ -2081,12 +2088,13 @@ ol {
     width: 9rem;
     font-size: 0.9rem;
   }
+
   .header__actions {
- 
-  margin-right: 3rem;
+
+    margin-right: 3rem;
 
 
-}
+  }
 
   .counter__content {
     padding: 0px 145px 0 50px;
