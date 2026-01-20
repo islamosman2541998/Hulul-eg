@@ -327,4 +327,12 @@ document.querySelectorAll('.card[data-href]').forEach(card=>{
   });
 });
 
- 
+     document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.set-bg');
+    elements.forEach(function(element) {
+        const bg = element.getAttribute('data-setbg');
+        if (bg) {
+            element.style.backgroundImage = 'url(' + bg + ')';
+        }
+    });
+});
