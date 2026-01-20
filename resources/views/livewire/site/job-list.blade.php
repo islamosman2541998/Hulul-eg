@@ -5,7 +5,7 @@
             {{-- Category Filter --}}
             <div class="col-md-4">
                 <select wire:model="category" class="form-select cp-input">
-                    <option value="">All Departments</option>
+                    <option value="">@lang('job.All_Departments')</option>
                     @foreach ($categories as $cat)
                         <option value="{{ $cat->id }}">
                             {{ $cat->transNow->title ?? ($cat->title ?? 'N/A') }}
@@ -17,7 +17,7 @@
             {{-- Employment Type Filter --}}
             <div class="col-md-4">
                 <select wire:model="employmentType" class="form-select cp-input">
-                    <option value="">Any Type</option>
+                    <option value="">@lang('job.Any_Type')</option>
                     @foreach ($employmentTypes as $key => $label)
                         <option value="{{ $key }}">{{ $label }}</option>
                     @endforeach
@@ -27,7 +27,7 @@
             {{-- Search Input --}}
             <div class="col-md-4">
                 <input wire:model.debounce.300ms="search" type="text" class="form-control cp-input"
-                    placeholder="Search job title, skills…">
+                    placeholder="@lang('job.Search_by_Title')">
             </div>
         </div>
     </div>
@@ -68,12 +68,12 @@
                             <div class="d-flex gap-2 mt-3">
                                 <button wire:click="showApplyForm({{ $job->id }})" type="button"
                                     class="btn btn-info apply-btn">
-                                    <i class="fa fa-paper-plane"></i> Apply Now
+                                    <i class="fa fa-paper-plane"></i> @lang('job.apply_now')
                                 </button>
 
                                 <button wire:click="showJobDetails({{ $job->id }})" type="button"
                                     class="btn btn-outline-light job-btn jobdetailsbtn">
-                                    Job Details
+                                    @lang('job.Job_Details')
                                 </button>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                 </div>
             @empty
                 <div class="col-12 text-center py-5">
-                    <h4 class="text-muted">No jobs found matching your criteria</h4>
+                    <h4 class="text-muted">@lang('job.no_jobs')</h4>
                 </div>
             @endforelse
         </div>
@@ -95,7 +95,7 @@
         
 
         <p class="cp-foot mt-3">
-            Don't see a match? Send an open application to
+            @lang('job.For_any_questions_about_careers'),
             <a href="mailto:careers@hululeg.com" class="cp-link">careers@hululeg.com</a>.
         </p>
     </div>

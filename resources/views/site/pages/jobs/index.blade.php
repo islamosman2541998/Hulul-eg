@@ -11,11 +11,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>We are hiring</h2>
-                        <h1 class="cp-title text-white">Join the HULUL team</h1>
+                        <h2>@lang('job.We_are_hiring')</h2>
+                        <h1 class="cp-title text-white">@lang('job.Join_the_HULUL_team')</h1>
                         <p class="cp-lead">
-                            We're looking for creative minds in marketing, design, and technology 
-                            to build meaningful results together.
+                            @lang('job.We_are_looking_for')
                         </p>
                     </div>
                 </div>
@@ -27,6 +26,7 @@
     </div>
     <!-- Breadcrumb End -->
 @endsection
+
 
 
 

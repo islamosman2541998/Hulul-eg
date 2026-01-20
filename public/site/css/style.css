@@ -441,8 +441,8 @@ ol {
   display: block;
   text-transform: uppercase;
   position: relative;
-  padding: 6px 0;
-}
+    padding: 6px 15px;
+  }
 
 .header__nav__menu ul li a:after {
   position: absolute;
@@ -499,7 +499,7 @@ ol {
 .header__nav__menu ul {
   display: flex;
   align-items: center;
-  gap: 31px;
+  gap: 0px;
   margin: 0;
   padding: 0;
 }

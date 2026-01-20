@@ -61,6 +61,15 @@ return [
     'cv_file' => 'CV File',
     'send' => 'Send',
     'build_career' => 'Build Your <span>Career</span> With Tetra Pharma',
-    'show' => 'Show Job'
+    'show' => 'Show Job',
+    'We_are_hiring' => 'We are hiring',
+    'Join_the_HULUL_team' => 'Join the HULUL Team',
+    'We_are_looking_for' =>  'We are looking for creative minds in marketing, design, and technology to build meaningful results together.',
+    'All_Departments' => 'All Departments',
+    'Any_Type' => 'Any Type',
+    'Search_by_Title' => 'Search by Title',
+    'Job_Details' => 'Job Details',
+    'For_any_questions_about_careers' => 'For any questions about careers',
+
 
 ];

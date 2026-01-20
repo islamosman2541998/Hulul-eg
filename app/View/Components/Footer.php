@@ -37,14 +37,15 @@ class Footer extends Component
 
         $this->settings = SettingSingleton::getInstance();
 
-        $this->footerLinks = Menue::with('trans')->footer()->active()->get();
+        $this->footerLinks = Menue::with('trans')->orderBy('sort', 'ASC')->footer()->active()->get();
+
 
         $this->our_work = Portfolios::active()->feature()
 
             ->take(5)
             ->with('trans')
             ->get();
-            $this->facebookLink = $this->settings->getItem('facebook') ?? 'not found';
+        $this->facebookLink = $this->settings->getItem('facebook') ?? 'not found';
         $this->instagramLink = $this->settings->getItem('instagram') ?? 'not found';
         $this->tiktokLink = $this->settings->getItem('tiktok') ?? 'not found';
         $this->linkedinLink = $this->settings->getItem('linkedin') ?? 'not found';

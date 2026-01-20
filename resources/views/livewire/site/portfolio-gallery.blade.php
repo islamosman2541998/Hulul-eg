@@ -131,13 +131,13 @@
 </div>
 
     <!-- Pagination -->
-    <div class="row mt-5">
+    {{-- <div class="row mt-5">
         <div class="col-lg-12">
             <div class="pagination__option text-center">
                 {{ $portfolios->links() }}
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <style>
