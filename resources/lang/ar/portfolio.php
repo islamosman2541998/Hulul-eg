@@ -26,6 +26,7 @@ return [
     'status_changed_sucessfully'  => 'تم تغيير الحالة بنجاح',
     'delete_all_sucessfully'      => 'البورتفوليو المحذوفة بنجاح',
     'count'                       => 'العدد',
+    'link'                        => 'الرابط',
 
 ];
 

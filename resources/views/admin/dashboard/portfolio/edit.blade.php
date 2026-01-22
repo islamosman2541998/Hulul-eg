@@ -214,6 +214,19 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        {{-- link ------------------------------------------------------------------------------------- --}}
+                                                        <div class="col-12">
+                                                            <div class="row mb-3">
+                                                                <label for="example-url-input" col-form-label>
+                                                                    @lang('portfolio.link'):</label>
+                                                                <div class="col-sm-12">
+                                                                    <input class="form-control" type="url"
+                                                                        id="example-url-input" name="link"
+                                                                        value="{{ @$portfolio->link }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         {{-- feature ------------------------------------------------------------------------------------- --}}
                                                         <div class="col-12">
                                                             <label class="col-sm-12 col-form-label"

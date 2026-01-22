@@ -85,6 +85,8 @@ class PortfolioController extends Controller
 
     public function show(Portfolios $portfolio)
     {
+
+        
         return view('admin.dashboard.portfolio.show', compact('portfolio'));
     }
 

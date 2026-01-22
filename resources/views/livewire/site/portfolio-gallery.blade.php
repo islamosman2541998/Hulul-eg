@@ -30,8 +30,7 @@
             <div class="portfolio__item position-relative overflow-hidden">
                 @if ($item->image)
                     @if ($item->type == 'image')
-                        {{-- عرض الصورة --}}
-                        <a href="{{ asset($item->image) }}" 
+                        <a href="{{ $item->link ?? asset($item->image) }} " target="_blank"
                            class="work__link image-popup"
                            title="{{ $item->transNow->title ?? '' }}">
                             <img src="{{ asset($item->image) }}" 
@@ -51,7 +50,6 @@
                         </a>
 
                     @elseif($item->type == 'video')
-                        {{-- عرض الفيديو --}}
                         <div class="video-wrapper position-relative">
                             <video width="100%" 
                                    style="height: 15rem; object-fit: cover; border-radius: 1rem;" 
@@ -72,13 +70,11 @@
                         </div>
 
                     @elseif($item->type == 'pdf')
-                        {{-- عرض الـ PDF --}}
                         <a href="{{ asset($item->image) }}" 
                            class="work__link popup-iframe" 
                            target="_blank"
                            title="{{ $item->transNow->title ?? '' }}">
                             
-                            {{-- Preview للـ PDF (أيقونة أو صورة معاينة) --}}
                             <div class="pdf-preview d-flex align-items-center justify-content-center"
                                  style="height: 15rem; background: #f8f9fa; border-radius: 1rem;">
                                 <i class="fas fa-file-pdf fa-5x text-danger"></i>
@@ -97,7 +93,6 @@
                         </a>
 
                     @else
-                        {{-- لو في نوع تاني أو external link --}}
                         <a href="{{ $item->link ?? '#' }}" 
                            class="work__link external-link" 
                            target="_blank"
@@ -130,14 +125,7 @@
     @endforelse
 </div>
 
-    <!-- Pagination -->
-    {{-- <div class="row mt-5">
-        <div class="col-lg-12">
-            <div class="pagination__option text-center">
-                {{ $portfolios->links() }}
-            </div>
-        </div>
-    </div> --}}
+
 </div>
 
 <style>

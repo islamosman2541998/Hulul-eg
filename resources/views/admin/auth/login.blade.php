@@ -10,13 +10,6 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ admin_path('images/logos/icon-light.png') }}">
 
-    {{-- @if ($current_lang == 'ar')
-        @vite(['resources/assets/admin/css/app-rtl.js'])
-    @else
-        @vite(['resources/assets/admin/css/app.js'])
-    @endif --}}
-
-
     <!-- App Css-->
     @if ($current_lang == 'ar')
         <link href="{{ asset('assets/css/bootstrap-rtl.min.css') }}" id="bootstrap-style" rel="stylesheet"
