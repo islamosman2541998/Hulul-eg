@@ -81,7 +81,7 @@ protected function prepareForValidation()
        
 
         if (request()->isMethod('POST')) {
-            $arr['image'] = 'required|' . ImageValidate();
+            $arr['image'] = 'nullable|' . ImageValidate();
         }
 
         return $arr;
