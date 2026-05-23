@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         $products = Product::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(3)->get();
         $categoryProducts = ProductCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
-        $servicesCategories = ServiceCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
+        $servicesCategories = ServiceCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(4)->get();
         $statistics = Statistic::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
 
         $page_name = 'home';
