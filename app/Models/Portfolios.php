@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
+use App\Models\GalleryGroup;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -69,4 +70,22 @@ public function transNow()
     {
         return $query->where('feature', 1);
     }
+    public function galleryGroup()
+{
+    return $this->hasOne(GalleryGroup::class, 'foreign_key')->where('type', 2);
+}
+
+public function path()
+{
+    return "/attachments/portfolio/";
+}
+
+public function pathInView()
+{
+    if (file_exists(public_path($this->image)) && $this->image) {
+        return $this->image;
+    }
+
+    return '/attachments/no_image/no_image.png';
+}
 }

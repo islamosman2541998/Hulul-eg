@@ -46,10 +46,10 @@ class PortfolioRequest extends FormRequest
             $req += [$locale . '.meta_description' => 'nullable'];
             $req += [$locale . '.meta_key' => 'nullable'];
         }
-       $this->isMethod('POST') ?
-    $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:20480']
-    :
-    $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:20480'];
+        $this->isMethod('POST') ?
+            $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:20480']
+            :
+            $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:20480'];
         $req += ['tag_id' => 'required'];
         $req += ['link' => 'nullable'];
         $req += ['status' => 'nullable'];
@@ -58,6 +58,18 @@ class PortfolioRequest extends FormRequest
         $req += ['feature' => 'nullable'];
         $req += ['updated_by' => 'nullable'];
         $req += ['created_by' => 'nullable'];
+        $req += ['gallery' => 'nullable|array'];
+        $req += ['gallery.type' => 'nullable'];
+        $req += ['gallery.ar.title' => 'nullable'];
+        $req += ['gallery.en.title' => 'nullable'];
+
+        $req += ['gallery_image' => 'nullable|array'];
+        $req += ['gallery_image.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg|max:20480'];
+
+        $req += ['gallery_sort' => 'nullable|array'];
+        $req += ['gallery_sort.*' => 'nullable|integer|min:0'];
+
+        $req += ['gallery_feature' => 'nullable|array'];
 
         return $req;
     }

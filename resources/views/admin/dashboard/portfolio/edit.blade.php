@@ -184,15 +184,23 @@
                                                                 <div class="col-sm-12">
                                                                     <select class="form-select form-select-sm select2"
                                                                         name="type">
-                                                                        <option value="" selected disabled>
-                                                                            {{ trans('admin.type') }}</option>
-                                                                        <option value="image">
+                                                                        <option value="" disabled
+                                                                            {{ old('type', $portfolio->type) == '' ? 'selected' : '' }}>
+                                                                            {{ trans('admin.type') }}
+                                                                        </option>
+
+                                                                        <option value="image"
+                                                                            {{ old('type', $portfolio->type) == 'image' ? 'selected' : '' }}>
                                                                             {{ trans('admin.image') }}
                                                                         </option>
-                                                                        <option value="video">
+
+                                                                        <option value="video"
+                                                                            {{ old('type', $portfolio->type) == 'video' ? 'selected' : '' }}>
                                                                             {{ trans('admin.video') }}
                                                                         </option>
-                                                                        <option value="pdf">
+
+                                                                        <option value="pdf"
+                                                                            {{ old('type', $portfolio->type) == 'pdf' ? 'selected' : '' }}>
                                                                             {{ trans('admin.pdf') }}
                                                                         </option>
                                                                     </select>
@@ -264,6 +272,85 @@
 
                                     </div>
 
+                                    @if ($portfolio->galleryGroup && $portfolio->galleryGroup->images && $portfolio->galleryGroup->images->count())
+                                        <div class="accordion mt-4 mb-4 bg-danger" id="accordionPortfolioGalleryOld">
+                                            <div class="accordion-item border rounded">
+                                                <h2 class="accordion-header" id="headingPortfolioGalleryOld">
+                                                    <button class="accordion-button fw-medium" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapsePortfolioGalleryOld" aria-expanded="true"
+                                                        aria-controls="collapsePortfolioGalleryOld">
+                                                        @lang('admin.current_gallerys')
+                                                    </button>
+                                                </h2>
+
+                                                <div id="collapsePortfolioGalleryOld"
+                                                    class="accordion-collapse collapse show mt-3"
+                                                    aria-labelledby="headingPortfolioGalleryOld"
+                                                    data-bs-parent="#accordionPortfolioGalleryOld">
+                                                    <div class="accordion-body">
+                                                        <div class="row">
+                                                            @foreach ($portfolio->galleryGroup->images as $image)
+                                                                <div class="col-md-4 p-3">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                            <img src="{{ asset($image->pathInView('portfolios')) }}"
+                                                                                style="width: 100%; height: 120px; object-fit: cover;">
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <h6>@lang('admin.sort'): {{ $image->sort }}
+                                                                            </h6>
+
+                                                                            <a class="btn btn-danger btn-sm"
+                                                                                href="{{ \LaravelLocalization::localizeURL(route('admin.portfolio.destroy_portfolio_gallery_image', $image->id)) }}">
+                                                                                <i class="fa fa-trash"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="accordion mt-4 mb-4 bg-danger" id="accordionPortfolioGallery">
+                                        <div class="accordion-item border rounded">
+                                            <h2 class="accordion-header" id="headingPortfolioGallery">
+                                                <button class="accordion-button fw-medium collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapsePortfolioGallery"
+                                                    aria-expanded="false" aria-controls="collapsePortfolioGallery">
+                                                    @lang('admin.update_gallerys')
+                                                </button>
+                                            </h2>
+
+                                            <div id="collapsePortfolioGallery" class="accordion-collapse collapse mt-3"
+                                                aria-labelledby="headingPortfolioGallery"
+                                                data-bs-parent="#accordionPortfolioGallery">
+                                                <div class="accordion-body">
+                                                    <input type="hidden" class="form-control" value="2"
+                                                        name="gallery[type]">
+
+                                                    @foreach (config('translatable.locales') as $lang)
+                                                        <div class="mb-3">
+                                                            <label>@lang('admin.group_title_' . $lang)</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $portfolio->galleryGroup?->translate($lang)?->title }}"
+                                                                name="gallery[{{ $lang }}][title]">
+                                                        </div>
+                                                    @endforeach
+
+                                                    <div id="images_section"></div>
+
+                                                    <button type="button" class="btn btn-success form-control mt-3"
+                                                        id="add_images_section">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {{-- Butoooons ------------------------------------------------------------------------- --}}
                                     <div class="row mb-3 text-end">
                                         <div>
@@ -290,4 +377,40 @@
 @section('style')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        let imageIndex = 0;
+
+        $(document).on('click', '#add_images_section', function() {
+            imageIndex++;
+
+            $('#images_section').append(`
+            <div class="card mt-3 gallery-row">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label>@lang('admin.image')</label>
+                        <input type="file" name="gallery_image[]" class="form-control" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@lang('admin.sort')</label>
+                        <input type="number" name="gallery_sort[]" class="form-control" value="0">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>@lang('admin.feature')</label>
+                        <input type="checkbox" name="gallery_feature[${imageIndex}]" value="1">
+                    </div>
+
+                    <button type="button" class="btn btn-danger btn-sm remove-gallery-row">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `);
+        });
+
+        $(document).on('click', '.remove-gallery-row', function() {
+            $(this).closest('.gallery-row').remove();
+        });
+    </script>
 @endsection

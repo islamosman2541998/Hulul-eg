@@ -292,7 +292,8 @@ Route::group([
                 Route::get('portfolio-update-featured/{id}', [PortfolioController::class, 'update_featured'])->name('portfolio.update-featured');
                 Route::get('portfolio-update-status/{id}', [PortfolioController::class, 'update_status'])->name('portfolio.update-status');
                 Route::post('portfolio/actions', [PortfolioController::class, 'actions'])->name('portfolio.actions');
-
+Route::get('destroy_portfolio_gallery_image/{id}', [PortfolioController::class, 'destroyImage'])
+    ->name('portfolio.destroy_portfolio_gallery_image');
                 /************************** end portfolio ************************************/
                 /************************** start statistic  ************************************/
                 Route::resource('statistic', StatisticController::class);
