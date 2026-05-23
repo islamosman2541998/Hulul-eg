@@ -22,7 +22,7 @@
                                     <img src="{{ $service->pathInView()}}" class="iconImg" alt="">
                                 </div>
                                 <h4>{{ $service->transNow->title}}</h4>
-                                <p>{!! $service->description !!}</p>
+                                <p> {!! Str::limit($service->transNow->description, 200) !!}</p>
                             </div>
                         </div>
                         @empty
