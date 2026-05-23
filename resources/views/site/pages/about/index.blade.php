@@ -28,29 +28,18 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="about__pic">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="about__pic__item about__pic__item--large set-bg about3"
-                                    data-setbg="{{ asset('storage/' . $about->ceo_image) }}">
-                                    <img src="{{ asset('storage/' . $about->ceo_image) }}" alt="">
-                                </div>
+                    <div class="about__pic about-images-grid">
+                        <div class="about-big-image">
+                            <img src="{{ asset('storage/' . $about->ceo_image) }}" alt="{{ $about->title }}">
+                        </div>
+
+                        <div class="about-small-images">
+                            <div class="about-small-image">
+                                <img src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}">
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="row">
-                                    <div class="col-lg-12 mb-5">
-                                        <div class="about__pic__item set-bg about1"
-                                            data-setbg="{{ asset('storage/' . $about->image) }}">
-                                            <img src="{{ asset('storage/' . $about->image) }}" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 p-2">
-                                        <div class="about__pic__item set-bg about2"
-                                            data-setbg="{{ asset('storage/' . $about->image_background) }}">
-                                            <img src="{{ asset('storage/' . $about->image_background) }}" alt="">
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <div class="about-small-image">
+                                <img src="{{ asset('storage/' . $about->image_background) }}" alt="{{ $about->title }}">
                             </div>
                         </div>
                     </div>
@@ -71,7 +60,7 @@
         </div>
     </section>
     <!-- About Section End -->
-    
+
     <!-- Vision & Mission Section -->
     <section class="vision-mission spad">
         <div class="container">
@@ -100,13 +89,74 @@
         </div>
     </section>
 
-   
+
 
     <!-- Testimonial Section Begin -->
-   
 
-    
+
+
     <!-- Testimonial Section End -->
 
 @endsection
+<style>
+    .about-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    height: 520px;
+}
 
+.about-big-image,
+.about-small-image {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.about-big-image {
+    height: 70%;
+}
+
+.about-small-images {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    height: 70%;
+}
+
+.about-big-image img,
+.about-small-image img {
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .about-images-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .about-big-image {
+        height: 360px;
+    }
+
+    .about-small-images {
+        grid-template-rows: none;
+        grid-template-columns: 1fr 1fr;
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-small-images {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .about-small-image {
+        height: 220px;
+    }
+}
+</style>
