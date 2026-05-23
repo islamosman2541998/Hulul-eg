@@ -300,7 +300,7 @@ clearBtn.addEventListener('click', ()=>{
         introEl.textContent = data.intro;
         respEl.innerHTML = data.resp.map(i => `<li>${i}</li>`).join('');
         reqEl.innerHTML = data.req.map(i => `<li>${i}</li>`).join('');
-      } else {
+      } else {  
         metaEl.textContent = '';
         introEl.textContent = 'Details will be updated soon.';
         respEl.innerHTML = '';

@@ -19,8 +19,6 @@
                 </li>
             @endforeach
 
-
-
         </ul>
     </div>
 
@@ -38,7 +36,7 @@
                                  alt="{{ $item->transNow->title ?? '' }}"
                                  style="height: 15rem; object-fit: cover; border-radius: 1rem;">
 
-                            <div class="portfolio__item__text position-absolute bottom-0 start-0 end-0 p-3 text-white">
+                            <div class="portfolio__item__text bottom-0 start-0 end-0 p-3 text-white">
                                 <h4>{{ $item->transNow->title ?? 'No Title' }}</h4>
                                 <ul class="list-unstyled mb-0">
                                     @if ($item->tag && $item->tag->transNow)
@@ -58,7 +56,7 @@
                                 Your browser does not support the video tag.
                             </video>
 
-                            <div class="portfolio__item__text position-absolute bottom-0 start-0 end-0 p-3 text-white">
+                            <div class="portfolio__item__text  bottom-0 start-0 end-0 p-3 text-white">
                                 <h4>{{ $item->transNow->title ?? 'No Title' }}</h4>
                                 <ul class="list-unstyled mb-0">
                                     @if ($item->tag && $item->tag->transNow)
@@ -80,7 +78,7 @@
                                 <i class="fas fa-file-pdf fa-5x text-danger"></i>
                             </div>
 
-                            <div class="portfolio__item__text position-absolute bottom-0 start-0 end-0 p-3 text-white"
+                            <div class="portfolio__item__text  bottom-0 start-0 end-0 p-3 text-white"
                                  style="background: rgba(0,0,0,0.7);">
                                 <h4>{{ $item->transNow->title ?? 'No Title' }}</h4>
                                 <ul class="list-unstyled mb-0">
@@ -153,7 +151,7 @@
     }
     
     .portfolio__item__text {
-        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        /* background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); */
     }
     
     .video-wrapper video {
