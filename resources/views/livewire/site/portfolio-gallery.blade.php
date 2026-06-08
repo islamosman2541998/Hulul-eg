@@ -189,15 +189,15 @@
 
     .pagination .page-link:hover {
         background-color: #2d1060;
-        border-color: #00e5ff;
-        color: #00e5ff;
+        border-color: #242B8A;
+        color: #fff;
     }
 
     /* الصفحة الاكتيف */
     .pagination .page-item.active .page-link {
-        background-color: #00e5ff;
-        border-color: #00e5ff;
-        color: #0b001f;
+        background-color: #242B8A;
+        border-color: #242B8A;
+        color: #fff;
         font-weight: 700;
     }
 
@@ -219,7 +219,7 @@
 
     .btn-filter:hover,
     .btn-filter.active {
-        background: #007bff;
+        background: #242B8A;
         border-radius: 30px;
     }
 
