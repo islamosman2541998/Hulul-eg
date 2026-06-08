@@ -135,7 +135,6 @@
     .partner-card:hover {
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         transform: translateY(-3px);
-        border-color: #e0e0e0;
     }
 
     .partner-card img {
