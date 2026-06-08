@@ -124,7 +124,7 @@
         justify-content: center;
         background: transparent;
         border-radius: 12px;
-        padding: 20px;
+        padding: 10px;
         height: 150px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         border: 1px solid #100028;
