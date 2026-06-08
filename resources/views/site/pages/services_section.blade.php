@@ -16,6 +16,9 @@
  <!-- Call To Action Section End -->
 
  <style>
+    .callto {
+        padding-bottom: 0px !important;
+    }
      [dir="rtl"] .applicationImg {
          position: absolute !important;
          right: 41rem !important;

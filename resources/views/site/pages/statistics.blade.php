@@ -3,51 +3,106 @@
       $show_statistics = (int) $settings->getHome('show_statistics');
   @endphp
 
-  @if ($show_statistics)
-      <!-- Counter Section Begin -->
-    <section class="counter">
-        <div class="container">
-            <div class="counter__content">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="counter__item">
-                            <div class="counter__item__text">
-                                <i class="fa-solid fa-clipboard-list iconImg"></i>
-                                <h2 class="counter_num">{{ @$statistics[0]->count }}</h2>
-                                <p>{{ $statistics[0]->transNow->title }}</p>
-                            </div>
+@if ($show_statistics)
+<section class="statistics-section py-5">
+    <div class="container">
+        <div class="row g-4">
+
+            @foreach($statistics as $item)
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            @switch($loop->index)
+                                @case(0)
+                                    <i class="fa-solid fa-clipboard-list"></i>
+                                    @break
+                                @case(1)
+                                    <i class="fa-solid fa-user"></i>
+                                    @break
+                                @case(2)
+                                    <i class="fa-solid fa-hand-holding-heart"></i>
+                                    @break
+                                @default
+                                    <i class="fa-regular fa-lightbulb"></i>
+                            @endswitch
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="counter__item second__item">
-                            <div class="counter__item__text">
-                                <i class="fa-solid fa-user iconImg"></i>
-                                <h2 class="counter_num">{{ @$statistics[1]->count }}</h2>
-                                <p>{{ $statistics[1]->transNow->title }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="counter__item third__item">
-                            <div class="counter__item__text">
-                                <i class="fa-solid fa-hand-holding-heart iconImg"></i>
-                                <h2 class="counter_num">{{ @$statistics[2]->count }}</h2>
-                                <p>{{ $statistics[2]->transNow->title }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="counter__item four__item">
-                            <div class="counter__item__text">
-                                <i class="fa-regular fa-lightbulb iconImg"></i>
-                                <h2 class="counter_num">{{ @$statistics[3]->count }}</h2>
-                                <p>{{ $statistics[3]->transNow->title }}</p>
-                            </div>
-                        </div>
+
+                        <h2 class="counter_num">{{ $item->count }}</h2>
+
+                        <p>{{ $item->transNow->title }}</p>
                     </div>
                 </div>
-            </div>
+            @endforeach
+
         </div>
-    </section>
-    <!-- Counter Section End -->
-  @endif
+    </div>
+</section>
+@endif
+<style>
+    .statistics-section {
+    background: #100028;
+    padding: 100px 0;
+}
+
+.stat-card {
+    background: #1a083d;
+    border-radius: 20px;
+    padding: 40px 25px;
+    text-align: center;
+    height: 100%;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.05),
+        transparent
+    );
+}
+
+.stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.3);
+}
+
+.stat-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    color: #fff;
+    font-size: 32px;
+}
+
+.stat-card h2 {
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: rgba(255,255,255,.8);
+    font-size: 16px;
+    margin: 0;
+}
+
+@media(max-width:768px){
+    .stat-card h2{
+        font-size: 36px;
+    }
+}
+</style>
