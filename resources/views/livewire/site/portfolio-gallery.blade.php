@@ -180,7 +180,6 @@
     .pagination {
       background-color: transparent !important;
     }
-      /* الباجينيشن */
     .pagination .page-link {
         background-color: #1a083d;
         border-color: #2d1060;
@@ -193,7 +192,6 @@
         color: #fff;
     }
 
-    /* الصفحة الاكتيف */
     .pagination .page-item.active .page-link {
         background-color: #242B8A;
         border-color: #242B8A;
@@ -201,7 +199,6 @@
         font-weight: 700;
     }
 
-    /* الأسهم */
     .pagination .page-item.disabled .page-link {
         background-color: #0f0229;
         border-color: #2d1060;
