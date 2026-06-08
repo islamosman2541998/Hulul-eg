@@ -151,7 +151,7 @@
         filter: grayscale(0%);
     }
     .callto {
-        padding-bottom: 20px !important;
+    padding-bottom: 1px !important;
     }
 </style>
 
