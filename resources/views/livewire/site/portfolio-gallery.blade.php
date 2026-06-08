@@ -177,6 +177,36 @@
 </div>
 
 <style>
+    .pagination {
+      background-color: transparent !important;
+    }
+      /* الباجينيشن */
+    .pagination .page-link {
+        background-color: #1a083d;
+        border-color: #2d1060;
+        color: #fff;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #2d1060;
+        border-color: #00e5ff;
+        color: #00e5ff;
+    }
+
+    /* الصفحة الاكتيف */
+    .pagination .page-item.active .page-link {
+        background-color: #00e5ff;
+        border-color: #00e5ff;
+        color: #0b001f;
+        font-weight: 700;
+    }
+
+    /* الأسهم */
+    .pagination .page-item.disabled .page-link {
+        background-color: #0f0229;
+        border-color: #2d1060;
+        color: #6b4fa0;
+    }
     .btn-filter {
         background: transparent;
         border: none;
