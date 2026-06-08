@@ -150,6 +150,9 @@
     .partner-card:hover img {
         filter: grayscale(0%);
     }
+    .callto {
+        padding-bottom: 20px !important;
+    }
 </style>
 
 <script>
