@@ -122,7 +122,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #fff;
+        background: transparent;
         border-radius: 12px;
         padding: 20px;
         height: 150px;
