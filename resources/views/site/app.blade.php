@@ -3,6 +3,7 @@
 
 <x-site.layouts.head />
 
+@livewireStyles
 
 <body>
 
@@ -22,9 +23,9 @@
     <!-- script  -->
     @include('site.layouts.script')
     <!-- End script  -->
+    @livewireScripts
 
-    
-{!!    \App\Settings\SettingSingleton::getInstance()->getScript('footer_script') !!}
+    {!! \App\Settings\SettingSingleton::getInstance()->getScript('footer_script') !!}
 
 </body>
 

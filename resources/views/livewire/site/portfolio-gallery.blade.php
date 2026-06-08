@@ -40,7 +40,7 @@
                                     : [];
                             @endphp
                             <a href="javascript:void(0)" class="work__link"
-       onclick="openPortfolioPopup(
+                                onclick="openPortfolioPopup(
     'image',
     @js(asset($item->image)),
     @js($item->transNow->title ?? ''),
@@ -66,19 +66,19 @@
                             </a>
                         @elseif($item->type == 'video')
                             <div class="video-wrapper position-relative">
-                                   @php
-                                $galleryImages = $item->galleryGroup?->images
-                                    ? $item->galleryGroup->images
-                                        ->sortBy('sort')
-                                        ->map(function ($galleryImage) {
-                                            return asset($galleryImage->pathInView('portfolios'));
-                                        })
-                                        ->values()
-                                        ->toArray()
-                                    : [];
-                            @endphp
+                                @php
+                                    $galleryImages = $item->galleryGroup?->images
+                                        ? $item->galleryGroup->images
+                                            ->sortBy('sort')
+                                            ->map(function ($galleryImage) {
+                                                return asset($galleryImage->pathInView('portfolios'));
+                                            })
+                                            ->values()
+                                            ->toArray()
+                                        : [];
+                                @endphp
                                 <div class="video-thumb"
-      onclick="openPortfolioPopup(
+                                    onclick="openPortfolioPopup(
     'video',
     @js(asset($item->image)),
     @js($item->transNow->title ?? ''),
@@ -157,7 +157,9 @@
             </div>
         @endforelse
     </div>
-
+    <div class="d-flex justify-content-center mt-5">
+        {{ $portfolios->links() }}
+    </div>
     <div id="portfolioPopup" class="portfolio-popup">
         <div class="portfolio-popup-overlay" onclick="closePortfolioPopup()"></div>
 
@@ -356,76 +358,78 @@
         color: #111;
         transform: translateY(-2px);
     }
+
     .portfolio-slider {
-    position: relative;
-    width: 100%;
-    max-height: 78vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        position: relative;
+        width: 100%;
+        max-height: 78vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.portfolio-slide {
-    display: none;
-    width: 100%;
-    text-align: center;
-}
+    .portfolio-slide {
+        display: none;
+        width: 100%;
+        text-align: center;
+    }
 
-.portfolio-slide.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .portfolio-slide.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.portfolio-slide img {
-    max-width: 100%;
-    max-height: 78vh;
-    border-radius: 14px;
-    object-fit: contain;
-}
+    .portfolio-slide img {
+        max-width: 100%;
+        max-height: 78vh;
+        border-radius: 14px;
+        object-fit: contain;
+    }
 
-.portfolio-slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #fff;
-    color: #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 4;
-}
-
-.portfolio-slider-prev {
-    left: 16px;
-}
-
-.portfolio-slider-next {
-    right: 16px;
-}
-
-@media (max-width: 767px) {
     .portfolio-slider-btn {
-        width: 38px;
-        height: 38px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 4;
     }
 
     .portfolio-slider-prev {
-        left: 8px;
+        left: 16px;
     }
 
     .portfolio-slider-next {
-        right: 8px;
+        right: 16px;
     }
-}
+
+    @media (max-width: 767px) {
+        .portfolio-slider-btn {
+            width: 38px;
+            height: 38px;
+        }
+
+        .portfolio-slider-prev {
+            left: 8px;
+        }
+
+        .portfolio-slider-next {
+            right: 8px;
+        }
+    }
 </style>
 <script>
-    window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link', galleryImages = []) {
+    window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link',
+        galleryImages = []) {
         const popup = document.getElementById('portfolioPopup');
         const body = document.getElementById('portfolioPopupBody');
         const popupTitle = document.getElementById('portfolioPopupTitle');
