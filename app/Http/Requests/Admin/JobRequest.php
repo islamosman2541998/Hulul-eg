@@ -35,6 +35,7 @@ class JobRequest extends FormRequest
             $rules["{$locale}.title"] = 'nullable|string|max:255';
             $rules["{$locale}.short_description"] = 'nullable|string|max:500';
             $rules["{$locale}.description"] = 'nullable|string';
+            $rules["{$locale}.job_desc"] = 'nullable|string';
             $rules["{$locale}.requirements"] = 'nullable|string';
             $rules["{$locale}.slug"] = 'nullable|string|max:255';
             $rules["{$locale}.meta_title"] = 'nullable|string|max:255';

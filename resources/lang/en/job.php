@@ -70,6 +70,8 @@ return [
     'Search_by_Title' => 'Search by Title',
     'Job_Details' => 'Job Details',
     'For_any_questions_about_careers' => 'For any questions about careers',
+    'job_desc' => 'Job Description',
+    'Description' => 'Description',
 
 
 ];

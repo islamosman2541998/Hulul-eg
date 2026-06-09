@@ -600,6 +600,8 @@ return [
    'your_message_has_been_sent_successfully' => 'تم ارسال رسالتك بنجاح',
    'all' => 'الكل',
    'no_portfolios' => 'لا يوجد بورتفوليو',
+   'job_desc_in' => 'وصف الوظيفة',
+   'job_desc_ar' => 'وصف الوظيفة',
 
 
 

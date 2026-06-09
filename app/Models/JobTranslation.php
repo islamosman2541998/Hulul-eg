@@ -15,6 +15,7 @@ class JobTranslation extends Model
         'title',
         'short_description',
         'description',
+        'job_desc',
         'requirements',
         'seo_title',
         'seo_description',

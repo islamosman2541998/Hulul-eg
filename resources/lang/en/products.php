@@ -70,6 +70,7 @@ return [
     'requirements' => 'Requirements',
     'employment_type' => 'Employment Type',
     'location' => 'Location',
+    'job_desc' => 'Job Description',
  
     
 

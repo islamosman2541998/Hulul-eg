@@ -131,11 +131,17 @@
                             @endif
                         </ul>
 
-                        <h6 class="mb-2 text-white">Role Overview</h6>
+                        <h6 class="mb-2 text-white">@lang('job.Description')</h6>
                         <p>{!! $selectedJob->transNow->description ?? '' !!}</p>
 
+                         @if ($selectedJob->transNow->job_desc)
+                             <h6 class="mb-2 text-white mt-4">@lang('job.job_desc')</h6>
+                             <div>{!! $selectedJob->transNow->job_desc !!}</div>
+                         @endif
+                         
+
                         @if ($selectedJob->transNow->requirements)
-                            <h6 class="mb-2 text-white mt-4">Requirements</h6>
+                            <h6 class="mb-2 text-white mt-4">@lang('job.requirements')</h6>
                             <div>{!! $selectedJob->transNow->requirements !!}</div>
                         @endif
 

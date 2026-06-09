@@ -69,6 +69,8 @@ return [
     'Search_by_Title' => 'ابحث بالعنوان',
     'Job_Details' => 'تفاصيل الوظيفة',
     'For_any_questions_about_careers' => 'لأي استفسارات حول الوظائف',
+    'job_desc' => 'وصف الوظيفة',
+    'Description' => 'الوصف',
     
 
 

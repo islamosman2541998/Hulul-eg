@@ -584,6 +584,8 @@ return [
 'your_message_has_been_sent_successfully' => 'Your message has been sent successfully',
 'all' => 'All',
 'no_portfolios' => 'No Portfolios',
+'job_desc_in' => 'Job Description in ',
+'job_desc_ar' => 'Job Description in Arabic',
 
 
 ];

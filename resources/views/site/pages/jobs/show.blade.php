@@ -5,8 +5,10 @@
         <div class="container">
             <h2 class="section-title">{{ optional($job->translate(app()->getLocale()))->title ?? '—' }}</h2>
             <p>{!! optional($job->translate(app()->getLocale()))->description ?? '—' !!}</p>
+           
+
             <h3>@lang('job.requirements')</h3>
-            <p>{!!  optional($job->translate(app()->getLocale()))->requirements ?? '—' !!}</p>
+            <p>{!! optional($job->translate(app()->getLocale()))->requirements ?? '—' !!}</p>
             <h4>@lang('job.apply')</h4>
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -16,4 +18,3 @@
         </div>
     </section>
 @endsection
-

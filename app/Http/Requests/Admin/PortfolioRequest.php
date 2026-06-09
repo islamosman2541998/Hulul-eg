@@ -47,9 +47,9 @@ class PortfolioRequest extends FormRequest
             $req += [$locale . '.meta_key' => 'nullable'];
         }
         $this->isMethod('POST') ?
-            $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:20000480']
+            $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:90000480']
             :
-            $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:20000480'];
+            $req += ['image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:90000480'];
         $req += ['tag_id' => 'required'];
         $req += ['link' => 'nullable'];
         $req += ['status' => 'nullable'];

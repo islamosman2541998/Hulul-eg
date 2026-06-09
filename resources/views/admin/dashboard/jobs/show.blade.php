@@ -17,6 +17,9 @@
             <h5>{{ __('job.description') }}</h5>
             <div>{!! optional($job->translate(app()->getLocale()))->description !!}</div>
 
+            <h5>{{ __('job.job_desc') }}</h5>
+            <div>{!! optional($job->translate(app()->getLocale()))->job_desc !!}</div>
+
             <h5 class="mt-3">{{ __('job.requirements') }}</h5>
             <div>{!! optional($job->translate(app()->getLocale()))->requirements !!}</div>
 

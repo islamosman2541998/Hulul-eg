@@ -97,6 +97,26 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
+                                                            {{-- job_desc ------------------------------------------------------------------------------------- --}}
+                                                            <div class="row mb-3">
+                                                                <label for="example-text-input"
+                                                                    class="col-sm-2 col-form-label"> @lang('admin.job_desc_in')
+                                                                    {{ trans('lang.' . Locale::getDisplayName($locale)) }}
+                                                                </label>
+                                                                <div class="col-sm-10 mb-2">
+                                                                    <textarea id="job_desc{{ $key }}" name="{{ $locale }}[job_desc]"> {{ old($locale . '.job_desc') ?? $trans->job_desc }} </textarea>
+                                                                    <script type="text/javascript">
+                                                                        CKEDITOR.replace('job_desc{{ $key }}', {
+                                                                            filebrowserUploadUrl: "{{ route('admin.ckeditor.upload', ['_token' => csrf_token()]) }}",
+                                                                            filebrowserUploadMethod: 'form'
+                                                                        });
+                                                                    </script>
+                                                                    @if ($errors->has($locale . '.job_desc'))
+                                                                        <span
+                                                                            class="missiong-spam">{{ $errors->first($locale . '.job_desc') }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
                                                             {{-- short_description ------------------------------------------------------------------------------------- --}}
                                                             <div class="row mb-3">
                                                                 <label for="example-text-input"
