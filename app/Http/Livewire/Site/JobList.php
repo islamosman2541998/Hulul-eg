@@ -78,10 +78,7 @@ class JobList extends Component
 
         $employmentTypes = [
             'Full time' => 'Full time',
-            'Part time' => 'Part time',
-            'Internship' => 'Internship',
-            'Contract' => 'Contract',
-            'Remote' => 'Remote',
+            
         ];
 
         return view('livewire.site.job-list', compact('jobs', 'categories', 'employmentTypes'));

@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Menue;
 use App\Models\Portfolios;
+use App\Models\PortfolioTags;
 use App\Models\SettingsValues;
 use Illuminate\View\Component;
 use App\Settings\SettingSingleton;
@@ -40,7 +41,7 @@ class Footer extends Component
         $this->footerLinks = Menue::with('trans')->orderBy('sort', 'ASC')->footer()->active()->get();
 
 
-        $this->our_work = Portfolios::active()->feature()
+        $this->our_work = PortfolioTags::active()->feature()
 
             ->take(5)
             ->with('trans')
