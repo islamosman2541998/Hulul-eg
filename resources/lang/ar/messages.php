@@ -249,6 +249,70 @@ return [
     'request_service' => 'طلب خدمة',
     'Profile' => 'الملف الشخصي',
     'request_meeting' => 'طلب اجتماع',
+     'back_to_home' => 'العودة للرئيسية',
+
+    'request_service' => 'طلب خدمة',
+    'request_meeting' => 'طلب اجتماع',
+
+    'build_something_great' => 'لنبدأ في بناء شيء رائع معًا',
+    'share_project_24h' => 'شاركنا مشروعك وسيقوم فريقنا بالتواصل معك خلال 24 ساعة.',
+    'dedicated_account_manager' => 'مدير حساب مخصص',
+    'clear_timelines_pricing' => 'مواعيد واضحة وأسعار شفافة',
+    'measurable_results_support' => 'نتائج قابلة للقياس ودعم مستمر',
+
+    'full_name' => 'الاسم بالكامل',
+    'your_name' => 'اكتب اسمك',
+    'email' => 'البريد الإلكتروني',
+    'email_placeholder' => 'you@email.com',
+
+    'phone' => 'رقم الهاتف',
+    'phone_placeholder' => '+20 1X XXX XXXX',
+
+    'company' => 'الشركة',
+    'company_name' => 'اسم الشركة',
+
+    'service' => 'الخدمة',
+    'select_service' => 'اختر الخدمة',
+
+    'timeline' => 'المدة المتوقعة',
+    'flexible' => 'مرن',
+    'asap' => 'في أقرب وقت',
+    'two_four_weeks' => 'من أسبوعين إلى 4 أسابيع',
+    'one_three_months' => 'من شهر إلى 3 أشهر',
+
+    'project_brief' => 'نبذة عن المشروع',
+    'project_brief_placeholder' => 'الأهداف، الجمهور المستهدف، المراجع، المتطلبات الأساسية...',
+
+    'attach_file_optional' => 'إرفاق ملف اختياري',
+    'drag_drop' => 'اسحب الملف هنا أو',
+    'browse' => 'اختر من جهازك',
+    'uploading' => 'جاري الرفع...',
+
+    'meeting_type' => 'نوع الاجتماع',
+    'online' => 'أونلاين',
+    'phone_call' => 'مكالمة هاتفية',
+    'office_meeting' => 'اجتماع في المكتب',
+
+    'preferred_date' => 'التاريخ المفضل',
+    'preferred_time' => 'الوقت المفضل',
+
+    'message' => 'الرسالة',
+    'meeting_message_placeholder' => 'اكتب لنا ما الذي ترغب في مناقشته...',
+
+    'submit' => 'إرسال',
+    'submitting' => 'جاري الإرسال...',
+    'back' => 'رجوع',
+
+    'service_request_success' => 'تم إرسال طلب الخدمة بنجاح! سنتواصل معك خلال 24 ساعة.',
+    'meeting_request_success' => 'تم إرسال طلب الاجتماع بنجاح! سنتواصل معك قريبًا.',
+    'request_error' => 'حدث خطأ، برجاء المحاولة مرة أخرى.',
+
+    'name_required' => 'الاسم مطلوب',
+    'email_required' => 'البريد الإلكتروني مطلوب',
+    'email_invalid' => 'البريد الإلكتروني غير صحيح',
+    'service_required' => 'الخدمة مطلوبة',
+    'service_not_found' => 'الخدمة المحددة غير موجودة',
+    'attachment_max' => 'حجم الملف يجب ألا يتجاوز 10 ميجابايت',
     
     
 

@@ -257,6 +257,70 @@ return [
     'request_service' => 'Request Service',
     'Profile' => 'Profile',
     'request_meeting' => 'Request Meeting',
+     'back_to_home' => 'Back to Home',
+
+    'request_service' => 'Request Service',
+    'request_meeting' => 'Request Meeting',
+
+    'build_something_great' => "Let's build something great together",
+    'share_project_24h' => 'Share your project and our team will get back within 24 hours.',
+    'dedicated_account_manager' => 'Dedicated account manager',
+    'clear_timelines_pricing' => 'Clear timelines & transparent pricing',
+    'measurable_results_support' => 'Measurable results & on-going support',
+
+    'full_name' => 'Full name',
+    'your_name' => 'Your name',
+    'email' => 'Email',
+    'email_placeholder' => 'you@email.com',
+
+    'phone' => 'Phone',
+    'phone_placeholder' => '+20 1X XXX XXXX',
+
+    'company' => 'Company',
+    'company_name' => 'Company Name',
+
+    'service' => 'Service',
+    'select_service' => 'Select a service',
+
+    'timeline' => 'Timeline',
+    'flexible' => 'Flexible',
+    'asap' => 'ASAP',
+    'two_four_weeks' => '2–4 weeks',
+    'one_three_months' => '1–3 months',
+
+    'project_brief' => 'Project brief',
+    'project_brief_placeholder' => 'Goals, audience, references, must-haves...',
+
+    'attach_file_optional' => 'Attach file optional',
+    'drag_drop' => 'Drag & drop or',
+    'browse' => 'browse',
+    'uploading' => 'Uploading...',
+
+    'meeting_type' => 'Meeting type',
+    'online' => 'Online',
+    'phone_call' => 'Phone call',
+    'office_meeting' => 'Office meeting',
+
+    'preferred_date' => 'Preferred date',
+    'preferred_time' => 'Preferred time',
+
+    'message' => 'Message',
+    'meeting_message_placeholder' => 'Tell us what you want to discuss...',
+
+    'submit' => 'Submit',
+    'submitting' => 'Submitting...',
+    'back' => 'Back',
+
+    'service_request_success' => 'Your service request has been submitted successfully! We will contact you within 24 hours.',
+    'meeting_request_success' => 'Your meeting request has been submitted successfully! We will contact you soon.',
+    'request_error' => 'An error occurred. Please try again.',
+
+    'name_required' => 'Name is required',
+    'email_required' => 'Email is required',
+    'email_invalid' => 'Invalid email address',
+    'service_required' => 'Service is required',
+    'service_not_found' => 'Selected service does not exist',
+    'attachment_max' => 'File size must not exceed 10 MB',
     
 
 

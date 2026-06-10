@@ -31,14 +31,19 @@
                                  @foreach ($blogs as $blog)
                                      <div class="swiper-slide">
                                          <div class="blog__item latest__item">
-                                             <h4>{{ $blog->title }}</h4>
-                                             <ul>
-                                                 <li>{{ $blog->created_at->format('Y-m-d') }}</li>
-                                             </ul>
-                                             <p>{!! Str::limit($blog->description, 200) !!}</p>
-                                             <a href="{{ route('site.site.blogs.show', $blog->id) }}">
-                                                 @lang('admin.read_more') <span class="arrow_right"></span>
-                                             </a>
+                                             <img src="{{ asset($blog->pathInView()) }}" alt="{{ $blog->title }}">
+
+                                             <div class="blog-content d-flex flex-column justify-content-center align-items-center  p-3">
+                                                 <h4>{{ $blog->title }}</h4>
+                                                 <ul>
+                                                     <li>{{ $blog->created_at->format('Y-m-d') }}</li>
+                                                 </ul>
+                                                 <p>{!! Str::limit($blog->description, 100) !!}</p>
+                                                 <a href="{{ route('site.site.blogs.show', $blog->id) }}">
+                                                     @lang('admin.read_more') <span class="arrow_right"></span>
+                                                 </a>
+                                             </div>
+
                                          </div>
                                      </div>
                                  @endforeach

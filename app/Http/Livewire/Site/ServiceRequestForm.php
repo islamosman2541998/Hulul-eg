@@ -62,19 +62,18 @@ class ServiceRequestForm extends Component
         ];
     }
 
-    protected $messages = [
-        'name.required' => 'الاسم مطلوب',
-        'email.required' => 'البريد الإلكتروني مطلوب',
-        'email.email' => 'البريد الإلكتروني غير صحيح',
-        'service_category_id.required' => 'الخدمة مطلوبة',
-        'service_category_id.exists' => 'الخدمة المحددة غير موجودة',
-        'attachment.max' => 'حجم الملف يجب أن لا يتجاوز 10 ميجابايت',
+   protected $messages = [
+    'name.required' => 'messages.name_required',
+    'email.required' => 'messages.email_required',
+    'email.email' => 'messages.email_invalid',
+    'service_category_id.required' => 'messages.service_required',
+    'service_category_id.exists' => 'messages.service_not_found',
+    'attachment.max' => 'messages.attachment_max',
 
-        'meeting_name.required' => 'الاسم مطلوب',
-        'meeting_email.required' => 'البريد الإلكتروني مطلوب',
-        'meeting_email.email' => 'البريد الإلكتروني غير صحيح',
-    ];
-
+    'meeting_name.required' => 'messages.name_required',
+    'meeting_email.required' => 'messages.email_required',
+    'meeting_email.email' => 'messages.email_invalid',
+];
     public function showServiceForm()
     {
         $this->activeForm = 'service';
@@ -142,9 +141,9 @@ class ServiceRequestForm extends Component
 
             $this->goBack();
 
-            session()->flash('success', 'Your service request has been submitted successfully! We will contact you within 24 hours.');
+            session()->flash('success', __('messages.service_request_success'));
         } catch (\Exception $e) {
-            session()->flash('error', 'An error occurred. Please try again.');
+            session()->flash('error', __('messages.request_error'));
         }
     }
 
@@ -168,9 +167,9 @@ class ServiceRequestForm extends Component
 
             $this->goBack();
 
-            session()->flash('success', 'Your meeting request has been submitted successfully! We will contact you soon.');
+            session()->flash('success', __('messages.meeting_request_success'));
         } catch (\Exception $e) {
-            session()->flash('error', 'An error occurred. Please try again.');
+            session()->flash('error', __('messages.request_error'));
         }
     }
 
