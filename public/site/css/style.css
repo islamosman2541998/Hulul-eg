@@ -1590,11 +1590,11 @@ ol {
   color: #ffffff;
   font-weight: 700;
   line-height: 31px;
-  margin-bottom: 18px;
+  /* margin-bottom: 18px; */
 }
 
 .blog__item ul {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .blog__item ul li {
@@ -1625,7 +1625,7 @@ ol {
 .blog__item p {
   font-weight: 300;
   line-height: 29px;
-  margin-bottom: 22px;
+  /* margin-bottom: 22px; */
 }
 
 .blog__item a {
