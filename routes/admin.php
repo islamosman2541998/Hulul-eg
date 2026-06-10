@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\ServiceRequestController;
 use App\Http\Controllers\Admin\HomeSettingPageController;
 use App\Http\Controllers\Admin\MainPageGalleryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\MeetingRequestController;
 use App\Http\Controllers\Admin\ServiceCategoryController;
 use App\Http\Controllers\Admin\WhatsAppContactController;
 use App\Http\Controllers\Admin\ShowInCartProductController;
@@ -161,7 +162,11 @@ Route::group([
                 // ----- subscribes -----------------------------------------------
                 Route::resource('subscribes', SubscribesController::class);
                 //--------------- End subscribes ---------------------------------
+Route::get('meeting-requests', [MeetingRequestController::class, 'index'])
+    ->name('meeting_request.index');
 
+Route::delete('meeting-requests/{meetingRequest}', [MeetingRequestController::class, 'destroy'])
+    ->name('meeting_request.destroy');
                 // ----- Jobs -----------------------------------------------
                 Route::resource('jobs', App\Http\Controllers\Admin\JobController::class);
                 Route::get('jobs/{job}/toggle-status', [App\Http\Controllers\Admin\JobController::class, 'toggleStatus'])->name('jobs.toggle-status');

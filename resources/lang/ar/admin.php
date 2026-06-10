@@ -602,6 +602,8 @@ return [
    'no_portfolios' => 'لا يوجد بورتفوليو',
    'job_desc_in' => 'وصف الوظيفة',
    'job_desc_ar' => 'وصف الوظيفة',
+   'meetingRequests' => 'طلبات الاجتماعات',
+   
 
 
 

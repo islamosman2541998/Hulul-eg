@@ -480,6 +480,11 @@
                         <i class="fas fa-comment"></i>
                         @lang('admin.serviceRequest')</a></li>
                 {{--         service_request             --}}
+                {{--         meeting_requests             --}}
+                <li><a href="{{ route('admin.meeting_request.index') }}">
+                        <i class="fas fa-calendar-alt"></i>
+                        @lang('admin.meetingRequests')</a></li>
+                {{--         meeting_requests             --}}
 
                 <li><a href="{{ route('admin.cvs.index') }}">
                         <i class="fas fa-id-card"></i>

@@ -5,13 +5,17 @@ namespace App\Http\Livewire\Site;
 use Livewire\Component;
 use App\Models\ServiceRequest;
 use App\Models\ServiceCategory;
+use App\Models\MeetingRequest;
 use Livewire\WithFileUploads;
 
 class ServiceRequestForm extends Component
 {
     use WithFileUploads;
 
-    // Form fields
+    public $activeForm = 'service'; // service / meeting
+    // null / service / meeting
+
+    // Service form fields
     public $name;
     public $email;
     public $phone;
@@ -21,20 +25,42 @@ class ServiceRequestForm extends Component
     public $message;
     public $attachment;
 
-    // UI state
-    public $showForm = false;
+    // Meeting form fields
+    public $meeting_name;
+    public $meeting_email;
+    public $meeting_phone;
+    public $meeting_company;
+    public $meeting_type = 'Online';
+    public $preferred_date;
+    public $preferred_time;
+    public $meeting_message;
 
-    // Validation rules
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'phone' => 'nullable|string|max:20',
-        'company' => 'nullable|string|max:255',
-        'service_category_id' => 'required|exists:service_categories,id',
-        'timeline' => 'nullable|string',
-        'message' => 'nullable|string',
-        'attachment' => 'nullable|file|max:10240', // 10MB max
-    ];
+    protected function rules()
+    {
+        if ($this->activeForm === 'meeting') {
+            return [
+                'meeting_name' => 'required|string|max:255',
+                'meeting_email' => 'required|email|max:255',
+                'meeting_phone' => 'nullable|string|max:20',
+                'meeting_company' => 'nullable|string|max:255',
+                'meeting_type' => 'nullable|string|max:255',
+                'preferred_date' => 'nullable|date',
+                'preferred_time' => 'nullable',
+                'meeting_message' => 'nullable|string',
+            ];
+        }
+
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'company' => 'nullable|string|max:255',
+            'service_category_id' => 'required|exists:service_categories,id',
+            'timeline' => 'nullable|string',
+            'message' => 'nullable|string',
+            'attachment' => 'nullable|file|max:10240',
+        ];
+    }
 
     protected $messages = [
         'name.required' => 'الاسم مطلوب',
@@ -43,22 +69,56 @@ class ServiceRequestForm extends Component
         'service_category_id.required' => 'الخدمة مطلوبة',
         'service_category_id.exists' => 'الخدمة المحددة غير موجودة',
         'attachment.max' => 'حجم الملف يجب أن لا يتجاوز 10 ميجابايت',
+
+        'meeting_name.required' => 'الاسم مطلوب',
+        'meeting_email.required' => 'البريد الإلكتروني مطلوب',
+        'meeting_email.email' => 'البريد الإلكتروني غير صحيح',
     ];
 
-    public function startRequest()
+    public function showServiceForm()
     {
-        $this->showForm = true;
-    }
-
-    public function goBack()
-    {
-        $this->showForm = false;
-        $this->reset(['name', 'email', 'phone', 'company', 'service_category_id', 'timeline', 'message', 'attachment']);
+        $this->activeForm = 'service';
         $this->resetValidation();
     }
 
-    public function submit()
+    public function showMeetingForm()
     {
+        $this->activeForm = 'meeting';
+        $this->resetValidation();
+    }
+
+   public function goBack()
+{
+    $this->activeForm = 'service';
+
+    $this->reset([
+        'name',
+        'email',
+        'phone',
+        'company',
+        'service_category_id',
+        'timeline',
+        'message',
+        'attachment',
+        'meeting_name',
+        'meeting_email',
+        'meeting_phone',
+        'meeting_company',
+        'meeting_type',
+        'preferred_date',
+        'preferred_time',
+        'meeting_message',
+    ]);
+
+    $this->timeline = 'Flexible';
+    $this->meeting_type = 'Online';
+
+    $this->resetValidation();
+}
+
+    public function submitService()
+    {
+        $this->activeForm = 'service';
         $this->validate();
 
         try {
@@ -72,7 +132,6 @@ class ServiceRequestForm extends Component
                 'message' => $this->message,
             ];
 
-            // Handle file upload
             if ($this->attachment) {
                 $filename = time() . '_' . $this->attachment->getClientOriginalName();
                 $this->attachment->storeAs('service_requests', $filename, 'public');
@@ -81,15 +140,35 @@ class ServiceRequestForm extends Component
 
             ServiceRequest::create($data);
 
-            // Reset form and show success message
-            $this->reset(['name', 'email', 'phone', 'company', 'service_category_id', 'timeline', 'message', 'attachment']);
-            $this->showForm = false;
+            $this->goBack();
 
-            session()->flash('success', 'Your request has been submitted successfully! We will contact you within 24 hours.');
+            session()->flash('success', 'Your service request has been submitted successfully! We will contact you within 24 hours.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred. Please try again.');
+        }
+    }
 
-            // Dispatch browser event for additional feedback
-            $this->dispatch('request-submitted');
+    public function submitMeeting()
+    {
+        $this->activeForm = 'meeting';
+        $this->validate();
 
+        try {
+            MeetingRequest::create([
+                'name' => $this->meeting_name,
+                'email' => $this->meeting_email,
+                'phone' => $this->meeting_phone,
+                'company' => $this->meeting_company,
+                'meeting_type' => $this->meeting_type,
+                'preferred_date' => $this->preferred_date,
+                'preferred_time' => $this->preferred_time,
+                'message' => $this->meeting_message,
+                'status' => 'new',
+            ]);
+
+            $this->goBack();
+
+            session()->flash('success', 'Your meeting request has been submitted successfully! We will contact you soon.');
         } catch (\Exception $e) {
             session()->flash('error', 'An error occurred. Please try again.');
         }
@@ -102,7 +181,7 @@ class ServiceRequestForm extends Component
             ->get();
 
         return view('livewire.site.service-request-form', [
-            'serviceCategories' => $serviceCategories
+            'serviceCategories' => $serviceCategories,
         ]);
     }
 }
