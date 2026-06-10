@@ -26,4 +26,7 @@
          height: 22rem !important;
          width: auto;
      }
+     [dir="rtl"] .callto {
+         height: 289px !important;
+     }
  </style>
