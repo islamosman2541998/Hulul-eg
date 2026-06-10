@@ -7,7 +7,7 @@
                  <div class="callto__text">
                      <h2> {{ $services_section->transNow->title }}</h2>
                      <p>{!! $services_section->transNow->description !!}</p>
-                     <a class="btn" href="{{ route('site.services.index') }}">@lang('home.Services')</a>
+                     <a class="btn" href="{{ route('site.service_request.index') }}">@lang('messages.request_service')</a>
                  </div>
              </div>
          </div>

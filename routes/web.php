@@ -57,7 +57,7 @@ Route::group([
     Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('site.blogs.show');
 
     Route::get('/news', [NewController::class, 'index'])->name('news.index');
-    Route::get('/news', [NewController::class, 'maya'])->name('news.maya');
+    // Route::get('/news', [NewController::class, 'maya'])->name('news.maya');
     Route::get('/news/{news}', [NewController::class, 'show'])->name('news.show');
 
 

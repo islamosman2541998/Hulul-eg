@@ -248,6 +248,7 @@ return [
     'no_products' => 'لا توجد منتجات',
     'request_service' => 'طلب خدمة',
     'Profile' => 'الملف الشخصي',
+    'request_meeting' => 'طلب اجتماع',
     
     
 

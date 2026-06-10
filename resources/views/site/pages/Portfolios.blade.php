@@ -3,7 +3,7 @@
 <section class="work">
     <div class="work__gallery">
         <div class="grid-sizer"></div>
-        <a href="./portfolio.html">
+        <a href="{{ route('site.portfolio.index') }}">
             <div class="work__item wide__item" style="background: url('{{ asset($portfolios[6]->image) }}') center/cover no-repeat;">
                 <div class="work__item__hover">
                     <h4>{{ @$portfolios[6]->title }}</h4>

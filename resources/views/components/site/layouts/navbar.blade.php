@@ -34,7 +34,7 @@
                             <div class="header__actions ">
                                 <a href="{{ route('site.service_request.index') }}" class="btn request-btn "
                                     id="startBtn">
-                                    <i class="fa-regular fa-pen-to-square "></i> @lang('messages.request_service')
+                                    <i class="fa-regular fa-pen-to-square "></i> @lang('messages.request_meeting')
                                 </a>
                             </div>
                             <div class="lang-switch d-flex align-items-center ms-lg-3">
