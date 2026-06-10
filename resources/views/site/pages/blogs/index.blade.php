@@ -41,7 +41,7 @@
                                 <h4>{{ $blog->title }} </h4>
                               
                                 <p>
-                                    {!! Str::limit($blog->description, 100) !!}
+                                    {!! Str::limit($blog->description, 50) !!}
                                 </p>  <ul>
                                     <li>{{ $blog->created_at->format('M d, Y') }}</li>
                                 </ul>
