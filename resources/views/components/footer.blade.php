@@ -31,8 +31,7 @@
                        <div class="footer__option__item">
                            <h5>@lang('about.about_us')</h5>
                            <p>{{ $settings->getItem('footer_description') }}</p>
-                           <a href="{{ route('site.about-us') }}" class="read__more">@lang('admin.read_more') <span
-                                   class="arrow_right"></span></a>
+                           <a href="{{ route('site.about-us') }}" class="read__more">@lang('admin.read_more')</a>
                        </div>
                    </div>
                    <div class="col-lg-2 col-md-3 col-sm-3">

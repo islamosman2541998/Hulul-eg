@@ -47,9 +47,13 @@
     main p {
         color: #fff !important;
     }
-</style>
-<style>
+
     .hero{
         margin-top: 70px !important;
     }
+    
+     i {
+        margin-top: 13px !important;
+    }
+
 </style>
