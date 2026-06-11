@@ -1588,8 +1588,10 @@ ol {
 
 .blog__item h4 {
   color: #ffffff;
-  font-weight: 700;
+  /* font-weight: 700; */
   line-height: 31px;
+    font-size: 19px;
+
   /* margin-bottom: 18px; */
 }
 
