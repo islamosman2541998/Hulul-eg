@@ -32,7 +32,7 @@
             <div class="row">
 
                 @forelse ($blogs as $key =>$blog)
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-1">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
                         <div class="blog__item latest__item">
 
                             <img src="{{ asset($blog->pathInView()) }}" alt="{{ $blog->title }}">
