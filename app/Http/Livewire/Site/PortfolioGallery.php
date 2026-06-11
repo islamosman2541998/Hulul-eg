@@ -36,14 +36,13 @@ class PortfolioGallery extends Component
         ->orderBy('sort')
         ->get();
 
-    $query = Portfolios::active()
-        ->with([
-            'tag.transNow',
-            'transNow',
-            'galleryGroup.images' 
-        ])
-        ->orderBy('sort', 'ASC')
-        ->orderBy('id', 'DESC');
+   $query = Portfolios::active()
+    ->with([
+        'tag.transNow',
+        'transNow',
+        'galleryGroup.images'
+    ])
+    ->inRandomOrder();
 
     if ($this->activeTag !== 'all') {
         $tag = PortfolioTags::whereHas('trans', function ($q) {
