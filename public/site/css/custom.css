@@ -114,7 +114,8 @@
 .vision-mission {
   background: #100028;
   color: #fff;
-  margin-top: -9rem;
+  /* margin-top: -9rem; */
+  padding: 0!important;
 
 }
 
@@ -734,7 +735,7 @@ textarea {
 
 /* Job card */
 .careers-page .cp-job {
-  background: linear-gradient(180deg, var(--panel), var(--panel2));
+  /* background: linear-gradient(180deg, var(--panel), var(--panel2)); */
   border: 1px solid var(--stroke);
   border-radius: var(--radius);
   padding: 18px;

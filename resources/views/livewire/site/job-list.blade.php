@@ -94,10 +94,10 @@
 
         
 
-        <p class="cp-foot mt-3">
+        {{-- <p class="cp-foot mt-3">
             @lang('job.For_any_questions_about_careers'),
             <a href="mailto:careers@hululeg.com" class="cp-link">careers@hululeg.com</a>.
-        </p>
+        </p> --}}
     </div>
 
 </section>

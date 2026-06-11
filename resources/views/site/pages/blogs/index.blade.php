@@ -73,3 +73,8 @@
 
 
 @endsection
+<style>
+     i {
+        margin-top: 13px !important;
+    }
+</style>

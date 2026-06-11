@@ -1019,7 +1019,7 @@ ol {
 }
 
 .footer__top {
-  padding: 30px 0;
+  padding: 13px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1057,8 +1057,8 @@ ol {
 }
 
 .footer__option {
-  padding-bottom: 35px;
-  padding-top: 75px;
+  /* padding-bottom: 15px; */
+  padding-top: 11px;
 }
 
 .footer__option__item {
@@ -1068,7 +1068,7 @@ ol {
 .footer__option__item h5 {
   color: #ffffff;
   font-weight: 700;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 }
 
 .footer__option__item p {
@@ -1151,7 +1151,7 @@ ol {
 
 .footer__copyright {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 30px 0;
+  padding: 5px 0;
 }
 
 .footer__copyright__text {
@@ -1211,7 +1211,7 @@ ol {
 -----------------------*/
 .about {
   background: #100028;
-  padding-bottom: 150px;
+  /* padding-bottom: 150px; */
 }
 
 .about__pic__item {

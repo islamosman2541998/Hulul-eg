@@ -44,6 +44,9 @@
     .blog-page{
         margin-top: 140px;
     }
+    main p {
+        color: #fff !important;
+    }
 </style>
 <style>
     .hero{

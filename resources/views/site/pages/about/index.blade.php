@@ -99,67 +99,69 @@
 
 @endsection
 <style>
+  
+
     i {
         margin-top: 13px !important;
     }
     .about-images-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    height: 520px;
-}
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        height: 520px;
+    }
 
-.about-big-image,
-.about-small-image {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 14px;
-}
-
-.about-big-image {
-    height: 70%;
-}
-
-.about-small-images {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 16px;
-    height: 70%;
-}
-
-.about-big-image img,
-.about-small-image img {
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Responsive */
-@media (max-width: 767px) {
-    .about-images-grid {
-        grid-template-columns: 1fr;
-        height: auto;
+    .about-big-image,
+    .about-small-image {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 14px;
     }
 
     .about-big-image {
-        height: 360px;
+        height: 70%;
     }
 
     .about-small-images {
-        grid-template-rows: none;
-        grid-template-columns: 1fr 1fr;
-        height: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    .about-small-images {
-        grid-template-columns: 1fr;
-        height: auto;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 16px;
+        height: 70%;
     }
 
-    .about-small-image {
-        height: 220px;
+    .about-big-image img,
+    .about-small-image img {
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
-}
+
+    /* Responsive */
+    @media (max-width: 767px) {
+        .about-images-grid {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+
+        .about-big-image {
+            height: 360px;
+        }
+
+        .about-small-images {
+            grid-template-rows: none;
+            grid-template-columns: 1fr 1fr;
+            height: 180px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .about-small-images {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+
+        .about-small-image {
+            height: 220px;
+        }
+    }
 </style>

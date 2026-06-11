@@ -5,7 +5,7 @@
 
    <!-- Footer Section Begin -->
    <footer class="footer">
-       <div class="container">
+       <div class="container footer-container">
            <div class="footer__top">
                <div class="row">
                    <div class="col-lg-6 col-md-6">
@@ -108,3 +108,8 @@
        </div>
    </footer>
    <!-- Footer Section End -->
+<style>
+    .footer-container {
+        padding: 0px !important;
+    }
+</style>
