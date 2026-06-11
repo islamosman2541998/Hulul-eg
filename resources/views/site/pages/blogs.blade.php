@@ -36,7 +36,7 @@
                                              <div class="blog-content d-flex flex-column justify-content-center align-items-center  p-3">
                                                  <h4>{{ $blog->title }}</h4>
                                                  
-                                                 <p>{!! Str::limit($blog->description, 100) !!}</p>
+                                                 <p>{!! Str::limit($blog->description, 70) !!}</p>
                                                  <ul>
                                                      <li>{{ $blog->created_at->format('Y-m-d') }}</li>
                                                  </ul>
