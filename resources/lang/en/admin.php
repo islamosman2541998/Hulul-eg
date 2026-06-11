@@ -586,7 +586,6 @@ return [
 'no_portfolios' => 'No Portfolios',
 'job_desc_in' => 'Job Description in ',
 'job_desc_ar' => 'Job Description in Arabic',
-'meetingRequests' => 'Meeting Requests',
 
 
 ];
