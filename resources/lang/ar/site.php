@@ -55,7 +55,7 @@ return [
     'view_all_blogs'       => 'مشاهدة كل المقالات',
     'view_all_faq_questions'       => 'مشاهدة كل الاسئلة الشائعة',
     'our_portfolio'       => 'مشاريعنا',
-    'all_right_reserved' => 'جميع الحقوق محفوظة لوكالة حلول ميديا',
+    'all_right_reserved' => 'جميع الحقوق محفوظة  حلول مصر',
     
     
     
