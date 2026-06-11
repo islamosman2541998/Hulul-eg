@@ -23,7 +23,7 @@ return [
     'our_services'      => 'Our Services',
     'copyright'         => 'Copyright',
     'designed_by'       => 'Designed by',
-    'all_right_reserved' => 'All Rights Reserved',
+   
     'your_name'         => 'Your Name',
     'your_email'         => 'Your Email',
     'subject'           => 'Subject',
@@ -55,5 +55,6 @@ return [
     'view_all_blogs'    => 'View All Blogs',
     'view_all_faq_questions'       => 'View All FAQ Questions',
     'our_portfolio'     => 'Our Portfolio',
+    'all_right_reserved' => 'All Rights Reserved For Hulul Media Agency',
     
 ];

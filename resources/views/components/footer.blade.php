@@ -93,10 +93,11 @@
                    <div class="col-lg-12 text-center">
                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                        <p class="footer__copyright__text">@lang('site.copyright') &copy;
-                           <script>
+                         
+                           @lang('site.all_right_reserved')
+                             <script>
                                document.write(new Date().getFullYear());
                            </script>
-                           @lang('site.all_right_reserved')
                            <!-- <i class="fa fa-heart-o"
                                 aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
                        </p>

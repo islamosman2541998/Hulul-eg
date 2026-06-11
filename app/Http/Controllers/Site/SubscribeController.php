@@ -14,6 +14,7 @@ class SubscribeController extends Controller
             'email' => 'required|email|unique:subscribes,email',
         ]);
 
+
         try {
             Subscribe::create([
                 'email' => $request->email,

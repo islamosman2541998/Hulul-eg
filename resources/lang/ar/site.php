@@ -24,7 +24,7 @@ return [
     'our_services'      => 'خدماتنا',
     'copyright'         => 'حقوق النشر',
     'designed_by'       => 'صمم بواسطة',
-    'all_right_reserved' => 'كل الحقوق محفوظة',
+    
     'your_name'         => 'الاسم',
     'your_email'         => 'البريد الإلكتروني',
     'subject'           => 'الموضوع',
@@ -55,6 +55,7 @@ return [
     'view_all_blogs'       => 'مشاهدة كل المقالات',
     'view_all_faq_questions'       => 'مشاهدة كل الاسئلة الشائعة',
     'our_portfolio'       => 'مشاريعنا',
+    'all_right_reserved' => 'جميع الحقوق محفوظة لوكالة حلول ميديا',
     
     
     
