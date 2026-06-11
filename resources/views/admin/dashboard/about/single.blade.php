@@ -105,7 +105,7 @@
                     <div class="card p-3">
                         <h5>@lang('admin.settings')</h5>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label">@lang('about.image1')</label>
                             @if ($about->ceo_image)
                                 <div class="mb-2">
@@ -114,7 +114,7 @@
                                 </div>
                             @endif
                             <input type="file" name="ceo_image" class="form-control" accept="ceo_image/*">
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label class="form-label">@lang('about.image2')</label>
                             @if ($about->image)
@@ -126,7 +126,7 @@
                             <input type="file" name="image" class="form-control" accept="image/*">
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label">@lang('about.image3')</label>
                             @if ($about->image_background)
                                 <div class="mb-2">
@@ -135,7 +135,7 @@
                                 </div>
                             @endif
                             <input type="file" name="image_background" class="form-control" accept="image/*">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="row mb-3 text-end">

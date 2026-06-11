@@ -28,19 +28,19 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="about__pic about-images-grid">
-                        <div class="about-big-image">
+                    <div class="">
+                        {{-- <div class="about-big-image">
                             <img src="{{ asset('storage/' . $about->ceo_image) }}" alt="{{ $about->title }}">
-                        </div>
+                        </div> --}}
 
-                        <div class="about-small-images">
+                        <div class="">
                             <div class="about-small-image">
                                 <img src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}">
                             </div>
 
-                            <div class="about-small-image">
+                            {{-- <div class="about-small-image">
                                 <img src="{{ asset('storage/' . $about->image_background) }}" alt="{{ $about->title }}">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
