@@ -74,7 +74,50 @@ public function transNow()
 {
     return $this->hasOne(GalleryGroup::class, 'foreign_key')->where('type', 2);
 }
+public function getYoutubeIdAttribute()
+{
+    if (!$this->link) {
+        return null;
+    }
 
+    $url = trim($this->link);
+
+    // youtube.com/shorts/VIDEO_ID
+    if (preg_match('/youtube\.com\/shorts\/([^?&\/]+)/', $url, $matches)) {
+        return $matches[1];
+    }
+
+    // youtube.com/watch?v=VIDEO_ID
+    if (preg_match('/youtube\.com\/watch\?v=([^?&]+)/', $url, $matches)) {
+        return $matches[1];
+    }
+
+    // youtu.be/VIDEO_ID
+    if (preg_match('/youtu\.be\/([^?&\/]+)/', $url, $matches)) {
+        return $matches[1];
+    }
+
+    // youtube.com/embed/VIDEO_ID
+    if (preg_match('/youtube\.com\/embed\/([^?&\/]+)/', $url, $matches)) {
+        return $matches[1];
+    }
+
+    return null;
+}
+
+public function getYoutubeEmbedUrlAttribute()
+{
+    if (!$this->youtube_id) {
+        return null;
+    }
+
+    return 'https://www.youtube.com/embed/' . $this->youtube_id;
+}
+
+public function getIsYoutubeVideoAttribute()
+{
+    return !empty($this->youtube_id);
+}
 public function path()
 {
     return "/attachments/portfolio/";

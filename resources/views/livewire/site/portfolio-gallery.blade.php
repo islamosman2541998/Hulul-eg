@@ -76,21 +76,41 @@
                                             ->values()
                                             ->toArray()
                                         : [];
+
+                                    $videoSrc = $item->is_youtube_video
+                                        ? $item->youtube_embed_url
+                                        : asset($item->image);
+
+                                    $videoThumb = $item->is_youtube_video
+                                        ? ($item->image
+                                            ? asset($item->image)
+                                            : $item->youtube_thumbnail)
+                                        : asset($item->image);
+
+                                    $popupType = $item->is_youtube_video ? 'youtube' : 'video';
                                 @endphp
+
                                 <div class="video-thumb"
                                     onclick="openPortfolioPopup(
-    'video',
-    @js(asset($item->image)),
-    @js($item->transNow->title ?? ''),
-    @js($item->link ?? ''),
-    @js(app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link'),
-    @js($galleryImages)
-)">
-                                    <video width="100%" muted playsinline preload="metadata"
-                                        style="height: 15rem; object-fit: cover; border-radius: 1rem;">
-                                        <source src="{{ asset($item->image) }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                @js($popupType),
+                @js($videoSrc),
+                @js($item->transNow->title ?? ''),
+                @js($item->link ?? ''),
+                @js(app()->getLocale() == 'ar' ? 'مشاهدة على يوتيوب' : 'Watch on YouTube'),
+                @js($galleryImages)
+            )">
+
+                                    @if ($item->is_youtube_video)
+                                        <img src="{{ $videoThumb }}" class="img-fluid w-100"
+                                            alt="{{ $item->transNow->title ?? '' }}"
+                                            style="height: 15rem; object-fit: cover; border-radius: 1rem;">
+                                    @else
+                                        <video width="100%" muted playsinline preload="metadata"
+                                            style="height: 15rem; object-fit: cover; border-radius: 1rem;">
+                                            <source src="{{ asset($item->image) }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @endif
 
                                     <div class="video-play-icon">
                                         <i class="fa-solid fa-play"></i>
@@ -162,7 +182,6 @@
     </div>
     <div id="portfolioPopup" class="portfolio-popup">
         <div class="portfolio-popup-overlay" onclick="closePortfolioPopup()"></div>
-
         <div class="portfolio-popup-content">
             <button type="button" class="portfolio-popup-close" onclick="closePortfolioPopup()">
                 <i class="fa-solid fa-xmark"></i>
@@ -178,8 +197,9 @@
 
 <style>
     .pagination {
-      background-color: transparent !important;
+        background-color: transparent !important;
     }
+
     .pagination .page-link {
         background-color: #1a083d;
         border-color: #2d1060;
@@ -204,6 +224,7 @@
         border-color: #2d1060;
         color: #6b4fa0;
     }
+
     .btn-filter {
         background: transparent;
         border: none;
@@ -453,6 +474,24 @@
             right: 8px;
         }
     }
+    .youtube-popup-frame {
+    width: min(100%, 420px);
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.youtube-popup-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.video-thumb img {
+    cursor: pointer;
+}
 </style>
 <script>
     window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link',
@@ -511,6 +550,19 @@
                         Your browser does not support the video tag.
                     </video>
                 `;
+            }
+            if (type === 'youtube') {
+                body.innerHTML = `
+        <div class="youtube-popup-frame">
+            <iframe
+                src="${src}?autoplay=1&rel=0"
+                title="${title}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+    `;
             }
         }
 
