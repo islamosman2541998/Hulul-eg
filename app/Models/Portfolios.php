@@ -118,6 +118,14 @@ public function getIsYoutubeVideoAttribute()
 {
     return !empty($this->youtube_id);
 }
+public function getYoutubeThumbnailAttribute()
+{
+    if (!$this->youtube_id) {
+        return null;
+    }
+
+    return 'https://img.youtube.com/vi/' . $this->youtube_id . '/hqdefault.jpg';
+}
 public function path()
 {
     return "/attachments/portfolio/";

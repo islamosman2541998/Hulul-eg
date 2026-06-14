@@ -26,8 +26,8 @@
         @forelse($portfolios as $item)
             <div class="col-lg-4 col-md-6 col-sm-6 mb-4 mix">
                 <div class="portfolio__item position-relative overflow-hidden">
-                    @if ($item->image)
-                        @if ($item->type == 'image')
+                   @if ($item->image || $item->is_youtube_video)
+                       @if ($item->type == 'image' && !$item->is_youtube_video)
                             @php
                                 $galleryImages = $item->galleryGroup?->images
                                     ? $item->galleryGroup->images
@@ -64,7 +64,7 @@
                                     </ul>
                                 </div>
                             </a>
-                        @elseif($item->type == 'video')
+                        @elseif($item->type == 'video' || $item->is_youtube_video)
                             <div class="video-wrapper position-relative">
                                 @php
                                     $galleryImages = $item->galleryGroup?->images
