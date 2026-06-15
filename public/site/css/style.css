@@ -444,7 +444,7 @@ ol {
   display: block;
   text-transform: uppercase;
   position: relative;
-  padding: 6px 14px !important;
+  padding: 6px 13px !important;
 }
 
 .header__nav__menu ul li a:after {
