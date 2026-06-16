@@ -18,7 +18,7 @@
                    <div class="col-lg-6 col-md-6">
                        <div class="footer__top__social">
                            <a href="{{ $settings->getItem('facebook') }}"><i class="fa fa-facebook"></i></a>
-                           <a href="{{ $settings->getItem('twitter') }}"><i class="fa fa-twitter"></i></a>
+                           <a href="{{ $settings->getItem('youtube') }}"><i class="fa fa-youtube"></i></a>
                            <a href="{{ $settings->getItem('tiktok') }}"><i class="fa fa-tiktok"></i></a>
                            <a href="{{ $settings->getItem('instagram') }}"><i class="fa fa-instagram"></i></a>
                        </div>
