@@ -14,7 +14,7 @@ class PortfolioGallery extends Component
     protected $paginationTheme = 'bootstrap'; 
 
     public $activeTag = 'all';          
-    public $perPage = 9;                
+    public $perPage = 12;                
 
     public function mount()
     {
