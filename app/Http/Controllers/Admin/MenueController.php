@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\MenuPositionEnums;
-use App\Models\Menue;
-use App\Models\Pages;
 use App\Enums\UrlTypesEnum;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MenuRequest;
 use App\Models\Blog;
 use App\Models\Job;
+use App\Models\Menue;
 use App\Models\News;
+use App\Models\Pages;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Services;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
 
 class MenueController extends Controller
 {
@@ -188,6 +190,12 @@ class MenueController extends Controller
             $items = ProductCategory::query()->with('trans')->active()->get(['id']);
             foreach($items as $item){
                 $res[] =  '/categories/' . $item->trans->where("locale", app()->getLocale())->first()->slug;
+            }
+        }
+        if($name == UrlTypesEnum::SERVICES){
+            $items = Services::query()->with('trans')->active()->get(['id']);
+            foreach($items as $item){
+                $res[] =  '/services/' . $item->trans->where("locale", app()->getLocale())->first()->slug;
             }
         }
         if($name == UrlTypesEnum::PRODUCTS){

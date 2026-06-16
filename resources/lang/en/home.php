@@ -39,4 +39,5 @@ return [
                             stand out online.
                             From strategy to execution, our team delivers professional results tailored to your brand.',
     'what_we_do' => 'What We do?',
+    'see_more' => 'See more about us',
 ];

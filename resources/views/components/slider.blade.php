@@ -16,7 +16,7 @@
                             <div class="hero__text">
                                 <span class="slider-desc">{!! $slide->description !!} </span>
                                 <h2>{{ $slide->title }}</h2>
-                                <a href="#" class="primary-btn">See more about us</a>
+                                <a href="{{ route('site.about-us') }}" class="primary-btn">@lang('home.see_more')</a>
                             </div>
                         </div>
                     </div>

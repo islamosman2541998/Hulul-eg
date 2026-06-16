@@ -247,7 +247,7 @@ return [
     'explore_product' => 'استكشف منتجاتنا',
     'no_products' => 'لا توجد منتجات',
     'request_service' => 'طلب خدمة',
-    'Profile' => 'الملف الشخصي',
+    'Profile' => 'الملف التعريفي',
     'request_meeting' => 'طلب اجتماع',
      'back_to_home' => 'العودة للرئيسية',
 

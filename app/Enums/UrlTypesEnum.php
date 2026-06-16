@@ -10,6 +10,8 @@ class UrlTypesEnum
     public const ABOUTUS = 'about-us';
     public const CATEGORIES = 'categories';
     public const ALLCATEGORIE = 'all-categories';
+    public const SERVICES = 'services';
+    public const ALLSERVICES = 'all-services';
     public const PRODUCTS = 'products';
     public const ALLPRODUCT = 'allproducts';
     public const BLOGS = 'blogs';
@@ -31,6 +33,8 @@ class UrlTypesEnum
             static::CONTACTUS => 'contact-us',
             static::ALLCATEGORIE => 'all-categories',
             static::CATEGORIES => 'categories',
+            static::ALLSERVICES => 'all-services',
+            static::SERVICES => 'services',
             static::ALLPRODUCT => 'all-products',
             static::PRODUCTS => 'products',
             static::ALLBLOG => 'all-blogs',
