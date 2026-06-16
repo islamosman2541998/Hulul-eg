@@ -39,6 +39,7 @@ return [
     'our_services'              => 'خدماتنا',
     'home'                      => 'الرئيسية',
     'service_request'           => 'طلب خدمة',
+    'see_more_services'         => 'اظهار المزيد من الخدمات',
 
 ];
 

@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/breadcrumb-bg.jpg') }}">
+    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/111.jpeg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -16,6 +16,12 @@
                             <a href="{{ route('site.home') }}">@lang('services.home')</a>
                             <span>{{ $category->transNow->title ?? '' }}</span>
                         </div>
+                        <div class="pt-3">
+                            <button class="btn btn-secondary text-white">
+                                <a href="{{ route('site.service_request.index') }}">@lang('services.service_request') →</a>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -27,8 +33,8 @@
         <div class="wrap">
 
             <header class="head">
-                <span class="eyebrow text-white">{{ $category->transNow->title ?? '' }}</span>
-                {{-- <h2 class="text-white">We Prioritize Your Growth</h2> --}}
+                {{-- <span class="eyebrow text-white">{{ $category->transNow->title ?? '' }}</span> --}}
+                <h2 class="text-white">{{ $category->transNow->title ?? '' }}</h2>
                 <p>{!! $category->transNow->description ?? '' !!}</p>
             </header>
 
@@ -44,7 +50,7 @@
                         </span>
                         <h3 class="text-white">{{ $service->transNow->title ?? '' }}</h3>
                         <p>{!! $service->transNow->description ?? '' !!}</p>
-                        <span class="more">@lang('services.service_request') →</span>
+                        {{-- <span class="more">@lang('services.service_request') →</span> --}}
                     </a>
                 @empty
                     <p>@lang('services.no_services')</p>
@@ -58,12 +64,9 @@
     </section>
     <!-- End of this section  -->
     <style>
-    .card {
+        .card {
 
-        background: #3b436d3d !important;
-    }
-
-    
-</style>
+            background: #3b436d3d !important;
+        }
+    </style>
 @endsection
-

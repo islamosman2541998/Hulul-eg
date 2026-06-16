@@ -41,11 +41,14 @@ class Footer extends Component
         $this->footerLinks = Menue::with('trans')->orderBy('sort', 'ASC')->footer()->active()->get();
 
 
-        $this->our_work = PortfolioTags::active()->feature()
+       $this->our_work = PortfolioTags::active()
+    ->feature()
+    ->with('transNow')
+    ->orderBy('sort', 'ASC')
+    ->take(5)
+    ->get();
 
-            ->take(5)
-            ->with('trans')
-            ->get();
+           
         $this->facebookLink = $this->settings->getItem('facebook') ?? 'not found';
         $this->instagramLink = $this->settings->getItem('instagram') ?? 'not found';
         $this->tiktokLink = $this->settings->getItem('tiktok') ?? 'not found';

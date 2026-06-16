@@ -18,7 +18,8 @@ class PortfolioGallery extends Component
 
     public function mount()
     {
-        
+    $this->activeTag = request()->get('tag', 'all');
+
     }
 
     public function filterByTag($tagSlug)

@@ -39,6 +39,7 @@ return [
     'our_services'              => 'Our Services',
     'home'                      => 'Home',
     'service_request'           => 'Service Request',
+    'see_more_services'         => 'See More Services',
     
 
 

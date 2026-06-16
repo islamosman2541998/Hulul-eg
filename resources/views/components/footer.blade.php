@@ -52,14 +52,21 @@
                    <div class="col-lg-2 col-md-3 col-sm-3">
                        <div class="footer__option__item">
                            <h5>@lang('admin.our_work')</h5>
+
                            <ul>
                                @foreach ($our_work as $work)
-                                   <li><a
-                                           href="#">{{ $work->trans->where('locale', app()->getLocale())->first()->title ?? 'No Title' }}</a>
-                                   </li>
-                               @endforeach
-                               {{-- <li><a href="#">Brand Identity</a></li> --}}
+                                   @php
+                                       $workTrans = $work->transNow;
+                                   @endphp
 
+                                   @if ($workTrans)
+                                       <li>
+                                           <a href="{{ route('site.portfolio.index', ['tag' => $workTrans->slug]) }}">
+                                               {{ $workTrans->title }}
+                                           </a>
+                                       </li>
+                                   @endif
+                               @endforeach
                            </ul>
                        </div>
                    </div>
@@ -92,9 +99,9 @@
                    <div class="col-lg-12 text-center">
                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                        <p class="footer__copyright__text">@lang('site.copyright') &copy;
-                         
+
                            @lang('site.all_right_reserved')
-                             <script>
+                           <script>
                                document.write(new Date().getFullYear());
                            </script>
                            <!-- <i class="fa fa-heart-o"
@@ -107,8 +114,8 @@
        </div>
    </footer>
    <!-- Footer Section End -->
-<style>
-    .footer-container {
-        padding: 0px !important;
-    }
-</style>
+   <style>
+       .footer-container {
+           padding: 0px !important;
+       }
+   </style>
