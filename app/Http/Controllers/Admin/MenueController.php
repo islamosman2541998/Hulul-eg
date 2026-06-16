@@ -13,6 +13,7 @@ use App\Models\News;
 use App\Models\Pages;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ServiceCategory;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -196,6 +197,12 @@ class MenueController extends Controller
             $items = Services::query()->with('trans')->active()->get(['id']);
             foreach($items as $item){
                 $res[] =  '/services/' . $item->trans->where("locale", app()->getLocale())->first()->slug;
+            }
+        }
+        if($name == UrlTypesEnum::CATEGORIESSERVICES){
+            $items = ServiceCategory::query()->with('trans')->active()->get(['id']);
+            foreach($items as $item){
+                $res[] =  '/categories-services/' . $item->trans->where("locale", app()->getLocale())->first()->slug;
             }
         }
         if($name == UrlTypesEnum::PRODUCTS){

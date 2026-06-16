@@ -12,6 +12,8 @@ class UrlTypesEnum
     public const ALLCATEGORIE = 'all-categories';
     public const SERVICES = 'services';
     public const ALLSERVICES = 'all-services';
+    public const CATEGORIESSERVICES = 'categories-services';
+    public const ALLCATEGORIESSERVICES = 'all-categories-services';
     public const PRODUCTS = 'products';
     public const ALLPRODUCT = 'allproducts';
     public const BLOGS = 'blogs';
@@ -35,6 +37,8 @@ class UrlTypesEnum
             static::CATEGORIES => 'categories',
             static::ALLSERVICES => 'all-services',
             static::SERVICES => 'services',
+            static::ALLCATEGORIESSERVICES => 'all-categories-services',
+            static::CATEGORIESSERVICES => 'categories-services',
             static::ALLPRODUCT => 'all-products',
             static::PRODUCTS => 'products',
             static::ALLBLOG => 'all-blogs',
