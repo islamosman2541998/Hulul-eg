@@ -1413,7 +1413,7 @@ ol {
   margin-right: 5px;
   display: inline-block;
   cursor: pointer;
-  padding: 6px 22px;
+  /* padding: 6px 22px; */
 }
 
 .portfolio__filter li.active {
