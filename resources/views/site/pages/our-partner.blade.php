@@ -4,33 +4,64 @@
     $show_partners    = (int) $settings->getHome('show_partners');
 @endphp
 @if ($show_partners)
-    <section class="OurPartner" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <h3 class="PartnerH3">@lang('site.our_partners')</h3>
-
-    <div class="parner">
-        <div class="partnercompanies">
-
-
-            @forelse ($partners as $partner)
-                <a class="text-decoration-none" target="_blank" href="{{ $partner->url }}">
-                    <div class="ImgDiv d-flex flex-column align-items-center">
-                        <img class="PartnerImg" src="{{ asset('storage/attachments/partners/' . $partner->image) }}"
-                            alt="Client 1">
-                        {{-- @if ($partner->translate(app()->getLocale())->title)
-                            <h4 class="pt-3">{{ $partner->translate(app()->getLocale())->title ?? '' }}</h4>
-                        @endif --}}
-                    </div>
-                </a>
-
-            @empty
-
-                <h3>@lang('site.no_partners')</h3>
-            @endforelse
-
-
-
+    <div class="logo spad">
+        <div class="container-fluid">
+            <div class="logo-swiper swiper">
+                <div class="swiper-wrapper">
+                    @forelse ($partners as $partner)
+                        <div class="swiper-slide">
+                            <a target="_blank" href="{{ $partner->url }}" class="partner-card">
+                                <img src="{{ asset('storage/attachments/partners/' . $partner->image) }}"
+                                    alt="partner-{{ $loop->index }}" />
+                            </a>
+                        </div>
+                    @empty
+                        <p>@lang('site.no_partners')</p>
+                    @endforelse
+                </div>
+            </div>
         </div>
     </div>
-</section>
+    <!-- Logo End -->
+
 @endif
+
+    <style>
+  
+
+        .partner-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border-radius: 12px;
+            padding: 10px;
+            height: 150px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #100028;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .partner-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .partner-card img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: grayscale(30%);
+            transition: filter 0.3s ease;
+        }
+
+        .partner-card:hover img {
+            filter: grayscale(0%);
+        }
+
+     
+    </style>
 

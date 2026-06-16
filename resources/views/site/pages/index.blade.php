@@ -27,5 +27,8 @@
     <!-- services_section -->
     @include('site.pages.services_section')
 
+    @include('site.pages.our-partner')
+
+
 
 @endsection
