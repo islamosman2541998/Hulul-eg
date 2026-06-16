@@ -1015,7 +1015,7 @@ ol {
 -----------------------*/
 .footer {
   background: #0a0119;
-   margin-top: 5rem; 
+   /* margin-top: 5rem;  */
 }
 
 .footer__top {
