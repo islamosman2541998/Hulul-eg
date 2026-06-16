@@ -65,3 +65,35 @@
      
     </style>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper('.logo-swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                },
+                slidesPerView: 5,
+                spaceBetween: 24,
+                breakpoints: {
+                    0: {
+                        slidesPerView: 2,
+                        spaceBetween: 12
+                    },
+                    576: {
+                        slidesPerView: 3,
+                        spaceBetween: 16
+                    },
+                    768: {
+                        slidesPerView: 4,
+                        spaceBetween: 20
+                    },
+                    992: {
+                        slidesPerView: 5,
+                        spaceBetween: 24
+                    }
+                },
+            });
+        });
+    </script>
