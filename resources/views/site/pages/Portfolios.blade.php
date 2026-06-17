@@ -9,8 +9,8 @@
         <div class="portfolio-modern-grid">
             @forelse ($portfolios as $portfolio)
                 @php
-                    $title = $portfolio->transNow->title ?? $portfolio->title ?? 'No Title';
-                    $description = $portfolio->transNow->description ?? $portfolio->description ?? '';
+                    $title = $portfolio->transNow->title ?? ($portfolio->title ?? 'No Title');
+                    $description = $portfolio->transNow->description ?? ($portfolio->description ?? '');
                     $image = $portfolio->image ? asset($portfolio->image) : asset('attachments/no_image/no_image.png');
                 @endphp
 
@@ -72,17 +72,17 @@
 
     .portfolio-modern-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
     }
 
     .portfolio-modern-card {
         position: relative;
         display: block;
         width: 100%;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 16 / 9;
         overflow: hidden;
-        border-radius: 22px;
+        border-radius: 18px;
         background: #111;
         text-decoration: none;
         box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
@@ -107,13 +107,11 @@
         display: flex;
         align-items: flex-end;
         padding: 18px;
-        background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.88) 0%,
-            rgba(0, 0, 0, 0.62) 38%,
-            rgba(0, 0, 0, 0.12) 72%,
-            rgba(0, 0, 0, 0) 100%
-        );
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.88) 0%,
+                rgba(0, 0, 0, 0.62) 38%,
+                rgba(0, 0, 0, 0.12) 72%,
+                rgba(0, 0, 0, 0) 100%);
         opacity: 0;
         transition: opacity 0.35s ease;
     }
@@ -182,13 +180,14 @@
     }
 
     @media (max-width: 575px) {
-        .portfolio-modern-section {
-            padding: 55px 0;
+        .portfolio-modern-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
 
-        .portfolio-modern-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+        .portfolio-modern-card {
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
         }
 
         .portfolio-modern-card {
@@ -224,4 +223,3 @@
         }
     }
 </style>
-
