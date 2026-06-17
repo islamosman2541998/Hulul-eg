@@ -51,7 +51,7 @@ class HomeController extends Controller
             ->take(20)
             ->get()
             ->shuffle()
-            ->take(8)
+            ->take(12)
             ->values();
         $services_section = HomeSettingPage::with('trans')->where('title_section', 'services')->first();
 
