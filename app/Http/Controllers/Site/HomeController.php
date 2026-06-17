@@ -47,7 +47,7 @@ class HomeController extends Controller
         $portfolios = Portfolios::with('transNow')
             ->active()
             ->feature()
-            ->latest()
+            
             ->take(20)
             ->get()
             ->shuffle()
