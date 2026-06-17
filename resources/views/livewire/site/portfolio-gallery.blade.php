@@ -630,7 +630,7 @@
         document.body.style.overflow = '';
     }
 
-    document.addEventListener('keydown', function(e) {
+       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closePortfolioPopup();
         }
@@ -643,64 +643,62 @@
             changePortfolioSlide(-1);
         }
     });
+</script>
 
-    @if (!empty($openItem))
-        @php
+@if (!empty($openItem))
+    @php
+        $galleryImages = [];
+
+        if ($openItem->type == 'image' && $openItem->galleryGroup && $openItem->galleryGroup->images) {
+            $galleryImages = $openItem->galleryGroup->images
+                ->sortBy('sort')
+                ->map(function ($galleryImage) {
+                    return asset($galleryImage->pathInView('portfolios'));
+                })
+                ->values()
+                ->toArray();
+        }
+
+        if ($openItem->is_youtube_video) {
+            $popupType = 'youtube';
+            $popupSrc = $openItem->youtube_embed_url;
             $galleryImages = [];
+        } elseif ($openItem->type == 'video') {
+            $popupType = 'video';
+            $popupSrc = asset($openItem->image);
+            $galleryImages = [];
+        } elseif ($openItem->type == 'pdf') {
+            $popupType = 'pdf';
+            $popupSrc = asset($openItem->image);
+            $galleryImages = [];
+        } else {
+            $popupType = 'image';
+            $popupSrc = asset($openItem->image);
+        }
 
-            if ($openItem->type == 'image' && $openItem->galleryGroup && $openItem->galleryGroup->images) {
-                $galleryImages = $openItem->galleryGroup->images
-                    ->sortBy('sort')
-                    ->map(function ($galleryImage) {
-                        return asset($galleryImage->pathInView('portfolios'));
-                    })
-                    ->values()
-                    ->toArray();
-            }
+        $popupTitle = $openItem->transNow->title ?? '';
+        $popupLink = $openItem->link ?? '';
+        $popupLinkText = app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link';
 
-            if ($openItem->is_youtube_video) {
-                $popupType = 'youtube';
-                $popupSrc = $openItem->youtube_embed_url;
-                $galleryImages = [];
-            } elseif ($openItem->type == 'video') {
-                $popupType = 'video';
-                $popupSrc = asset($openItem->image);
-                $galleryImages = [];
-            } elseif ($openItem->type == 'pdf') {
-                $popupType = 'pdf';
-                $popupSrc = asset($openItem->image);
-                $galleryImages = [];
-            } else {
-                $popupType = 'image';
-                $popupSrc = asset($openItem->image);
-            }
+        if ($openItem->is_youtube_video) {
+            $popupLinkText = app()->getLocale() == 'ar' ? 'مشاهدة على يوتيوب' : 'Watch on YouTube';
+        }
+    @endphp
 
-            $popupTitle = $openItem->transNow->title ?? '';
-            $popupLink = $openItem->link ?? '';
-            $popupLinkText = app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link';
-
-            if ($openItem->is_youtube_video) {
-                $popupLinkText = app()->getLocale() == 'ar' ? 'مشاهدة على يوتيوب' : 'Watch on YouTube';
-            }
-        @endphp
-
-            <
-            script >
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    if (typeof openPortfolioPopup === 'function') {
-                        openPortfolioPopup(
-                            @js($popupType),
-                            @js($popupSrc),
-                            @js($popupTitle),
-                            @js($popupLink),
-                            @js($popupLinkText),
-                            @js($galleryImages)
-                        );
-                    }
-                }, 400);
-            });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                if (typeof window.openPortfolioPopup === 'function') {
+                    window.openPortfolioPopup(
+                        @js($popupType),
+                        @js($popupSrc),
+                        @js($popupTitle),
+                        @js($popupLink),
+                        @js($popupLinkText),
+                        @js($galleryImages)
+                    );
+                }
+            }, 500);
+        });
+    </script>
 @endif
-
-</script>
