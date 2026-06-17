@@ -178,7 +178,7 @@
                                 </div>
 
                                 <div class="portfolio__item__text  bottom-0 start-0 end-0 p-3 text-white"
-                                    style="background: rgba(0,0,0,0.7);">
+                                    >
                                     <h4>{{ $item->transNow->title ?? 'No Title' }}</h4>
                                     <ul class="list-unstyled mb-0">
                                         @if ($item->tag && $item->tag->transNow)
