@@ -142,12 +142,11 @@
                                             $videoPreviewSrc =
                                                 asset($item->image) .
                                                 '?v=' .
-                                                ($item->updated_at?->timestamp ?? $item->id) .
-                                                '#t=0.2';
+                                                ($item->updated_at?->timestamp ?? $item->id);
                                         @endphp
 
                                         <video class="portfolio-card-video" width="100%" muted playsinline
-                                            preload="metadata"
+                                            preload="auto" data-preview-time="1"
                                             style="height: 15rem; object-fit: cover; border-radius: 1rem; background:#000;">
                                             <source src="{{ $videoPreviewSrc }}" type="video/mp4">
                                             Your browser does not support the video tag.
@@ -845,21 +844,71 @@
             }, 500);
         });
     </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.portfolio-card-video').forEach(function (video) {
-            video.addEventListener('loadedmetadata', function () {
-                try {
-                    if (video.duration > 0) {
-                        video.currentTime = 0.2;
-                    }
-                } catch (e) {}
-            }, { once: true });
+@endif
+<script>
+    function generatePortfolioVideoCovers() {
+        document.querySelectorAll('.portfolio-card-video:not([data-cover-ready])').forEach(function(video) {
+            video.setAttribute('data-cover-ready', '1');
 
-            video.addEventListener('seeked', function () {
-                video.pause();
-            }, { once: true });
+            const previewTime = parseFloat(video.getAttribute('data-preview-time') || '0.5');
+
+            function captureFrame() {
+                try {
+                    if (!video.duration || !video.videoWidth || !video.videoHeight) {
+                        return;
+                    }
+
+                    const targetTime = Math.min(previewTime, Math.max(0.1, video.duration - 0.1));
+
+                    video.addEventListener('seeked', function() {
+                        try {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                            const poster = canvas.toDataURL('image/jpeg', 0.85);
+
+                            video.setAttribute('poster', poster);
+                            video.pause();
+                        } catch (e) {
+                            console.warn('Video poster capture failed', e);
+                        }
+                    }, {
+                        once: true
+                    });
+
+                    video.currentTime = targetTime;
+                } catch (e) {
+                    console.warn('Video seek failed', e);
+                }
+            }
+
+            if (video.readyState >= 1) {
+                captureFrame();
+            } else {
+                video.addEventListener('loadedmetadata', captureFrame, {
+                    once: true
+                });
+            }
+
+            video.load();
         });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        generatePortfolioVideoCovers();
+    });
+
+    document.addEventListener('livewire:load', function() {
+        generatePortfolioVideoCovers();
+
+        if (window.Livewire && Livewire.hook) {
+            Livewire.hook('message.processed', function() {
+                generatePortfolioVideoCovers();
+            });
+        }
     });
 </script>
-@endif
