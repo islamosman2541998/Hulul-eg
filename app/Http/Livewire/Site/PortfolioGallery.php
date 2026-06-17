@@ -43,18 +43,24 @@ class PortfolioGallery extends Component
                 'tag.transNow',
                 'transNow',
                 'galleryGroup.images',
-            ])
-            ->orderBy('sort', 'ASC');
+            ]);
 
         if ($this->activeTag !== 'all') {
             $tag = PortfolioTags::whereHas('trans', function ($q) {
                 $q->where('slug', $this->activeTag)
-                  ->where('locale', app()->getLocale());
+                    ->where('locale', app()->getLocale());
             })->first();
 
             if ($tag) {
                 $query->where('tag_id', $tag->id);
             }
+
+            // لما اختار كاتجوري معينة: ترتيب حسب sort
+            $query->orderByRaw('sort IS NULL, sort ASC')
+                ->orderBy('id', 'DESC');
+        } else {
+            // أول فتح للصفحة أو لما أدوس All: عشوائي
+            $query->inRandomOrder();
         }
 
         $portfolios = $query->paginate($this->perPage);
