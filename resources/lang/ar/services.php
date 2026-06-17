@@ -40,6 +40,7 @@ return [
     'home'                      => 'الرئيسية',
     'service_request'           => 'طلب خدمة',
     'see_more_services'         => 'اظهار المزيد من الخدمات',
+    'see_more_works'            => 'اظهار المزيد من الاعمال',
 
 ];
 

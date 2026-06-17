@@ -274,7 +274,7 @@ return [
     'service' => 'الخدمة',
     'select_service' => 'اختر الخدمة',
 
-    'timeline' => 'المدة المتوقعة',
+    'timeline' => 'مدة الاستلام المتوقعة',
     'flexible' => 'مرن',
     'asap' => 'في أقرب وقت',
     'two_four_weeks' => 'من أسبوعين إلى 4 أسابيع',

@@ -44,14 +44,17 @@ class HomeController extends Controller
 
         $page_name = 'home';
 
+        $portfolios = Portfolios::with('transNow')
+            ->active()
+            ->feature()
+            ->latest()
+            ->take(20)
+            ->get()
+            ->shuffle()
+            ->take(8)
+            ->values();
+        $services_section = HomeSettingPage::with('trans')->where('title_section', 'services')->first();
 
-        $portfolios = Portfolios::active()->feature()
-
-            ->take(7)
-            ->with('trans', 'tag.trans')
-            ->get();
-            $services_section = HomeSettingPage::with('trans')->where('title_section', 'services')->first();
-            
 
         return view('site.pages.index', compact(
             'current_lang',

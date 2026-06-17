@@ -561,7 +561,7 @@ return [
     'edit_career_category' => 'Edit job Category',
     'service' => 'Services',
     'company' => 'Company',
-    'timeline' => 'Timeline',
+    'timeline' => 'Expected Deadline',
     'attachment' => 'Attachment',
     'serviceRequest' => 'Service Request',
     'why_choose_us' => 'Why Choose Us',
