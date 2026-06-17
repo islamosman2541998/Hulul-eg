@@ -44,6 +44,7 @@ class PortfolioGallery extends Component
                 'transNow',
                 'galleryGroup.images',
             ])
+            ->orderBy('sort')
             ->inRandomOrder();
 
         if ($this->activeTag !== 'all') {
