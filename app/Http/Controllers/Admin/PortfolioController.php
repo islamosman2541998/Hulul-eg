@@ -58,74 +58,79 @@ class PortfolioController extends Controller
     }
 
 
-  public function store(PortfolioRequest $request)
-{
-    $data = $request->getSanitized();
+    public function store(PortfolioRequest $request)
+    {
+        $data = $request->getSanitized();
 
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $ext = $file->getClientOriginalExtension();
-        $mime = $file->getMimeType();
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $mime = $file->getMimeType();
 
-        if (str_starts_with($mime, 'image/')) {
-            $mediaType = 'image';
-        } elseif (str_starts_with($mime, 'video/')) {
-            $mediaType = 'video';
-        } elseif ($mime === 'application/pdf' || $ext === 'pdf') {
-            $mediaType = 'pdf';
-        } else {
-            $mediaType = 'other';
+            if (str_starts_with($mime, 'image/')) {
+                $mediaType = 'image';
+            } elseif (str_starts_with($mime, 'video/')) {
+                $mediaType = 'video';
+            } elseif ($mime === 'application/pdf' || $ext === 'pdf') {
+                $mediaType = 'pdf';
+            } else {
+                $mediaType = 'other';
+            }
+
+            $data['image'] = $this->upload_file($request->file('image'), 'portfolio');
+            $data['type'] = $mediaType;
         }
 
-        $data['image'] = $this->upload_file($request->file('image'), 'portfolio');
-        $data['type'] = $mediaType;
+        $portfolio = Portfolios::create($data);
+
+        if ($request->hasFile('gallery_image')) {
+            if ($portfolio->galleryGroup) {
+                $group = $portfolio->galleryGroup;
+            } else {
+                $group = GalleryGroup::create([
+                    'type' => 2,
+                    'status' => 1,
+                    'foreign_key' => $portfolio->id,
+                    'created_by' => auth()->id(),
+                ])->refresh();
+            }
+
+            if ($request->has('gallery')) {
+                $group->update($request->gallery);
+            }
+            $galleryTypes = [];
+
+            foreach ($request->gallery_image as $keyImg => $file) {
+                $galleryTypes[$keyImg] = $this->detectMediaType($file);
+            }
+            $allImages = $this->storeImageMulti(
+                $request,
+                $this->galleryPath,
+                $request->gallery_image,
+                'gallery_image'
+            );
+
+            $imgArr = [];
+
+            foreach ($request->gallery_image as $keyImg => $valImg) {
+                $imgArr[] = new Gallery([
+                    'image' => $allImages[$keyImg] ?? '',
+                    'type' => $galleryTypes[$keyImg] ?? 'image',
+                    'sort' => $request->gallery_sort[$keyImg] ?? 0,
+                    'gallery_group_id' => $group->id,
+                    'feature' => isset($request->gallery_feature[$keyImg]) ? 1 : 0,
+                    'status' => 1,
+                    'created_by' => auth()->id(),
+                ]);
+            }
+
+            $group->images()->saveMany($imgArr);
+        }
+
+        session()->flash('success', trans('message.admin.created_sucessfully'));
+
+        return redirect()->route('admin.portfolio.edit', $portfolio->id);
     }
-
-    $portfolio = Portfolios::create($data);
-
-    if ($request->hasFile('gallery_image')) {
-        if ($portfolio->galleryGroup) {
-            $group = $portfolio->galleryGroup;
-        } else {
-            $group = GalleryGroup::create([
-                'type' => 2,
-                'status' => 1,
-                'foreign_key' => $portfolio->id,
-                'created_by' => auth()->id(),
-            ])->refresh();
-        }
-
-        if ($request->has('gallery')) {
-            $group->update($request->gallery);
-        }
-
-        $allImages = $this->storeImageMulti(
-            $request,
-            $this->galleryPath,
-            $request->gallery_image,
-            'gallery_image'
-        );
-
-        $imgArr = [];
-
-        foreach ($request->gallery_image as $keyImg => $valImg) {
-            $imgArr[] = new Gallery([
-                'image' => $allImages[$keyImg] ?? '',
-                'sort' => $request->gallery_sort[$keyImg] ?? 0,
-                'gallery_group_id' => $group->id,
-                'feature' => isset($request->gallery_feature[$keyImg]) ? 1 : 0,
-                'status' => 1,
-                'created_by' => auth()->id(),
-            ]);
-        }
-
-        $group->images()->saveMany($imgArr);
-    }
-
-    session()->flash('success', trans('message.admin.created_sucessfully'));
-
-    return redirect()->route('admin.portfolio.edit', $portfolio->id);
-}
 
 
     public function show(Portfolios $portfolio)
@@ -185,7 +190,11 @@ class PortfolioController extends Controller
             if ($request->has('gallery')) {
                 $group->update($request->gallery);
             }
+            $galleryTypes = [];
 
+            foreach ($request->gallery_image as $keyImg => $file) {
+                $galleryTypes[$keyImg] = $this->detectMediaType($file);
+            }
             $allImages = $this->storeImageMulti(
                 $request,
                 $this->galleryPath,
@@ -198,6 +207,7 @@ class PortfolioController extends Controller
             foreach ($request->gallery_image as $keyImg => $valImg) {
                 $imgArr[] = new Gallery([
                     'image' => $allImages[$keyImg] ?? '',
+                    'type' => $galleryTypes[$keyImg] ?? 'image',
                     'sort' => $request->gallery_sort[$keyImg] ?? 0,
                     'gallery_group_id' => $group->id,
                     'feature' => isset($request->gallery_feature[$keyImg]) ? 1 : 0,
@@ -236,6 +246,28 @@ class PortfolioController extends Controller
 
         session()->flash('success', trans('message.admin.deleted_sucessfully'));
         return redirect()->back();
+    }
+    private function detectMediaType($file)
+    {
+        if (!$file) {
+            return 'image';
+        }
+
+        $ext = strtolower($file->getClientOriginalExtension());
+
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'])) {
+            return 'image';
+        }
+
+        if (in_array($ext, ['mp4', 'mov', 'avi', 'mkv'])) {
+            return 'video';
+        }
+
+        if ($ext === 'pdf') {
+            return 'pdf';
+        }
+
+        return 'other';
     }
     public function update_status($id)
     {

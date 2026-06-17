@@ -300,8 +300,9 @@
             <div class="card mt-3 gallery-row">
                 <div class="card-body">
                     <div class="mb-3">
-                        <label>@lang('admin.image')</label>
-                        <input type="file" name="gallery_image[]" class="form-control" accept="image/*">
+                       <label>@lang('admin.media')</label>
+<input type="file" name="gallery_image[]" class="form-control" accept="image/*,video/*,application/pdf">
+<small class="text-muted">Allowed: jpg, png, gif, webp, svg, mp4, mov, avi, mkv, pdf</small>
                     </div>
 
                     <div class="mb-3">

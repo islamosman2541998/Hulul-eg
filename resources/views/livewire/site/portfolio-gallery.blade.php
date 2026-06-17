@@ -33,7 +33,24 @@
                                     ? $item->galleryGroup->images
                                         ->sortBy('sort')
                                         ->map(function ($galleryImage) {
-                                            return asset($galleryImage->pathInView('portfolios'));
+                                            $ext = strtolower(pathinfo($galleryImage->image, PATHINFO_EXTENSION));
+
+                                            $mediaType = $galleryImage->type;
+
+                                            if (!$mediaType || $mediaType == 'image') {
+                                                if ($ext === 'pdf') {
+                                                    $mediaType = 'pdf';
+                                                } elseif (in_array($ext, ['mp4', 'mov', 'avi', 'mkv'])) {
+                                                    $mediaType = 'video';
+                                                } else {
+                                                    $mediaType = 'image';
+                                                }
+                                            }
+
+                                            return [
+                                                'src' => asset($galleryImage->pathInView('portfolios')),
+                                                'type' => $mediaType,
+                                            ];
                                         })
                                         ->values()
                                         ->toArray()
@@ -71,12 +88,28 @@
                                         ? $item->galleryGroup->images
                                             ->sortBy('sort')
                                             ->map(function ($galleryImage) {
-                                                return asset($galleryImage->pathInView('portfolios'));
+                                                $ext = strtolower(pathinfo($galleryImage->image, PATHINFO_EXTENSION));
+
+                                                $mediaType = $galleryImage->type;
+
+                                                if (!$mediaType || $mediaType == 'image') {
+                                                    if ($ext === 'pdf') {
+                                                        $mediaType = 'pdf';
+                                                    } elseif (in_array($ext, ['mp4', 'mov', 'avi', 'mkv'])) {
+                                                        $mediaType = 'video';
+                                                    } else {
+                                                        $mediaType = 'image';
+                                                    }
+                                                }
+
+                                                return [
+                                                    'src' => asset($galleryImage->pathInView('portfolios')),
+                                                    'type' => $mediaType,
+                                                ];
                                             })
                                             ->values()
                                             ->toArray()
                                         : [];
-
                                     $videoSrc = $item->is_youtube_video
                                         ? $item->youtube_embed_url
                                         : asset($item->image);
@@ -97,7 +130,7 @@
                 @js($item->transNow->title ?? ''),
                 @js($item->link ?? ''),
                 @js(app()->getLocale() == 'ar' ? 'مشاهدة على يوتيوب' : 'Watch on YouTube'),
-                @js($galleryImages)
+                 @js([])
             )">
 
                                     @if ($item->is_youtube_video)
@@ -128,7 +161,15 @@
                                 </div>
                             </div>
                         @elseif($item->type == 'pdf')
-                            <a href="{{ asset($item->image) }}" class="work__link popup-iframe" target="_blank"
+                            <a href="javascript:void(0)" class="work__link"
+                                onclick="openPortfolioPopup(
+            'pdf',
+            @js(asset($item->image)),
+            @js($item->transNow->title ?? ''),
+            @js($item->link ?? ''),
+            @js(app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link'),
+            []
+       )"
                                 title="{{ $item->transNow->title ?? '' }}">
 
                                 <div class="pdf-preview d-flex align-items-center justify-content-center"
@@ -493,6 +534,43 @@
     .video-thumb img {
         cursor: pointer;
     }
+
+    .portfolio-slide video,
+    .portfolio-slide iframe {
+        max-width: 100%;
+        max-height: 78vh;
+        border-radius: 14px;
+    }
+
+    .portfolio-slide iframe {
+        width: 100%;
+        min-height: 70vh;
+        background: #fff;
+    }
+
+    .portfolio-popup-body iframe {
+        width: 100%;
+        height: 75vh;
+        border: 0;
+        border-radius: 14px;
+        background: #fff;
+    }
+
+    .portfolio-slide video {
+        width: auto;
+        max-width: 100%;
+        max-height: 78vh;
+        border-radius: 14px;
+        background: #000;
+    }
+
+    .portfolio-slide iframe {
+        width: 100%;
+        height: 75vh;
+        border: 0;
+        border-radius: 14px;
+        background: #fff;
+    }
 </style>
 <script>
     window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link',
@@ -512,12 +590,46 @@
         }
 
         if (Array.isArray(galleryImages) && galleryImages.length > 0) {
-            let slides = galleryImages.map((image, index) => {
+            let slides = galleryImages.map((item, index) => {
+                let src = typeof item === 'string' ? item : item.src;
+                let type = typeof item === 'string' ? 'image' : item.type;
+
+                let mediaHtml = '';
+
+                if (type === 'image') {
+                    mediaHtml = `<img src="${src}" alt="${title}">`;
+                }
+
+                if (type === 'video') {
+                    mediaHtml = `
+            <video controls playsinline>
+                <source src="${src}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        `;
+                }
+
+                if (type === 'pdf') {
+                    mediaHtml = `
+        <object
+            data="${src}#toolbar=1&navpanes=0"
+            type="application/pdf"
+            style="width:100%; height:75vh; border-radius:14px; background:#fff;">
+            <div style="color:#fff; text-align:center; padding:30px;">
+                <p>PDF preview is not available.</p>
+                <a href="${src}" target="_blank" style="color:#fff; text-decoration:underline;">
+                    Open PDF
+                </a>
+            </div>
+        </object>
+    `;
+                }
+
                 return `
-                    <div class="portfolio-slide ${index === 0 ? 'active' : ''}">
-                        <img src="${image}" alt="${title}">
-                    </div>
-                `;
+        <div class="portfolio-slide ${index === 0 ? 'active' : ''}">
+            ${mediaHtml}
+        </div>
+    `;
             }).join('');
 
             body.innerHTML = `
@@ -567,10 +679,17 @@
             }
             if (type === 'pdf') {
                 body.innerHTML = `
-        <iframe
-            src="${src}"
-            style="width:100%; height:75vh; border:0; border-radius:14px; background:#fff;"
-        ></iframe>
+        <object
+            data="${src}#toolbar=1&navpanes=0"
+            type="application/pdf"
+            style="width:100%; height:75vh; border-radius:14px; background:#fff;">
+            <div style="color:#fff; text-align:center; padding:30px;">
+                <p>PDF preview is not available.</p>
+                <a href="${src}" target="_blank" style="color:#fff; text-decoration:underline;">
+                    Open PDF
+                </a>
+            </div>
+        </object>
     `;
             }
         }
@@ -630,7 +749,7 @@
         document.body.style.overflow = '';
     }
 
-       document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closePortfolioPopup();
         }
@@ -653,7 +772,24 @@
             $galleryImages = $openItem->galleryGroup->images
                 ->sortBy('sort')
                 ->map(function ($galleryImage) {
-                    return asset($galleryImage->pathInView('portfolios'));
+                    $ext = strtolower(pathinfo($galleryImage->image, PATHINFO_EXTENSION));
+
+                    $mediaType = $galleryImage->type;
+
+                    if (!$mediaType || $mediaType == 'image') {
+                        if ($ext === 'pdf') {
+                            $mediaType = 'pdf';
+                        } elseif (in_array($ext, ['mp4', 'mov', 'avi', 'mkv'])) {
+                            $mediaType = 'video';
+                        } else {
+                            $mediaType = 'image';
+                        }
+                    }
+
+                    return [
+                        'src' => asset($galleryImage->pathInView('portfolios')),
+                        'type' => $mediaType,
+                    ];
                 })
                 ->values()
                 ->toArray();
@@ -686,8 +822,8 @@
     @endphp
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function () {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
                 if (typeof window.openPortfolioPopup === 'function') {
                     window.openPortfolioPopup(
                         @js($popupType),

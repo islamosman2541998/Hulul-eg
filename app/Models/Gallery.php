@@ -15,7 +15,7 @@ class Gallery extends Model
     public $type;
 
     protected $fillable = [
-        'id', 'image', 'sort', 'gallery_group_id', 'feature', 'status', 'created_by', 'updated_by'
+        'id', 'image', 'sort','type', 'gallery_group_id', 'feature', 'status', 'created_by', 'updated_by'
     ];
 
     public $translatedAttributes = ['title', 'description', 'slug']; 

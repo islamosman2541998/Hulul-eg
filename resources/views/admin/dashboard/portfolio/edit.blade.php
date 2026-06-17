@@ -294,8 +294,74 @@
                                                                 <div class="col-md-4 p-3">
                                                                     <div class="card">
                                                                         <div class="card-header">
-                                                                            <img src="{{ asset($image->pathInView('portfolios')) }}"
-                                                                                style="width: 100%; height: 120px; object-fit: cover;">
+                                                                            @php
+                                                                                $mediaUrl = asset(
+                                                                                    $image->pathInView('portfolios'),
+                                                                                );
+
+                                                                                $ext = strtolower(
+                                                                                    pathinfo(
+                                                                                        $image->image,
+                                                                                        PATHINFO_EXTENSION,
+                                                                                    ),
+                                                                                );
+
+                                                                                if (
+                                                                                    in_array($ext, [
+                                                                                        'jpg',
+                                                                                        'jpeg',
+                                                                                        'png',
+                                                                                        'gif',
+                                                                                        'webp',
+                                                                                        'svg',
+                                                                                    ])
+                                                                                ) {
+                                                                                    $mediaType = 'image';
+                                                                                } elseif (
+                                                                                    in_array($ext, [
+                                                                                        'mp4',
+                                                                                        'mov',
+                                                                                        'avi',
+                                                                                        'mkv',
+                                                                                    ])
+                                                                                ) {
+                                                                                    $mediaType = 'video';
+                                                                                } elseif ($ext === 'pdf') {
+                                                                                    $mediaType = 'pdf';
+                                                                                } else {
+                                                                                    $mediaType =
+                                                                                        $image->type ?? 'other';
+                                                                                }
+                                                                            @endphp
+
+                                                                            @if ($mediaType == 'image')
+                                                                                <img src="{{ $mediaUrl }}"
+                                                                                    alt=""
+                                                                                    style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                                                                            @elseif ($mediaType == 'video')
+                                                                                <video controls
+                                                                                    style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                                                                                    <source src="{{ $mediaUrl }}"
+                                                                                        type="video/mp4">
+                                                                                </video>
+                                                                            @elseif ($mediaType == 'pdf')
+                                                                                <a href="{{ $mediaUrl }}"
+                                                                                    target="_blank"
+                                                                                    class="d-flex flex-column align-items-center justify-content-center bg-light text-decoration-none"
+                                                                                    style="width: 100%; height: 120px; border-radius: 8px;">
+                                                                                    <i
+                                                                                        class="fas fa-file-pdf fa-3x text-danger mb-2"></i>
+                                                                                    <span class="text-danger small">PDF
+                                                                                        File</span>
+                                                                                </a>
+                                                                            @else
+                                                                                <a href="{{ $mediaUrl }}"
+                                                                                    target="_blank"
+                                                                                    class="d-flex align-items-center justify-content-center bg-light text-decoration-none"
+                                                                                    style="width: 100%; height: 120px; border-radius: 8px;">
+                                                                                    Open File
+                                                                                </a>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="card-body">
                                                                             <h6>@lang('admin.sort'): {{ $image->sort }}
@@ -387,8 +453,9 @@
             <div class="card mt-3 gallery-row">
                 <div class="card-body">
                     <div class="mb-3">
-                        <label>@lang('admin.image')</label>
-                        <input type="file" name="gallery_image[]" class="form-control" accept="image/*">
+                        <label>@lang('admin.media')</label>
+<input type="file" name="gallery_image[]" class="form-control" accept="image/*,video/*,application/pdf">
+<small class="text-muted">Allowed: jpg, png, gif, webp, svg, mp4, mov, avi, mkv, pdf</small>
                     </div>
 
                     <div class="mb-3">
