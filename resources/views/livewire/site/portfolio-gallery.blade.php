@@ -138,9 +138,18 @@
                                             alt="{{ $item->transNow->title ?? '' }}"
                                             style="height: 15rem; object-fit: cover; border-radius: 1rem;">
                                     @else
-                                        <video width="100%" muted playsinline preload="metadata"
-                                            style="height: 15rem; object-fit: cover; border-radius: 1rem;">
-                                            <source src="{{ asset($item->image) }}" type="video/mp4">
+                                        @php
+                                            $videoPreviewSrc =
+                                                asset($item->image) .
+                                                '?v=' .
+                                                ($item->updated_at?->timestamp ?? $item->id) .
+                                                '#t=0.2';
+                                        @endphp
+
+                                        <video class="portfolio-card-video" width="100%" muted playsinline
+                                            preload="metadata"
+                                            style="height: 15rem; object-fit: cover; border-radius: 1rem; background:#000;">
+                                            <source src="{{ $videoPreviewSrc }}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
                                     @endif
@@ -177,8 +186,7 @@
                                     <i class="fas fa-file-pdf fa-5x text-danger"></i>
                                 </div>
 
-                                <div class="portfolio__item__text  bottom-0 start-0 end-0 p-3 text-white"
-                                    >
+                                <div class="portfolio__item__text  bottom-0 start-0 end-0 p-3 text-white">
                                     <h4>{{ $item->transNow->title ?? 'No Title' }}</h4>
                                     <ul class="list-unstyled mb-0">
                                         @if ($item->tag && $item->tag->transNow)
@@ -837,4 +845,21 @@
             }, 500);
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.portfolio-card-video').forEach(function (video) {
+            video.addEventListener('loadedmetadata', function () {
+                try {
+                    if (video.duration > 0) {
+                        video.currentTime = 0.2;
+                    }
+                } catch (e) {}
+            }, { once: true });
+
+            video.addEventListener('seeked', function () {
+                video.pause();
+            }, { once: true });
+        });
+    });
+</script>
 @endif
