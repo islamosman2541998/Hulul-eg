@@ -26,8 +26,8 @@
         @forelse($portfolios as $item)
             <div class="col-lg-4 col-md-6 col-sm-6 mb-4 mix">
                 <div class="portfolio__item position-relative overflow-hidden">
-                   @if ($item->image || $item->is_youtube_video)
-                       @if ($item->type == 'image' && !$item->is_youtube_video)
+                    @if ($item->image || $item->is_youtube_video)
+                        @if ($item->type == 'image' && !$item->is_youtube_video)
                             @php
                                 $galleryImages = $item->galleryGroup?->images
                                     ? $item->galleryGroup->images
@@ -474,24 +474,25 @@
             right: 8px;
         }
     }
+
     .youtube-popup-frame {
-    width: min(100%, 420px);
-    aspect-ratio: 9 / 16;
-    background: #000;
-    border-radius: 14px;
-    overflow: hidden;
-}
+        width: min(100%, 420px);
+        aspect-ratio: 9 / 16;
+        background: #000;
+        border-radius: 14px;
+        overflow: hidden;
+    }
 
-.youtube-popup-frame iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-}
+    .youtube-popup-frame iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+    }
 
-.video-thumb img {
-    cursor: pointer;
-}
+    .video-thumb img {
+        cursor: pointer;
+    }
 </style>
 <script>
     window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link',
@@ -564,6 +565,14 @@
         </div>
     `;
             }
+            if (type === 'pdf') {
+                body.innerHTML = `
+        <iframe
+            src="${src}"
+            style="width:100%; height:75vh; border:0; border-radius:14px; background:#fff;"
+        ></iframe>
+    `;
+            }
         }
 
         if (link && link.trim() !== '' && actions) {
@@ -634,4 +643,64 @@
             changePortfolioSlide(-1);
         }
     });
+
+    @if (!empty($openItem))
+        @php
+            $galleryImages = [];
+
+            if ($openItem->type == 'image' && $openItem->galleryGroup && $openItem->galleryGroup->images) {
+                $galleryImages = $openItem->galleryGroup->images
+                    ->sortBy('sort')
+                    ->map(function ($galleryImage) {
+                        return asset($galleryImage->pathInView('portfolios'));
+                    })
+                    ->values()
+                    ->toArray();
+            }
+
+            if ($openItem->is_youtube_video) {
+                $popupType = 'youtube';
+                $popupSrc = $openItem->youtube_embed_url;
+                $galleryImages = [];
+            } elseif ($openItem->type == 'video') {
+                $popupType = 'video';
+                $popupSrc = asset($openItem->image);
+                $galleryImages = [];
+            } elseif ($openItem->type == 'pdf') {
+                $popupType = 'pdf';
+                $popupSrc = asset($openItem->image);
+                $galleryImages = [];
+            } else {
+                $popupType = 'image';
+                $popupSrc = asset($openItem->image);
+            }
+
+            $popupTitle = $openItem->transNow->title ?? '';
+            $popupLink = $openItem->link ?? '';
+            $popupLinkText = app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link';
+
+            if ($openItem->is_youtube_video) {
+                $popupLinkText = app()->getLocale() == 'ar' ? 'مشاهدة على يوتيوب' : 'Watch on YouTube';
+            }
+        @endphp
+
+            <
+            script >
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    if (typeof openPortfolioPopup === 'function') {
+                        openPortfolioPopup(
+                            @js($popupType),
+                            @js($popupSrc),
+                            @js($popupTitle),
+                            @js($popupLink),
+                            @js($popupLinkText),
+                            @js($galleryImages)
+                        );
+                    }
+                }, 400);
+            });
+</script>
+@endif
+
 </script>

@@ -14,7 +14,7 @@
                     $image = $portfolio->image ? asset($portfolio->image) : asset('attachments/no_image/no_image.png');
                 @endphp
 
-                <a href="{{ route('site.portfolio.index') }}" class="portfolio-modern-card">
+                <a href="{{ route('site.portfolio.index', ['item' => $portfolio->id]) }}" class="portfolio-modern-card">
                     <img src="{{ $image }}" alt="{{ $title }}">
 
                     <div class="portfolio-modern-overlay">

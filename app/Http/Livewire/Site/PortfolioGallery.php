@@ -13,12 +13,14 @@ class PortfolioGallery extends Component
 
     protected $paginationTheme = 'bootstrap'; 
 
-    public $activeTag = 'all';          
+    public $activeTag = 'all';    
+    public $openPortfolioId = null;      
     public $perPage = 12;                
 
     public function mount()
     {
     $this->activeTag = request()->get('tag', 'all');
+     $this->openPortfolioId = request()->get('item');
 
     }
 
@@ -44,7 +46,7 @@ class PortfolioGallery extends Component
         'galleryGroup.images'
     ])
     ->inRandomOrder();
-
+$openItem = null;
     if ($this->activeTag !== 'all') {
         $tag = PortfolioTags::whereHas('trans', function ($q) {
             $q->where('slug', $this->activeTag);
@@ -60,6 +62,7 @@ class PortfolioGallery extends Component
     return view('livewire.site.portfolio-gallery', [
         'tags'       => $tags,
         'portfolios' => $portfolios,
+        'openItem'   => $openItem
     ]);
 }
 }
