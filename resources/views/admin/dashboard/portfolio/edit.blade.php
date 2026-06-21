@@ -290,7 +290,7 @@
                                                     data-bs-parent="#accordionPortfolioGalleryOld">
                                                     <div class="accordion-body">
                                                         <div class="row">
-                                                            @foreach ($portfolio->galleryGroup->images as $image)
+                                                            @foreach ($portfolio->galleryGroup->images->sortBy('sort') as $image)
                                                                 <div class="col-md-4 p-3">
                                                                     <div class="card">
                                                                         <div class="card-header">
@@ -364,8 +364,14 @@
                                                                             @endif
                                                                         </div>
                                                                         <div class="card-body">
-                                                                            <h6>@lang('admin.sort'): {{ $image->sort }}
-                                                                            </h6>
+                                                                            <div class="mb-2">
+                                                                                <label>@lang('admin.sort')</label>
+                                                                                <input type="number"
+                                                                                    name="old_gallery_sort[{{ $image->id }}]"
+                                                                                    class="form-control"
+                                                                                    value="{{ $image->sort ?? 0 }}"
+                                                                                    min="0">
+                                                                            </div>
 
                                                                             <a class="btn btn-danger btn-sm"
                                                                                 href="{{ \LaravelLocalization::localizeURL(route('admin.portfolio.destroy_portfolio_gallery_image', $image->id)) }}">

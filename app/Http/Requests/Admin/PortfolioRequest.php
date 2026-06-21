@@ -64,11 +64,12 @@ class PortfolioRequest extends FormRequest
         $req += ['gallery.en.title' => 'nullable'];
 
         $req += ['gallery_image' => 'nullable|array'];
-       $req += ['gallery_image.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:90000480'];
+        $req += ['gallery_image.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,svg,mp4,mov,avi,mkv,pdf|max:90000480'];
 
         $req += ['gallery_sort' => 'nullable|array'];
         $req += ['gallery_sort.*' => 'nullable|integer|min:0'];
-
+        $req += ['old_gallery_sort' => 'nullable|array'];
+        $req += ['old_gallery_sort.*' => 'nullable|integer|min:0'];
         $req += ['gallery_feature' => 'nullable|array'];
 
         return $req;

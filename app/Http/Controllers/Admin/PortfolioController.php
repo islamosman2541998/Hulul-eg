@@ -174,6 +174,20 @@ class PortfolioController extends Controller
         }
 
         $portfolio->update($data);
+        if ($request->has('old_gallery_sort') && is_array($request->old_gallery_sort)) {
+            $groupId = $portfolio->galleryGroup ? $portfolio->galleryGroup->id : null;
+
+            if ($groupId) {
+                foreach ($request->old_gallery_sort as $galleryId => $sort) {
+                    Gallery::where('id', $galleryId)
+                        ->where('gallery_group_id', $groupId)
+                        ->update([
+                            'sort' => $sort ?? 0,
+                            
+                        ]);
+                }
+            }
+        }
 
         if ($request->hasFile('gallery_image')) {
             if ($portfolio->galleryGroup) {

@@ -42,9 +42,11 @@ class PortfolioGallery extends Component
             ->with([
                 'tag.transNow',
                 'transNow',
-                'galleryGroup.images',
+                'galleryGroup.images' => function ($q) {
+                    $q->orderByRaw('sort IS NULL, sort ASC')
+                        ->orderBy('id', 'ASC');
+                },
             ]);
-
         if ($this->activeTag !== 'all') {
             $tag = PortfolioTags::whereHas('trans', function ($q) {
                 $q->where('slug', $this->activeTag)
@@ -55,11 +57,9 @@ class PortfolioGallery extends Component
                 $query->where('tag_id', $tag->id);
             }
 
-            // لما اختار كاتجوري معينة: ترتيب حسب sort
             $query->orderByRaw('sort IS NULL, sort ASC')
                 ->orderBy('id', 'DESC');
         } else {
-            // أول فتح للصفحة أو لما أدوس All: عشوائي
             $query->inRandomOrder();
         }
 
@@ -72,7 +72,10 @@ class PortfolioGallery extends Component
                 ->with([
                     'tag.transNow',
                     'transNow',
-                    'galleryGroup.images',
+                    'galleryGroup.images' => function ($q) {
+                        $q->orderByRaw('sort IS NULL, sort ASC')
+                            ->orderBy('id', 'ASC');
+                    },
                 ])
                 ->find($this->openPortfolioId);
         }
