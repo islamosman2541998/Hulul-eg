@@ -73,7 +73,7 @@
         position: absolute;
         left: 10px !important;
         right: auto !important;
-        top: 26px;
+        top: -81px;
         background: #00bfe7;
     }
 </style>

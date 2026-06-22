@@ -118,4 +118,9 @@
        .footer-container {
            padding: 0px !important;
        }
+       @media only screen and (max-width: 767px) {
+         footer{
+             padding: 30px 0px !important;
+         }
+       }
    </style>
