@@ -63,7 +63,9 @@ Route::group([
 
     Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
     Route::get('/services/{slug}', [ServicesController::class, 'show'])->name('services.show');
-
+    Route::get('categories-services/{slug}', function ($slug) {
+        return redirect()->route('site.services.show', $slug);
+    })->name('categories-services.show');
     Route::get('/service_request', [ServiceRequestController::class, 'index'])->name('service_request.index');
 
     Route::post('/subscribe', [SubscribeController::class, 'store'])->name('subscribe.store');
