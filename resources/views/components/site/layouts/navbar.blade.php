@@ -31,13 +31,14 @@
                                     <span class="hide-on-mobile text-white">@lang('messages.Profile')</span>
                                 </a>
                             </li>
-                            <div class="header__actions ">
-                                <a href="{{ route('site.service_request.index') }}" class="btn request-btn "
+                            <li class="header__actions">
+                                <a href="{{ route('site.service_request.index') }}" class="btn request-btn"
                                     id="startBtn">
-                                    <i class="fa-regular fa-pen-to-square "></i> @lang('messages.request_meeting')
+                                    <i class="fa-regular fa-pen-to-square"></i> @lang('messages.request_meeting')
                                 </a>
-                            </div>
-                            <div class="lang-switch d-flex align-items-center ms-lg-3">
+                            </li>
+
+                            <li class="lang-switch d-flex align-items-center ms-lg-3">
                                 @foreach ($locals as $lang)
                                     @php
                                         $url = LaravelLocalization::getLocalizedURL($lang);
@@ -56,7 +57,7 @@
                                         @endif
                                     </a>
                                 @endforeach
-                            </div>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -77,3 +78,44 @@
         background: #00bfe7;
     }
 </style>
+<script>
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth > 767) {
+            return;
+        }
+
+        const toggle = e.target.closest(
+            '#mobile-menu-wrap .slicknav_parent > .slicknav_item, #mobile-menu-wrap .dropdown-toggle, .slicknav_nav .dropdown-toggle'
+        );
+
+        if (!toggle) {
+            return;
+        }
+
+        const li = toggle.closest('li');
+
+        if (!li) {
+            return;
+        }
+
+        const dropdown = li.querySelector(':scope > .dropdown-menu');
+
+        if (!dropdown) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        dropdown.classList.toggle('mobile-open');
+
+        const isOpen = dropdown.classList.contains('mobile-open');
+
+        const originalToggle = li.querySelector('.dropdown-toggle');
+        if (originalToggle) {
+            originalToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+
+        li.classList.toggle('mobile-dropdown-open', isOpen);
+    });
+</script>
