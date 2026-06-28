@@ -28,51 +28,75 @@
     </div>
     <!-- Breadcrumb End -->
 
-    <!-- Contact Widget Section Begin -->
-    <section class="contact-widget spad" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-        <div class="container">
-            <div class="row contact-info-row">
+<!-- Contact Widget Section Begin -->
+<section class="contact-widget spad" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+    <div class="container">
+        <div class="row contact-info-row">
 
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                        <div class="contact__widget__item__icon">
-                            <i class="fa fa-map-marker"></i>
-                        </div>
-                        <div class="contact__widget__item__text">
-                            <h4>@lang('admin.address')</h4>
-                            <p>{{ $settings->getItem('address') }}</p>
-                        </div>
+            <div class="contact-info-col">
+                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                    <div class="contact__widget__item__icon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="contact__widget__item__text">
+                        <h4>@lang('admin.address')</h4>
+                        <p>{{ $settings->getItem('address') }}</p>
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                        <div class="contact__widget__item__icon">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <div class="contact__widget__item__text">
-                            <h4>@lang('admin.phone')</h4>
-                            <p>{{ $settings->getItem('mobile') }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                        <div class="contact__widget__item__icon">
-                            <i class="fa fa-envelope"></i>
-                        </div>
-                        <div class="contact__widget__item__text">
-                            <h4>@lang('admin.email')</h4>
-                            <p>{{ $settings->getItem('email') }}</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="contact-info-col">
+                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                    <div class="contact__widget__item__icon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="contact__widget__item__text">
+                        <h4>@lang('admin.address_ksa')</h4>
+                        <p>{{ $settings->getItem('address_ksa') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info-col">
+                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                    <div class="contact__widget__item__icon">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="contact__widget__item__text">
+                        <h4>@lang('admin.phone')</h4>
+                        <p>{{ $settings->getItem('mobile') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info-col">
+                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                    <div class="contact__widget__item__icon">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="contact__widget__item__text">
+                        <h4>@lang('admin.mobile_ksa')</h4>
+                        <p>{{ $settings->getItem('mobile_ksa') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info-col">
+                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                    <div class="contact__widget__item__icon">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="contact__widget__item__text">
+                        <h4>@lang('admin.email')</h4>
+                        <p>{{ $settings->getItem('email') }}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>
-    <!-- Contact Widget Section End -->
+    </div>
+</section>
+<!-- Contact Widget Section End -->
 
     <!-- Call To Action Section Begin -->
     <section class="contact spad">
@@ -92,43 +116,69 @@
     <!-- Call To Action Section End -->
 
 @endsection
-<style>
-  .contact-info-item {
-    justify-content: flex-start !important;
-    text-align: start !important;
-}
+  <style>
+    .contact-info-row {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 30px;
+    }
 
-.contact-info-item .contact__widget__item__text {
-    text-align: start !important;
-}
-
-.contact-info-item .contact__widget__item__text p {
-    word-break: break-word;
-}
-
-@media only screen and (max-width: 767px) {
-    .contact-info-row > div {
-        width: 100%;
-        max-width: 100%;
-        flex: 0 0 100%;
+    .contact-info-col {
+        width: 20%;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
     .contact-info-item {
-        width: 100%;
         justify-content: flex-start !important;
-        align-items: center !important;
-        margin-bottom: 28px;
-        padding-inline: 18px;
-        gap: 18px !important;
-    }
-
-    .contact-info-item .contact__widget__item__icon {
-        flex: 0 0 70px;
-        margin: 0 !important;
+        text-align: start !important;
+        height: 100%;
     }
 
     .contact-info-item .contact__widget__item__text {
-        flex: 1;
+        text-align: start !important;
     }
-}
+
+    .contact-info-item .contact__widget__item__text p {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+
+    @media only screen and (max-width: 1199px) {
+        .contact-info-col {
+            width: 33.3333%;
+        }
+    }
+
+    @media only screen and (max-width: 991px) {
+        .contact-info-col {
+            width: 50%;
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .contact-info-col {
+            width: 100%;
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+
+        .contact-info-item {
+            width: 100%;
+            justify-content: flex-start !important;
+            align-items: center !important;
+            margin-bottom: 0;
+            padding-inline: 18px;
+            gap: 18px !important;
+        }
+
+        .contact-info-item .contact__widget__item__icon {
+            flex: 0 0 70px;
+            margin: 0 !important;
+        }
+
+        .contact-info-item .contact__widget__item__text {
+            flex: 1;
+        }
+    }
 </style>
