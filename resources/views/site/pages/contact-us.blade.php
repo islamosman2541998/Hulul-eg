@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row contact-info-row">
 
-            <div class="contact-info-col">
+            <div class="col-lg-4 col-md-6 col-12">
                 <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
                     <div class="contact__widget__item__icon">
                         <i class="fa fa-map-marker"></i>
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="contact-info-col">
+            <div class="col-lg-4 col-md-6 col-12">
                 <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
                     <div class="contact__widget__item__icon">
                         <i class="fa fa-map-marker"></i>
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="contact-info-col">
+            <div class="col-lg-4 col-md-6 col-12">
                 <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
                     <div class="contact__widget__item__icon">
                         <i class="fa fa-phone"></i>
@@ -69,10 +69,10 @@
                 </div>
             </div>
 
-            <div class="contact-info-col">
+            <div class="col-lg-4 col-md-6 col-12">
                 <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
                     <div class="contact__widget__item__icon">
-                        <i class="fa fa-phone"></i>
+                        <i class="fa fa-whatsapp"></i>
                     </div>
                     <div class="contact__widget__item__text">
                         <h4>@lang('admin.mobile_ksa')</h4>
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="contact-info-col">
+            <div class="col-lg-4 col-md-6 col-12">
                 <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
                     <div class="contact__widget__item__icon">
                         <i class="fa fa-envelope"></i>
@@ -116,48 +116,88 @@
     <!-- Call To Action Section End -->
 
 @endsection
-  <style>
+<style>
     .contact-info-row {
-        display: flex;
-        flex-wrap: wrap;
-        row-gap: 30px;
-    }
-
-    .contact-info-col {
-        width: 20%;
-        padding-left: 15px;
-        padding-right: 15px;
+        row-gap: 35px;
     }
 
     .contact-info-item {
         justify-content: flex-start !important;
         text-align: start !important;
         height: 100%;
+        margin-bottom: 0 !important;
+        gap: 14px !important;
     }
+
+   .contact-info-item .contact__widget__item__icon {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: normal !important;
+    position: relative !important;
+    overflow: hidden;
+}
+
+.contact-info-item .contact__widget__item__icon i {
+    font-size: 18px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .contact-info-item .contact__widget__item__icon {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    .contact-info-item .contact__widget__item__icon i {
+        font-size: 17px !important;
+    }
+}
 
     .contact-info-item .contact__widget__item__text {
         text-align: start !important;
+        flex: 1;
+    }
+
+    .contact-info-item .contact__widget__item__text h4 {
+        font-size: 17px !important;
+        line-height: 1.4;
+        margin-bottom: 5px;
     }
 
     .contact-info-item .contact__widget__item__text p {
+        font-size: 13px !important;
+        line-height: 1.7;
+        margin-bottom: 0;
         word-break: break-word;
         overflow-wrap: anywhere;
     }
 
-    @media only screen and (max-width: 1199px) {
-        .contact-info-col {
-            width: 33.3333%;
-        }
-    }
-
     @media only screen and (max-width: 991px) {
-        .contact-info-col {
-            width: 50%;
+        .contact-info-row {
+            row-gap: 28px;
         }
     }
 
     @media only screen and (max-width: 767px) {
-        .contact-info-col {
+        .contact-info-row > div {
             width: 100%;
             max-width: 100%;
             flex: 0 0 100%;
@@ -165,20 +205,29 @@
 
         .contact-info-item {
             width: 100%;
-            justify-content: flex-start !important;
             align-items: center !important;
-            margin-bottom: 0;
             padding-inline: 18px;
-            gap: 18px !important;
+            gap: 14px !important;
         }
 
         .contact-info-item .contact__widget__item__icon {
-            flex: 0 0 70px;
-            margin: 0 !important;
+            width: 44px !important;
+            height: 44px !important;
+            min-width: 44px !important;
+            line-height: 44px !important;
         }
 
-        .contact-info-item .contact__widget__item__text {
-            flex: 1;
+        .contact-info-item .contact__widget__item__icon i {
+            font-size: 17px !important;
+            line-height: 44px !important;
+        }
+
+        .contact-info-item .contact__widget__item__text h4 {
+            font-size: 16px !important;
+        }
+
+        .contact-info-item .contact__widget__item__text p {
+            font-size: 13px !important;
         }
     }
 </style>
