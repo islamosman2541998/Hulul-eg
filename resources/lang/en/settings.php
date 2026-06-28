@@ -136,6 +136,9 @@ return [
     'about_us' => 'About Us Page',
     'categories' => 'Categories',
     'show_statistics' => 'Show Statistics',
+    'address_ksa' => 'Address in Saudi Arabia',
+    'mobile_ksa' => 'Mobile in Saudi Arabia',
+    
 
 
 
