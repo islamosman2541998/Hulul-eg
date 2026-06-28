@@ -587,6 +587,10 @@ return [
 'job_desc_in' => 'Job Description in ',
 'job_desc_ar' => 'Job Description in Arabic',
 'meetingRequests' => 'Meeting Requests',
+'address_ksa_en' => 'Address in Saudi Arabia',
+'address_ksa_ar' => 'Address in Saudi Arabia',
+'mobile_ksa' => 'Mobile in Saudi Arabia',
+
 
 
 ];
