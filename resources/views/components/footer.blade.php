@@ -75,11 +75,11 @@
                            <h5>@lang('home.contact-us')</h5>
 
                            <div class="footer-country-box">
-                               <h6 class="footer-country-title text-white">
+                               {{-- <h6 class="footer-country-title text-white">
                                    @lang('admin.egypt')
                                    <img src="https://flagcdn.com/w40/eg.png" alt="Egypt Flag"
                                        class="footer-country-flag">
-                               </h6>
+                               </h6> --}}
 
                                <ul>
                                    <li>
@@ -107,11 +107,11 @@
                            </div>
 
                            <div class="footer-country-box">
-                               <h6 class="footer-country-title text-white">
+                               {{-- <h6 class="footer-country-title text-white">
                                    @lang('admin.saudi_arabia')
                                    <img src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia Flag"
                                        class="footer-country-flag">
-                               </h6>
+                               </h6> --}}
 
                                <ul>
                                    <li>
