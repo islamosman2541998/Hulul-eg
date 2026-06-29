@@ -93,8 +93,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-12">
-                    <a href="https://www.hololnet.com" target="_blank" rel="noopener noreferrer"
-                        class="contact-info-link">
+                    <a href="https://www.hololnet.com" target="_blank" rel="noopener noreferrer" class="contact-info-link">
 
                         <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
                             <div class="contact__widget__item__icon">
@@ -133,6 +132,10 @@
 
 @endsection
 <style>
+    footer i {
+        margin-top: 13px !important;
+    }
+
     .contact-info-row {
         row-gap: 35px;
     }
@@ -246,15 +249,16 @@
             font-size: 13px !important;
         }
     }
-    .contact-info-link {
-    display: block;
-    height: 100%;
-    text-decoration: none !important;
-    color: inherit !important;
-}
 
-.contact-info-link:hover {
-    text-decoration: none !important;
-    color: inherit !important;
-}
+    .contact-info-link {
+        display: block;
+        height: 100%;
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+
+    .contact-info-link:hover {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
 </style>
