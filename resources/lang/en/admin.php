@@ -596,6 +596,9 @@ return [
 'address_ksa_ar' => 'Address arabic in Saudi Arabia',
 'mobile_ksa' => 'Mobile in Saudi Arabia',
 'website_ksa' => 'Website in Saudi Arabia',
+'egypt' => 'Egypt',
+'saudi_arabia' => 'Saudi Arabia',
+'mobile' => 'Mobile',
 
 
 
