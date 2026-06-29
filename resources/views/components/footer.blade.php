@@ -74,64 +74,70 @@
                        <div class="footer__option__item footer-contact-info">
                            <h5>@lang('home.contact-us')</h5>
 
-                           <ul>
-                               <li>
-                                   <i class="fa fa-map-marker"></i>
-                                   <span>
-                                       <strong>@lang('admin.address')</strong>
-                                       {{ $settings->getItem('address') }}
-                                   </span>
-                               </li>
+                           <div class="footer-country-box">
+                               <h6 class="footer-country-title">
+                                   @lang('admin.egypt')
+                                   <img src="https://flagcdn.com/w40/eg.png" alt="Egypt Flag"
+                                       class="footer-country-flag">
+                               </h6>
 
-                               <li>
-                                   <i class="fa fa-map-marker"></i>
-                                   <span>
-                                       <strong>@lang('admin.address_ksa')</strong>
-                                       {{ $settings->getItem('address_ksa') }}
-                                   </span>
-                               </li>
+                               <ul>
+                                   <li>
+                                       <i class="fa fa-map-marker"></i>
+                                       <span><strong>@lang('admin.address'):</strong>
+                                           {{ $settings->getItem('address') }}</span>
+                                   </li>
+                                   <li>
+                                       <i class="fa fa-phone"></i>
+                                       <span>
+                                           <strong>@lang('admin.phone'):</strong>
+                                           <a
+                                               href="tel:{{ $settings->getItem('mobile') }}">{{ $settings->getItem('mobile') }}</a>
+                                       </span>
+                                   </li>
+                                   <li>
+                                       <i class="fa fa-envelope"></i>
+                                       <span>
+                                           <strong>@lang('admin.email'):</strong>
+                                           <a
+                                               href="mailto:{{ $settings->getItem('email') }}">{{ $settings->getItem('email') }}</a>
+                                       </span>
+                                   </li>
+                               </ul>
+                           </div>
 
-                               <li>
-                                   <i class="fa fa-phone"></i>
-                                   <span>
-                                       <strong>@lang('admin.phone')</strong>
-                                       <a href="tel:{{ $settings->getItem('mobile') }}">
-                                           {{ $settings->getItem('mobile') }}
-                                       </a>
-                                   </span>
-                               </li>
+                           <div class="footer-country-box">
+                               <h6 class="footer-country-title">
+                                   @lang('admin.saudi_arabia')
+                                   <img src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia Flag"
+                                       class="footer-country-flag">
+                               </h6>
 
-                               <li>
-                                   <i class="fa fa-whatsapp"></i>
-                                   <span>
-                                       <strong>@lang('admin.mobile_ksa')</strong>
-                                       <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings->getItem('mobile_ksa')) }}"
-                                           target="_blank" rel="noopener noreferrer">
-                                           {{ $settings->getItem('mobile_ksa') }}
-                                       </a>
-                                   </span>
-                               </li>
-
-                               <li>
-                                   <i class="fa fa-envelope"></i>
-                                   <span>
-                                       <strong>@lang('admin.email')</strong>
-                                       <a href="mailto:{{ $settings->getItem('email') }}">
-                                           {{ $settings->getItem('email') }}
-                                       </a>
-                                   </span>
-                               </li>
-
-                               {{-- <li>
-                                   <i class="fa fa-globe"></i>
-                                   <span>
-                                       <strong>@lang('admin.website_ksa')</strong>
-                                       <a href="https://www.hololnet.com" target="_blank" rel="noopener noreferrer">
-                                           https://www.hololnet.com
-                                       </a>
-                                   </span>
-                               </li> --}}
-                           </ul>
+                               <ul>
+                                   <li>
+                                       <i class="fa fa-map-marker"></i>
+                                       <span><strong>@lang('admin.address'):</strong>
+                                           {{ $settings->getItem('address_ksa') }}</span>
+                                   </li>
+                                   <li>
+                                       <i class="fa fa-whatsapp"></i>
+                                       <span>
+                                           <strong>@lang('admin.mobile'):</strong>
+                                           <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings->getItem('mobile_ksa')) }}"
+                                               target="_blank" rel="noopener noreferrer">
+                                               {{ $settings->getItem('mobile_ksa') }}
+                                           </a>
+                                       </span>
+                                   </li>
+                                   <li>
+                                       <i class="fa fa-envelope"></i>
+                                       <span>
+                                           <strong>@lang('admin.email'):</strong>
+                                           <a href="mailto:INFO@HOLOLNET.COM">INFO@HOLOLNET.COM</a>
+                                       </span>
+                                   </li>
+                               </ul>
+                           </div>
                        </div>
                    </div>
                </div>
@@ -166,56 +172,57 @@
                padding: 30px 0px !important;
            }
        }
+
        .footer-contact-info h5 {
-    color: #ffffff !important;
-}
+           color: #ffffff !important;
+       }
 
-.footer-contact-info ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
+       .footer-contact-info ul {
+           padding: 0;
+           margin: 0;
+           list-style: none;
+       }
 
-.footer-contact-info ul li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 12px;
-    color: #ffffff !important;
-    font-size: 13px;
-    line-height: 1.8;
-}
+       .footer-contact-info ul li {
+           display: flex;
+           align-items: flex-start;
+           gap: 10px;
+           margin-bottom: 12px;
+           color: #ffffff !important;
+           font-size: 13px;
+           line-height: 1.8;
+       }
 
-.footer-contact-info ul li i {
-    width: 18px;
-    min-width: 18px;
-    margin-top: 4px !important;
-    color: #ffffff !important;
-    font-size: 14px;
-    text-align: center;
-}
+       .footer-contact-info ul li i {
+           width: 18px;
+           min-width: 18px;
+           margin-top: 4px !important;
+           color: #ffffff !important;
+           font-size: 14px;
+           text-align: center;
+       }
 
-.footer-contact-info ul li span {
-    display: block;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    color: #ffffff !important;
-}
+       .footer-contact-info ul li span {
+           display: block;
+           word-break: break-word;
+           overflow-wrap: anywhere;
+           color: #ffffff !important;
+       }
 
-.footer-contact-info ul li strong {
-    display: inline;
-    color: #ffffff !important;
-    font-size: 14px;
-    margin-bottom: 0;
-}
+       .footer-contact-info ul li strong {
+           display: inline;
+           color: #ffffff !important;
+           font-size: 14px;
+           margin-bottom: 0;
+       }
 
-.footer-contact-info ul li a {
-    color: #ffffff !important;
-    text-decoration: none;
-}
+       .footer-contact-info ul li a {
+           color: #ffffff !important;
+           text-decoration: none;
+       }
 
-.footer-contact-info ul li a:hover {
-    color: #ffffff !important;
-    text-decoration: none;
-}
+       .footer-contact-info ul li a:hover {
+           color: #ffffff !important;
+           text-decoration: none;
+       }
    </style>
