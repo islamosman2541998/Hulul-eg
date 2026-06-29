@@ -28,75 +28,91 @@
     </div>
     <!-- Breadcrumb End -->
 
-<!-- Contact Widget Section Begin -->
-<section class="contact-widget spad" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <div class="container">
-        <div class="row contact-info-row">
+    <!-- Contact Widget Section Begin -->
+    <section class="contact-widget spad" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+        <div class="container">
+            <div class="row contact-info-row">
 
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                    <div class="contact__widget__item__icon">
-                        <i class="fa fa-map-marker"></i>
-                    </div>
-                    <div class="contact__widget__item__text">
-                        <h4>@lang('admin.address')</h4>
-                        <p>{{ $settings->getItem('address') }}</p>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                        <div class="contact__widget__item__icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="contact__widget__item__text">
+                            <h4>@lang('admin.address')</h4>
+                            <p>{{ $settings->getItem('address') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                    <div class="contact__widget__item__icon">
-                        <i class="fa fa-map-marker"></i>
-                    </div>
-                    <div class="contact__widget__item__text">
-                        <h4>@lang('admin.address_ksa')</h4>
-                        <p>{{ $settings->getItem('address_ksa') }}</p>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                        <div class="contact__widget__item__icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="contact__widget__item__text">
+                            <h4>@lang('admin.address_ksa')</h4>
+                            <p>{{ $settings->getItem('address_ksa') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                    <div class="contact__widget__item__icon">
-                        <i class="fa fa-phone"></i>
-                    </div>
-                    <div class="contact__widget__item__text">
-                        <h4>@lang('admin.phone')</h4>
-                        <p>{{ $settings->getItem('mobile') }}</p>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                        <div class="contact__widget__item__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="contact__widget__item__text">
+                            <h4>@lang('admin.phone')</h4>
+                            <p>{{ $settings->getItem('mobile') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                    <div class="contact__widget__item__icon">
-                        <i class="fa fa-whatsapp"></i>
-                    </div>
-                    <div class="contact__widget__item__text">
-                        <h4>@lang('admin.mobile_ksa')</h4>
-                        <p>{{ $settings->getItem('mobile_ksa') }}</p>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                        <div class="contact__widget__item__icon">
+                            <i class="fa fa-whatsapp"></i>
+                        </div>
+                        <div class="contact__widget__item__text">
+                            <h4>@lang('admin.mobile_ksa')</h4>
+                            <p>{{ $settings->getItem('mobile_ksa') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
-                    <div class="contact__widget__item__icon">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-                    <div class="contact__widget__item__text">
-                        <h4>@lang('admin.email')</h4>
-                        <p>{{ $settings->getItem('email') }}</p>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                        <div class="contact__widget__item__icon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="contact__widget__item__text">
+                            <h4>@lang('admin.email')</h4>
+                            <p>{{ $settings->getItem('email') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <a href="https://www.hololnet.com" target="_blank" rel="noopener noreferrer"
+                        class="contact-info-link">
 
+                        <div class="contact__widget__item contact-info-item d-flex align-items-center gap-3">
+                            <div class="contact__widget__item__icon">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                            <div class="contact__widget__item__text">
+                                <h4>@lang('admin.website_ksa')</h4>
+                                <p>https://www.hololnet.com</p>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
-<!-- Contact Widget Section End -->
+    </section>
+    <!-- Contact Widget Section End -->
 
     <!-- Call To Action Section Begin -->
     <section class="contact spad">
@@ -129,47 +145,47 @@
         gap: 14px !important;
     }
 
-   .contact-info-item .contact__widget__item__icon {
-    width: 50px !important;
-    height: 50px !important;
-    min-width: 50px !important;
-    border: 1px solid rgba(255, 255, 255, 0.35) !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: normal !important;
-    position: relative !important;
-    overflow: hidden;
-}
-
-.contact-info-item .contact__widget__item__icon i {
-    font-size: 18px !important;
-    line-height: 1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-}
-
-@media only screen and (max-width: 767px) {
     .contact-info-item .contact__widget__item__icon {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
+        width: 50px !important;
+        height: 50px !important;
+        min-width: 50px !important;
+        border: 1px solid rgba(255, 255, 255, 0.35) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: normal !important;
+        position: relative !important;
+        overflow: hidden;
     }
 
     .contact-info-item .contact__widget__item__icon i {
-        font-size: 17px !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
     }
-}
+
+    @media only screen and (max-width: 767px) {
+        .contact-info-item .contact__widget__item__icon {
+            width: 44px !important;
+            height: 44px !important;
+            min-width: 44px !important;
+        }
+
+        .contact-info-item .contact__widget__item__icon i {
+            font-size: 17px !important;
+        }
+    }
 
     .contact-info-item .contact__widget__item__text {
         text-align: start !important;
@@ -197,7 +213,7 @@
     }
 
     @media only screen and (max-width: 767px) {
-        .contact-info-row > div {
+        .contact-info-row>div {
             width: 100%;
             max-width: 100%;
             flex: 0 0 100%;
@@ -230,4 +246,15 @@
             font-size: 13px !important;
         }
     }
+    .contact-info-link {
+    display: block;
+    height: 100%;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.contact-info-link:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}
 </style>
