@@ -84,7 +84,7 @@
                                <ul>
                                    <li>
                                        <i class="fa fa-map-marker"></i>
-                                       <span><strong>@lang('admin.address'):</strong>
+                                       <span><strong>@lang('admin.address_eg'):</strong>
                                            {{ $settings->getItem('address') }}</span>
                                    </li>
                                    <li>
@@ -116,7 +116,7 @@
                                <ul>
                                    <li>
                                        <i class="fa fa-map-marker"></i>
-                                       <span><strong>@lang('admin.address'):</strong>
+                                       <span><strong>@lang('admin.address_ks'):</strong>
                                            {{ $settings->getItem('address_ksa') }}</span>
                                    </li>
                                    <li>

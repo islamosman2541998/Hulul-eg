@@ -599,6 +599,8 @@ return [
 'egypt' => 'Egypt',
 'saudi_arabia' => 'Saudi Arabia',
 'mobile' => 'Mobile',
+'address_ks' => 'Address Saudi Arabia',
+'address_eg' => 'Address Egypt',
 
 
 
