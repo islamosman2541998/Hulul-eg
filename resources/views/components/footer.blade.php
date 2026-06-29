@@ -187,7 +187,7 @@
            display: flex;
            align-items: flex-start;
            gap: 10px;
-           margin-bottom: 12px;
+           margin-bottom: 5px;
            color: #ffffff !important;
            font-size: 13px;
            line-height: 1.8;
