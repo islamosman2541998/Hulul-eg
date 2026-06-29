@@ -71,25 +71,67 @@
                        </div>
                    </div>
                    <div class="col-lg-4 col-md-12">
-                       <div class="footer__option__item">
-                           <h5>@lang('admin.newsletter')</h5>
-                           <p>@lang('admin.newsletter_description')</p>
-                           <form method="POST" action="{{ route('site.subscribe.store') }}">
-                               @csrf
+                       <div class="footer__option__item footer-contact-info">
+                           <h5>@lang('home.contact-us')</h5>
 
-                               <input type="email" name="email" required placeholder="Email">
-                               <button type="submit" class="applicationRequest"><i class=" fa fa-send"></i></button>
-                               @if (session('success'))
-                                   <div class="alert alert-success mt-2">
-                                       {{ session('success') }}
-                                   </div>
-                               @endif
-                               @if (session('error'))
-                                   <div class="alert alert-danger mt-2">
-                                       {{ session('error') }}
-                                   </div>
-                               @endif
-                           </form>
+                           <ul>
+                               <li>
+                                   <i class="fa fa-map-marker"></i>
+                                   <span>
+                                       <strong>@lang('admin.address')</strong>
+                                       {{ $settings->getItem('address') }}
+                                   </span>
+                               </li>
+
+                               <li>
+                                   <i class="fa fa-map-marker"></i>
+                                   <span>
+                                       <strong>@lang('admin.address_ksa')</strong>
+                                       {{ $settings->getItem('address_ksa') }}
+                                   </span>
+                               </li>
+
+                               <li>
+                                   <i class="fa fa-phone"></i>
+                                   <span>
+                                       <strong>@lang('admin.phone')</strong>
+                                       <a href="tel:{{ $settings->getItem('mobile') }}">
+                                           {{ $settings->getItem('mobile') }}
+                                       </a>
+                                   </span>
+                               </li>
+
+                               <li>
+                                   <i class="fa fa-whatsapp"></i>
+                                   <span>
+                                       <strong>@lang('admin.mobile_ksa')</strong>
+                                       <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings->getItem('mobile_ksa')) }}"
+                                           target="_blank" rel="noopener noreferrer">
+                                           {{ $settings->getItem('mobile_ksa') }}
+                                       </a>
+                                   </span>
+                               </li>
+
+                               <li>
+                                   <i class="fa fa-envelope"></i>
+                                   <span>
+                                       <strong>@lang('admin.email')</strong>
+                                       <a href="mailto:{{ $settings->getItem('email') }}">
+                                           {{ $settings->getItem('email') }}
+                                       </a>
+                                   </span>
+                               </li>
+
+                               {{-- <li>
+                                   <i class="fa fa-globe"></i>
+                                   <span>
+                                       <strong>@lang('admin.website_ksa')</strong>
+                                       <a href="https://www.hololnet.com" target="_blank" rel="noopener noreferrer">
+                                           https://www.hololnet.com
+                                       </a>
+                                   </span>
+                               </li> --}}
+                           </ul>
                        </div>
                    </div>
                </div>
@@ -118,9 +160,10 @@
        .footer-container {
            padding: 0px !important;
        }
+
        @media only screen and (max-width: 767px) {
-         footer{
-             padding: 30px 0px !important;
-         }
+           footer {
+               padding: 30px 0px !important;
+           }
        }
    </style>
