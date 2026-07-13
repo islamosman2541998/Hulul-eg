@@ -49,7 +49,7 @@
 
                         </span>
                         <h3 class="text-white">{{ $service->transNow->title ?? '' }}</h3>
-                        <p>{!! $service->transNow->description ?? '' !!}</p>
+                        <p class="fs-5">{!! $service->transNow->description ?? '' !!}</p>
                         {{-- <span class="more">@lang('services.service_request') →</span> --}}
                     </a>
                 @empty
@@ -67,6 +67,11 @@
         .card {
 
             background: #3b436d3d !important;
+        }
+
+        .card p {
+
+            font-size: 16.8px !important;
         }
     </style>
 @endsection
