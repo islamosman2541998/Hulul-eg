@@ -226,3 +226,227 @@
            text-decoration: none;
        }
    </style>
+@php
+    $settings = \App\Settings\SettingSingleton::getInstance();
+
+    $whatsappNumber = preg_replace(
+        '/[^0-9]/',
+        '',
+        $settings->getItem('mobile')
+    );
+
+    $whatsappMessage = app()->getLocale() === 'ar'
+        ? 'مرحبًا، أريد الاستفسار عن خدماتكم.'
+        : 'Hello, I would like to ask about your services.';
+@endphp
+
+<div class="floating-site-actions"
+    dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+
+    {{-- زر طلب ميتنج --}}
+    <a href="{{ route('site.service_request.index') }}"
+        class="floating-meeting-btn"
+        aria-label="@lang('messages.request_meeting')">
+
+        <i class="fa-regular fa-pen-to-square"></i>
+
+        <span>
+            @lang('messages.request_meeting')
+        </span>
+    </a>
+
+    {{-- زر واتساب --}}
+    @if ($whatsappNumber)
+        <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode($whatsappMessage) }}"
+            class="floating-whatsapp-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp">
+
+            <i class="fa fa-whatsapp"></i>
+        </a>
+    @endif
+
+</div>
+
+<style>
+    /* ==============================
+       Floating Website Actions
+    ============================== */
+
+    .floating-site-actions {
+        position: fixed;
+        right: 22px;
+        bottom: max(22px, env(safe-area-inset-bottom));
+        z-index: 9998;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 9px;
+    }
+
+    .floating-meeting-btn,
+    .floating-whatsapp-btn {
+        text-decoration: none !important;
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            background-color 0.25s ease;
+    }
+
+    /* ==============================
+       Meeting Button
+    ============================== */
+
+    .floating-meeting-btn {
+        min-height: 45px;
+        padding: 0 16px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+
+        background: #00bfe7;
+        color: #ffffff !important;
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 30px;
+
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        white-space: nowrap;
+
+        box-shadow:
+            0 7px 20px rgba(0, 191, 231, 0.27),
+            0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .floating-meeting-btn i {
+        font-size: 14px;
+    }
+
+    .floating-meeting-btn:hover {
+        background: #00a9cc;
+        color: #ffffff !important;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 10px 25px rgba(0, 191, 231, 0.35),
+            0 4px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    /* ==============================
+       WhatsApp Button
+    ============================== */
+
+    .floating-whatsapp-btn {
+        width: 47px;
+        height: 47px;
+        min-width: 47px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #25d366;
+        color: #ffffff !important;
+
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 50%;
+
+        font-size: 23px;
+
+        box-shadow:
+            0 7px 20px rgba(37, 211, 102, 0.28),
+            0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .floating-whatsapp-btn:hover {
+        background: #1fbd59;
+        color: #ffffff !important;
+
+        transform: translateY(-2px) scale(1.03);
+
+        box-shadow:
+            0 10px 25px rgba(37, 211, 102, 0.36),
+            0 4px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Keyboard accessibility */
+
+    .floating-meeting-btn:focus-visible,
+    .floating-whatsapp-btn:focus-visible {
+        outline: 3px solid rgba(0, 191, 231, 0.35);
+        outline-offset: 3px;
+    }
+
+    /* ==============================
+       Mobile
+    ============================== */
+
+    @media only screen and (max-width: 767px) {
+        .floating-site-actions {
+            right: 12px;
+            bottom: max(16px, env(safe-area-inset-bottom));
+            gap: 7px;
+        }
+
+        .floating-meeting-btn {
+            min-height: 41px;
+            padding: 0 13px;
+
+            gap: 6px;
+
+            font-size: 11px;
+            border-radius: 25px;
+        }
+
+        .floating-meeting-btn i {
+            font-size: 13px;
+        }
+
+        .floating-whatsapp-btn {
+            width: 43px;
+            height: 43px;
+            min-width: 43px;
+
+            font-size: 21px;
+        }
+    }
+
+    /* ==============================
+       Very Small Mobile
+    ============================== */
+
+    @media only screen and (max-width: 380px) {
+        .floating-site-actions {
+            right: 9px;
+            bottom: max(12px, env(safe-area-inset-bottom));
+            gap: 6px;
+        }
+
+        .floating-meeting-btn {
+            min-height: 39px;
+            padding: 0 11px;
+
+            font-size: 10px;
+        }
+
+        .floating-meeting-btn i {
+            font-size: 12px;
+        }
+
+        .floating-whatsapp-btn {
+            width: 41px;
+            height: 41px;
+            min-width: 41px;
+
+            font-size: 20px;
+        }
+    }
+</style>
