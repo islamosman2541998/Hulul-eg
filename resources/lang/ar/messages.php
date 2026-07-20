@@ -161,16 +161,16 @@ return [
     'Design & Care Packages' => 'باقات تنسيق الحفلات والديكور ',
     'Your_event' => 'دعنا نساعدك في ابتكار الحل المثالي لمناسبتك.',
     'Your_landscape' => 'دعنا نساعدك في ابتكار الحل المثالي لتنسيق اللاندسكيب',
-    'area'=> 'المنطقة',
-    'cairo'=> 'القاهرة',
-    'giza'=> 'الجيزة',
-    'enter_coupon_code'=> 'أدخل كود الخصم',
-    'subtotal'=> 'المجموع',
-    'discount'=> 'الخصم',
-    'apply'=> 'تطبيق',
-    'shipping'=> 'الشحن',
-    'tax'=> 'الضريبة',
-    'total'=> 'الإجمالي النهائي',
+    'area' => 'المنطقة',
+    'cairo' => 'القاهرة',
+    'giza' => 'الجيزة',
+    'enter_coupon_code' => 'أدخل كود الخصم',
+    'subtotal' => 'المجموع',
+    'discount' => 'الخصم',
+    'apply' => 'تطبيق',
+    'shipping' => 'الشحن',
+    'tax' => 'الضريبة',
+    'total' => 'الإجمالي النهائي',
     'get_special_discount'         => 'احصل على خصم خاص!',
     'use_coupon_for_discount'      => 'استخدم الكوبون التالي للحصول على الخصم:',
     'coupon_code_label'            => 'الكود',
@@ -178,15 +178,15 @@ return [
     'close'                        => 'إغلاق',
     'discount_percent_message'     => 'خصم :value% عند استخدام هذا الكوبون.',
     'discount_fixed_message'       => 'خصم :value من إجمالي الفاتورة عند استخدام هذا الكوبون.',
-    'street_name'=> 'اسم الشارع',
-    'apartment'=> 'رقم الشقة',
-    'floor'=> 'الطابق',
-    'area'=> 'المنطقة',
-    'invalid_or_expired_coupon'=> 'الكوبون غير صالح أو منتهي الصلاحية',
-    'coupon_applied_success'=> ' تم تطبيق الكوبون بنجاح',
-    'code_number'=> 'كود المنتج :',
-    'copied'=> 'تم النسخ',
-    'copy'=> 'نسخ',
+    'street_name' => 'اسم الشارع',
+    'apartment' => 'رقم الشقة',
+    'floor' => 'الطابق',
+    'area' => 'المنطقة',
+    'invalid_or_expired_coupon' => 'الكوبون غير صالح أو منتهي الصلاحية',
+    'coupon_applied_success' => ' تم تطبيق الكوبون بنجاح',
+    'code_number' => 'كود المنتج :',
+    'copied' => 'تم النسخ',
+    'copy' => 'نسخ',
     'care_tips' => 'نصائح العناية',
     "no_care_tips" => "لا توجد نصائح للعناية متاحة",
     "filter_roses_by_color" => "تصفية الورود حسب اللون",
@@ -227,7 +227,7 @@ return [
     "show_coupon" => "عرض الكوبون",
     "close" => "اغلاق",
     "copy_coupon" => "نسخ الكوبون",
-   
+
     "coupon_copied" => "تم نسخ الكوبون بنجاح",
     "click_here_to_pay" => "اضغط هنا للدفع",
     "insta_payment" => " انستا باي",
@@ -249,7 +249,7 @@ return [
     'request_service' => 'طلب خدمة',
     'Profile' => 'الملف التعريفي',
     'request_meeting' => 'طلب اجتماع',
-     'back_to_home' => 'العودة للرئيسية',
+    'back_to_home' => 'العودة للرئيسية',
 
     'request_service' => 'طلب خدمة',
     'request_meeting' => 'طلب اجتماع',
@@ -313,15 +313,26 @@ return [
     'service_required' => 'الخدمة مطلوبة',
     'service_not_found' => 'الخدمة المحددة غير موجودة',
     'attachment_max' => 'حجم الملف يجب ألا يتجاوز 10 ميجابايت',
-    
-    
+    'thank_you_meta_title' => 'شكراً لتواصلك معنا',
+    'thank_you_meta_keywords' => 'طلب خدمة، طلب اجتماع، تواصل معنا، شكراً',
+    'thank_you_meta_description' => 'تم استلام طلبك بنجاح وسيتواصل فريقنا معك في أقرب وقت ممكن.',
+
+    'thank_you_title' => 'شكراً لتواصلك معنا',
+    'thank_you_message' => 'تم استلام طلبك بنجاح.',
+    'thank_you_description' => 'سيقوم فريقنا بمراجعة التفاصيل والتواصل معك في أقرب وقت ممكن.',
+
+    'back_to_home' => 'العودة إلى الرئيسية',
+    'browse_services' => 'تصفح خدماتنا',
+    'attachment_file' => 'يرجى اختيار ملف صالح.',
 
 
 
 
 
 
-    
+
+
+
 
 
 

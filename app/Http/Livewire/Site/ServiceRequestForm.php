@@ -62,18 +62,24 @@ class ServiceRequestForm extends Component
         ];
     }
 
-   protected $messages = [
-    'name.required' => 'messages.name_required',
-    'email.required' => 'messages.email_required',
-    'email.email' => 'messages.email_invalid',
-    'service_category_id.required' => 'messages.service_required',
-    'service_category_id.exists' => 'messages.service_not_found',
-    'attachment.max' => 'messages.attachment_max',
+   protected function messages(): array
+{
+    return [
+        'name.required' => __('messages.name_required'),
+        'email.required' => __('messages.email_required'),
+        'email.email' => __('messages.email_invalid'),
 
-    'meeting_name.required' => 'messages.name_required',
-    'meeting_email.required' => 'messages.email_required',
-    'meeting_email.email' => 'messages.email_invalid',
-];
+        'service_category_id.required' => __('messages.service_required'),
+        'service_category_id.exists' => __('messages.service_not_found'),
+
+        'attachment.file' => __('messages.attachment_file'),
+        'attachment.max' => __('messages.attachment_max'),
+
+        'meeting_name.required' => __('messages.name_required'),
+        'meeting_email.required' => __('messages.email_required'),
+        'meeting_email.email' => __('messages.email_invalid'),
+    ];
+}
     public function showServiceForm()
     {
         $this->activeForm = 'service';
@@ -115,63 +121,77 @@ class ServiceRequestForm extends Component
     $this->resetValidation();
 }
 
-    public function submitService()
-    {
-        $this->activeForm = 'service';
-        $this->validate();
+   public function submitService()
+{
+    $this->activeForm = 'service';
+    $this->validate();
 
-        try {
-            $data = [
-                'name' => $this->name,
-                'email' => $this->email,
-                'phone' => $this->phone,
-                'company' => $this->company,
-                'service_category_id' => $this->service_category_id,
-                'timeline' => $this->timeline,
-                'message' => $this->message,
-            ];
+    try {
+        $data = [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'company' => $this->company,
+            'service_category_id' => $this->service_category_id,
+            'timeline' => $this->timeline,
+            'message' => $this->message,
+        ];
 
-            if ($this->attachment) {
-                $filename = time() . '_' . $this->attachment->getClientOriginalName();
-                $this->attachment->storeAs('service_requests', $filename, 'public');
-                $data['attachment'] = $filename;
-            }
+        if ($this->attachment) {
+            $filename = time() . '_' . $this->attachment->getClientOriginalName();
 
-            ServiceRequest::create($data);
+            $this->attachment->storeAs(
+                'service_requests',
+                $filename,
+                'public'
+            );
 
-            $this->goBack();
-
-            session()->flash('success', __('messages.service_request_success'));
-        } catch (\Exception $e) {
-            session()->flash('error', __('messages.request_error'));
+            $data['attachment'] = $filename;
         }
+
+        ServiceRequest::create($data);
+
+        return redirect()->route('site.thank-you');
+
+    } catch (\Throwable $e) {
+        report($e);
+
+        session()->flash(
+            'error',
+            __('messages.request_error')
+        );
     }
+}
 
-    public function submitMeeting()
-    {
-        $this->activeForm = 'meeting';
-        $this->validate();
+   public function submitMeeting()
+{
+    $this->activeForm = 'meeting';
+    $this->validate();
 
-        try {
-            MeetingRequest::create([
-                'name' => $this->meeting_name,
-                'email' => $this->meeting_email,
-                'phone' => $this->meeting_phone,
-                'company' => $this->meeting_company,
-                'meeting_type' => $this->meeting_type,
-                'preferred_date' => $this->preferred_date,
-                'preferred_time' => $this->preferred_time,
-                'message' => $this->meeting_message,
-                'status' => 'new',
-            ]);
+    try {
+        MeetingRequest::create([
+            'name' => $this->meeting_name,
+            'email' => $this->meeting_email,
+            'phone' => $this->meeting_phone,
+            'company' => $this->meeting_company,
+            'meeting_type' => $this->meeting_type,
+            'preferred_date' => $this->preferred_date,
+            'preferred_time' => $this->preferred_time,
+            'message' => $this->meeting_message,
+            'status' => 'new',
+        ]);
 
-            $this->goBack();
+        return redirect()->route('site.thank-you');
 
-            session()->flash('success', __('messages.meeting_request_success'));
-        } catch (\Exception $e) {
-            session()->flash('error', __('messages.request_error'));
-        }
+    } catch (\Throwable $e) {
+        report($e);
+
+        session()->flash(
+            'error',
+            __('messages.request_error')
+        );
     }
+}
 
     public function render()
     {

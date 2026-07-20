@@ -149,7 +149,7 @@ return [
     'profile_updated'   => 'Profile updated successfully.',
     'edit_profile'   => 'Edit Profile',
     'status'   => 'Status',
-    'shipped_status'   => 'Shipped status', 
+    'shipped_status'   => 'Shipped status',
     'details'   => 'Details',
     'order_details'   => 'Order details',
     'order_status'   => 'Order status',
@@ -165,33 +165,33 @@ return [
     'Design &amp; Care Packages'   => 'Design & Care Packages',
     'Design & Care Packages'   => 'Event Styling & Décor Packages',
     'Your_event'   => 'Let us help you create the perfect solution for your event.',
-    'Your_landscape'=> 'Let us help you create the perfect solution for your landscape.',
-    'area'=> 'area',
-    'cairo'=> 'Cairo',
-    'giza'=> 'Giza',
-    'enter_coupon_code'=> 'Enter Coupon Code',
-    'subtotal'=> 'Subtotal',
-    'discount'=> 'Discount',
-    'apply'=> 'Apply',
-    'shipping'=> 'Shipping',
-    'tax'=> 'Tax',
-    'total'=> 'Total',
-     'get_special_discount'         => 'Get a special discount!',
+    'Your_landscape' => 'Let us help you create the perfect solution for your landscape.',
+    'area' => 'area',
+    'cairo' => 'Cairo',
+    'giza' => 'Giza',
+    'enter_coupon_code' => 'Enter Coupon Code',
+    'subtotal' => 'Subtotal',
+    'discount' => 'Discount',
+    'apply' => 'Apply',
+    'shipping' => 'Shipping',
+    'tax' => 'Tax',
+    'total' => 'Total',
+    'get_special_discount'         => 'Get a special discount!',
     'use_coupon_for_discount'      => 'Use the following coupon to get a discount:',
     'coupon_code_label'            => 'Coupon code',
     'coupon_validity_note'         => 'This coupon is only valid for 24 hours',
     'close'                         => 'Close',
     'discount_percent_message'     => 'Enjoy a :value% discount when you apply this coupon.',
     'discount_fixed_message'       => 'Get : value off your order when you apply this coupon.',
-    'street_name'=> 'Street Name',
-    'apartment'=> 'Apartment',
-    'floor'=> 'Floor',
-    'area'=> 'Area',
-    'invalid_or_expired_coupon'=> 'Invalid or expired coupon',
-    'coupon_applied_success'=> ' Coupon applied successfully',
-    'code_number'=> 'Product Code :',
-    'copied'=> 'Copied',
-    'copy'=> 'Copy',
+    'street_name' => 'Street Name',
+    'apartment' => 'Apartment',
+    'floor' => 'Floor',
+    'area' => 'Area',
+    'invalid_or_expired_coupon' => 'Invalid or expired coupon',
+    'coupon_applied_success' => ' Coupon applied successfully',
+    'code_number' => 'Product Code :',
+    'copied' => 'Copied',
+    'copy' => 'Copy',
     "in_stock" => "IN STOCK",
     'out_of_stock' => "OUT OF STOCK",
     'care_tips' => 'Care Tips',
@@ -235,17 +235,17 @@ return [
     "close" => "Close",
     "copy_coupon" => "Copy Coupon",
     "coupon_copied" => "Coupon copied successfully",
-   "insta_pay"=> 'InstaPay',
-   "click_here_to_pay" => 'Click here to pay',
-   "see_more" => 'See more',
-   "blogs_title" => "Dalia's Articles on Flowers, Landscaping, Plants, and  Event Decoration for an Inspired Life",
-   "blogs_desc" => 'In the heart of every special occasion, tranquil garden, or elegant home, there is a beautiful harmony between flowers, landscape design, the presence of plants, or the magic of floral wedding arrangements — the art of natural design grants you the life you deserve. These articles cover everything you need to know to create beautiful moments using nature’s most stunning elements.',
-   "Category" => 'Category',
-   "Categories" => 'Categories',
-   "Occasion" => 'Occasion',
-   "search" => 'Search',
-   "product_review" => 'Product Review',
-   "review_submitted" => 'Thanks for submitting the review successfully',
+    "insta_pay" => 'InstaPay',
+    "click_here_to_pay" => 'Click here to pay',
+    "see_more" => 'See more',
+    "blogs_title" => "Dalia's Articles on Flowers, Landscaping, Plants, and  Event Decoration for an Inspired Life",
+    "blogs_desc" => 'In the heart of every special occasion, tranquil garden, or elegant home, there is a beautiful harmony between flowers, landscape design, the presence of plants, or the magic of floral wedding arrangements — the art of natural design grants you the life you deserve. These articles cover everything you need to know to create beautiful moments using nature’s most stunning elements.',
+    "Category" => 'Category',
+    "Categories" => 'Categories',
+    "Occasion" => 'Occasion',
+    "search" => 'Search',
+    "product_review" => 'Product Review',
+    "review_submitted" => 'Thanks for submitting the review successfully',
     "customer_review" => 'Customer Review',
     'no_reviews_yet' => 'No reviews yet. Be the first to review this product!',
     'leave_a_review' => 'Leave a Review',
@@ -257,7 +257,7 @@ return [
     'request_service' => 'Request Service',
     'Profile' => 'Profile',
     'request_meeting' => 'Request Meeting',
-     'back_to_home' => 'Back to Home',
+    'back_to_home' => 'Back to Home',
 
     'request_service' => 'Request Service',
     'request_meeting' => 'Request Meeting',
@@ -321,17 +321,28 @@ return [
     'service_required' => 'Service is required',
     'service_not_found' => 'Selected service does not exist',
     'attachment_max' => 'File size must not exceed 10 MB',
-    
+    'thank_you_meta_title' => 'Thank You for Contacting Us',
+    'thank_you_meta_keywords' => 'service request, meeting request, contact us, thank you',
+    'thank_you_meta_description' => 'Your request has been received successfully, and our team will contact you as soon as possible.',
+
+    'thank_you_title' => 'Thank You for Contacting Us',
+    'thank_you_message' => 'Your request has been received successfully.',
+    'thank_you_description' => 'Our team will review the details and contact you as soon as possible.',
+
+    'back_to_home' => 'Back to Home',
+    'browse_services' => 'Browse Our Services',
+    'attachment_file' => 'Please select a valid file.',
 
 
-    
-
-    
-    
-   
 
 
-    
+
+
+
+
+
+
+
 
 
 

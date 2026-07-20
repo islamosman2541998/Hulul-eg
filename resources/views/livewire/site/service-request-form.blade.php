@@ -61,7 +61,7 @@
                                         class="input @error('phone') error @enderror"
                                         type="tel"
                                         wire:model="phone"
-                                        placeholder="{{ __('messages.phone_placeholder') }}"
+                                        placeholder="{{ __('messages.phone_placeholder') }} required"
                                     >
                                     @error('phone')
                                         <span class="error-message">{{ $message }}</span>
@@ -74,7 +74,7 @@
                                         class="input @error('company') error @enderror"
                                         type="text"
                                         wire:model="company"
-                                        placeholder="{{ __('messages.company_name') }}"
+                                        placeholder="{{ __('messages.company_name') }} required" 
                                     >
                                     @error('company')
                                         <span class="error-message">{{ $message }}</span>
@@ -223,7 +223,7 @@
                                         class="input @error('meeting_phone') error @enderror"
                                         type="tel"
                                         wire:model="meeting_phone"
-                                        placeholder="{{ __('messages.phone_placeholder') }}"
+                                        placeholder="{{ __('messages.phone_placeholder') }} required"
                                     >
                                     @error('meeting_phone')
                                         <span class="error-message">{{ $message }}</span>
@@ -236,7 +236,7 @@
                                         class="input @error('meeting_company') error @enderror"
                                         type="text"
                                         wire:model="meeting_company"
-                                        placeholder="{{ __('messages.company_name') }}"
+                                        placeholder="{{ __('messages.company_name') }} required"
                                     >
                                     @error('meeting_company')
                                         <span class="error-message">{{ $message }}</span>
