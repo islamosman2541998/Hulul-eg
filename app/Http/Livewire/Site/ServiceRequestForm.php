@@ -41,8 +41,8 @@ class ServiceRequestForm extends Component
             return [
                 'meeting_name' => 'required|string|max:255',
                 'meeting_email' => 'required|email|max:255',
-                'meeting_phone' => 'nullable|string|max:20',
-                'meeting_company' => 'nullable|string|max:255',
+                'meeting_phone' => 'required|string|max:20',
+                'meeting_company' => 'required|string|max:255',
                 'meeting_type' => 'nullable|string|max:255',
                 'preferred_date' => 'nullable|date',
                 'preferred_time' => 'nullable',
@@ -53,8 +53,8 @@ class ServiceRequestForm extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'company' => 'nullable|string|max:255',
+            'phone' => 'required|string|max:20',
+            'company' => 'required|string|max:255',
             'service_category_id' => 'required|exists:service_categories,id',
             'timeline' => 'nullable|string',
             'message' => 'nullable|string',
