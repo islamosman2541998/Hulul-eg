@@ -332,7 +332,7 @@ return [
     'back_to_home' => 'Back to Home',
     'browse_services' => 'Browse Our Services',
     'attachment_file' => 'Please select a valid file.',
-    '.phone_required' => 'Phone number is required.',
+    'phone_required' => 'Phone number is required.',
     'company_required' => 'Company name is required.',
 
 
