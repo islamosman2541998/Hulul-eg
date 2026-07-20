@@ -324,6 +324,8 @@ return [
     'back_to_home' => 'العودة إلى الرئيسية',
     'browse_services' => 'تصفح خدماتنا',
     'attachment_file' => 'يرجى اختيار ملف صالح.',
+    'phone_required' => 'رقم الهاتف مطلوب.',
+    'company_required' => 'اسم الشركة مطلوب.',
 
 
 
