@@ -68,6 +68,10 @@ class ServiceRequestForm extends Component
         'name.required' => __('messages.name_required'),
         'email.required' => __('messages.email_required'),
         'email.email' => __('messages.email_invalid'),
+        'phone.required' => __('messages.phone_required'),
+        'phone.max' => __('messages.phone_max'),
+        'company.required' => __('messages.company_required'),
+        'company.max' => __('messages.company_max'),
 
         'service_category_id.required' => __('messages.service_required'),
         'service_category_id.exists' => __('messages.service_not_found'),
@@ -78,6 +82,10 @@ class ServiceRequestForm extends Component
         'meeting_name.required' => __('messages.name_required'),
         'meeting_email.required' => __('messages.email_required'),
         'meeting_email.email' => __('messages.email_invalid'),
+        'meeting_phone.required' => __('messages.phone_required'),
+        'meeting_phone.max' => __('messages.phone_max'),
+        'meeting_company.required' => __('messages.company_required'),
+        'meeting_company.max' => __('messages.company_max'),
     ];
 }
     public function showServiceForm()
