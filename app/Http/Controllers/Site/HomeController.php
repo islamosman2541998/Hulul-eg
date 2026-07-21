@@ -8,68 +8,57 @@ use App\Models\News;
 use App\Models\About;
 use App\Models\Partner;
 use App\Models\Product;
-use App\Models\Services;
-use App\Models\PromoCode;
 use App\Models\Statistic;
 use App\Models\Portfolios;
-use App\Models\PaymentMethod;
-use App\Models\PortfolioTags;
 use App\Models\ProductCategory;
 use App\Models\ServiceCategory;
 use App\Models\AboutTranslation;
-use App\Settings\SettingSingleton;
 use App\Http\Controllers\Controller;
 use App\Models\HomeSettingPage;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function home()
     {
+        $current_lang = app()->getLocale();
 
-        $current_lang       = app()->getLocale();
-        $about_us = About::with('transNow')->first();
-        if (!$about_us) {
-            $about_us = new About();
-            $about_us->transNow = new AboutTranslation();
-        }
-        $blogs = Blog::with('translations')->feature()->active()->orderBy('sort', 'ASC')->get();
-        $partners = Partner::with('translations')->where('status', 1)->get();
-        $news = News::with('translations')->where('status', 1)->take(3)->get();
-        $faq_questions = Faq::with('translations')->where('status', 1)->get();
+        $data = Cache::rememberForever('home_page_data_' . $current_lang, function () {
+            $about_us = About::with('transNow')->first();
+            if (!$about_us) {
+                $about_us = new About();
+                $about_us->transNow = new AboutTranslation();
+            }
 
-        $products = Product::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(3)->get();
-        $categoryProducts = ProductCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
-        $servicesCategories = ServiceCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(4)->get();
-        $statistics = Statistic::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get();
+            return [
+                'about_us'           => $about_us,
+                'blogs'              => Blog::with('translations')->feature()->active()->orderBy('sort', 'ASC')->get(),
+                'partners'           => Partner::with('translations')->where('status', 1)->get(),
+                'news'               => News::with('translations')->where('status', 1)->take(3)->get(),
+                'faq_questions'      => Faq::with('translations')->where('status', 1)->get(),
+                'products'           => Product::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(3)->get(),
+                'categoryProducts'   => ProductCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get(),
+                'servicesCategories' => ServiceCategory::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->take(4)->get(),
+                'statistics'         => Statistic::with('transNow')->feature()->active()->orderBy('sort', 'ASC')->get(),
+                'services_section'   => HomeSettingPage::with('trans')->where('title_section', 'services')->first(),
+            ];
+        });
 
         $page_name = 'home';
 
         $portfolios = Portfolios::with('transNow')
             ->active()
             ->feature()
-            
             ->take(20)
             ->get()
             ->shuffle()
             ->take(12)
             ->values();
-        $services_section = HomeSettingPage::with('trans')->where('title_section', 'services')->first();
 
-
-        return view('site.pages.index', compact(
-            'current_lang',
-            'page_name',
-            'about_us',
-            'products',
-            'categoryProducts',
-            'blogs',
-            'partners',
-            'news',
-            'faq_questions',
-            'servicesCategories',
-            'portfolios',
-            'statistics',
-            'services_section'
-        ));
+        return view('site.pages.index', array_merge($data, [
+            'current_lang' => $current_lang,
+            'page_name'    => $page_name,
+            'portfolios'   => $portfolios,
+        ]));
     }
 }
