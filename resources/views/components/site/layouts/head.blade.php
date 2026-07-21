@@ -79,7 +79,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     {!! \App\Settings\SettingSingleton::getInstance()->getScript('header_script') !!}
 
-
+@stack('preload')
     @yield('style')
 
     @livewireStyles

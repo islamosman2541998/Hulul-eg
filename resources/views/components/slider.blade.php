@@ -8,8 +8,10 @@
 <section class="hero" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
     <div class="hero__slider owl-carousel">
 
-        @forelse ($slides as $slide)
-            <div class="hero__item set-bg bgImg" {{-- style="background-image: url('{{ asset($slide->pathInView()) }}') !important;" --}} data-setbg="{{ asset($slide->pathInView()) }}">
+       @forelse ($slides as $index => $slide)
+    <div class="hero__item set-bg bgImg"
+         @if($index === 0) style="background-image: url('{{ asset($slide->pathInView()) }}');" @endif
+         data-setbg="{{ asset($slide->pathInView()) }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -29,7 +31,11 @@
     </div>
 </section>
 <!-- Hero Section End -->
-
+@if(isset($slides[0]))
+    @push('preload')
+        <link rel="preload" as="image" href="{{ asset($slides[0]->pathInView()) }}" fetchpriority="high">
+    @endpush
+@endif
 <style>
     .slider-desc p {
         color: #fff !important;
