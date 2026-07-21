@@ -76,11 +76,15 @@ class Blog extends Model
 
     /**
      */
-    public function pathInView(): string
-    {
-        if ($this->image && file_exists(self::diskPath() . $this->image)) {
-            return self::staticPath() . $this->image;
+   public function pathInView(): string
+{
+    if ($this->image && file_exists(self::diskPath() . $this->image)) {
+        $webp = preg_replace('/\.(jpe?g|png)$/i', '.webp', $this->image);
+        if ($webp !== $this->image && file_exists(self::diskPath() . $webp)) {
+            return self::staticPath() . $webp;
         }
-        return 'attachments/no_image/no_image.png';
+        return self::staticPath() . $this->image;
     }
+    return 'attachments/no_image/no_image.png';
+}
 }

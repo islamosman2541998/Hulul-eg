@@ -12,7 +12,7 @@ class Slider extends Model
 {
     use HasFactory, SoftDeletes;
     use Translatable;
-    public $translatedAttributes = ['title','slug','description','slider_id','locale',];
+    public $translatedAttributes = ['title', 'slug', 'description', 'slider_id', 'locale',];
     protected $fillable = [
         'url',
         'sort',
@@ -53,7 +53,7 @@ class Slider extends Model
 
     public function transNow()
     {
-        return $this->hasOne(SliderTranslation::class, 'slider_id')->where('locale' , app()->getLocale());
+        return $this->hasOne(SliderTranslation::class, 'slider_id')->where('locale', app()->getLocale());
     }
 
 
@@ -62,7 +62,8 @@ class Slider extends Model
 
 
     // Scopes ---------------------------------------------------------------------------------
-    public function scopeActive($query){
+    public function scopeActive($query)
+    {
         return $query->where('status', 1);
     }
 
@@ -89,22 +90,20 @@ class Slider extends Model
     //path of images that showed in view
     public function pathInView()
     {
-        if(file_exists(public_path() . $this->path() . $this->image)   && $this->image){
-            $path =   $this->path() . $this->image;
-        }else{
-            $path = '/attachments/no_image/no_image.png';
+        if ($this->image && file_exists(public_path() . $this->path() . $this->image)) {
+            $webp = preg_replace('/\.(jpe?g|png)$/i', '.webp', $this->image);
+            if ($webp !== $this->image && file_exists(public_path() . $this->path() . $webp)) {
+                return $this->path() . $webp;
+            }
+            return $this->path() . $this->image;
         }
-        return $path;
+        return '/attachments/no_image/no_image.png';
     }
-
- public function videoInView()
+    public function videoInView()
     {
         if ($this->video && file_exists(public_path($this->pathvideo() . $this->video))) {
             return $this->pathvideo() . $this->video;
         }
-        return null; 
+        return null;
     }
-
-
-
 }
