@@ -294,6 +294,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!--thank--->
+                                    <div class="accordion mt-4 mb-4" id="accordionExampleNews">
+                                        <div class="accordion-item border rounded">
+                                            <h2 class="accordion-header" id="headingFourNews">
+                                                <button class="accordion-button fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourNews" aria-expanded="true" aria-controls="collapseFourNews">
+                                                    @lang('admin.thank_you')
+                                                </button>
+                                            </h2>
+                                            <div id="collapseFourNews" class="accordion-collapse collapse show mt-3" aria-labelledby="headingFourNews" data-bs-parent="#accordionExampleNews">
+                                                <div class="accordion-body">
+
+                                                    @foreach ($languages as $key => $locale)
+                                                    {{-- meta_title_ ---------------------------------------------------------------------------------------}}
+                                                    <div class="row mb-3">
+                                                        <label for="example-text-input" class="col-sm-2 col-form-label">{{ trans('admin.meta_title_in') . trans('lang.' .Locale::getDisplayName($locale)) }}</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" type="text" name="thank_meta_title_{{ $locale }}" value="{{ @$settings['thank_meta_title_' . $locale] }}" id="title{{ $key }}">
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- meta_description_ ---------------------------------------------------------------------------------------}}
+                                                    <div class="row mb-3">
+                                                        <label for="example-text-input" class="col-sm-2 col-form-label"> {{ trans('admin.meta_description_in') . trans('lang.' .Locale::getDisplayName($locale)) }}
+                                                        </label>
+                                                        <div class="col-sm-10 mb-2">
+                                                            <textarea name="thank_meta_description_{{ $locale }}" class="form-control description"> {{ @$settings['thank_meta_description_' . $locale] }} </textarea>
+
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- meta_key_ ---------------------------------------------------------------------------------------}}
+                                                    <div class="row mb-3">
+                                                        <label for="example-text-input" class="col-sm-2 col-form-label"> {{ trans('admin.meta_key_in') . trans('lang.' .Locale::getDisplayName($locale)) }}
+                                                        </label>
+                                                        <div class="col-sm-10 mb-2">
+                                                            <textarea name="thank_meta_key_{{ $locale }}" class="form-control description"> {{ @$settings['thank_meta_key_' . $locale] }} </textarea>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!--faq--->
                                     <div class="accordion mt-4 mb-4" id="accordionExampleFaq">

@@ -601,6 +601,7 @@ return [
 'mobile' => 'Mobile',
 'address_ks' => 'Address Saudi Arabia',
 'address_eg' => 'Address Egypt',
+'thank_you' => 'Thank you',
 
 
 

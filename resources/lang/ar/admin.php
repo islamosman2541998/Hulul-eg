@@ -618,6 +618,7 @@ return [
 'mobile' => 'الجوال',
 'address_ks' => 'عنوان السعودية',
 'address_eg' => 'عنوان  مصر',
+'thank_you' => 'شكرا لك',
    
 
 
