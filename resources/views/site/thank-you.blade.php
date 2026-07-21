@@ -1,50 +1,12 @@
 @extends('site.app')
 
-@php
-    $locale = $current_lang ?? app()->getLocale();
+@section('title', @$metaSetting->where('key', 'thank_meta_title_' . $current_lang)->first()->value)
 
-    $thankYouMetaTitle = isset($metaSetting)
-        ? optional(
-            $metaSetting->firstWhere(
-                'key',
-                'thank_you_meta_title_' . $locale
-            )
-        )->value
-        : null;
+@section('meta_key', @$metaSetting->where('key', 'thank_meta_key_' . $current_lang)->first()->value)
 
-    $thankYouMetaKeywords = isset($metaSetting)
-        ? optional(
-            $metaSetting->firstWhere(
-                'key',
-                'thank_you_meta_key_' . $locale
-            )
-        )->value
-        : null;
+@section('meta_description', @$metaSetting->where('key', 'thank_meta_description_' . $current_lang)->first()->value)
 
-    $thankYouMetaDescription = isset($metaSetting)
-        ? optional(
-            $metaSetting->firstWhere(
-                'key',
-                'thank_you_meta_description_' . $locale
-            )
-        )->value
-        : null;
-@endphp
 
-@section(
-    'title',
-    $thankYouMetaTitle ?: __('messages.thank_you_meta_title')
-)
-
-@section(
-    'meta_key',
-    $thankYouMetaKeywords ?: __('messages.thank_you_meta_keywords')
-)
-
-@section(
-    'meta_description',
-    $thankYouMetaDescription ?: __('messages.thank_you_meta_description')
-)
 
 @section('content')
 
