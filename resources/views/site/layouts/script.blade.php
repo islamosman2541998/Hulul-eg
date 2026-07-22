@@ -18,7 +18,7 @@
 {{-- <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> --}}
 
 <!-- Custom -->
-<script defer src="{{ asset('site/js/cdn.min.js') }}"></script>
+{{-- <script defer src="{{ asset('site/js/cdn.min.js') }}"></script> --}}
 {{-- <script defer src="{{ asset('site/js/nouislider.min.js') }}"></script> --}}
 <script defer src="{{ asset('site/js/custom.js') }}"></script>
 <script defer src="{{ asset('site/js/main.js') }}"></script>

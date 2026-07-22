@@ -1285,3 +1285,25 @@ textarea {
     }
 }
 
+/* إظهار الـHero قبل اكتمال تهيئة Owl Carousel */
+.hero__slider.owl-carousel {
+    display: block;
+    min-height: 680px;
+}
+
+.hero__slider:not(.owl-loaded) .hero__item:not(:first-child) {
+    display: none;
+}
+
+.hero,
+.hero__item {
+    min-height: 680px;
+}
+
+@media (max-width: 767.98px) {
+    .hero__slider.owl-carousel,
+    .hero,
+    .hero__item {
+        min-height: 520px;
+    }
+}

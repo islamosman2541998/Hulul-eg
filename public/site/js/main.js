@@ -15,11 +15,13 @@
     /*------------------
         Preloader
     --------------------*/
-    $(window).on('load', function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
+    // $(window).on('load', function () {
+    //      $(".loader").fadeOut();
+    //      $("#preloder").delay(200).fadeOut("slow");
 
-        /*------------------
+       
+    // });
+ /*------------------
             Portfolio filter
         --------------------*/
         $('.portfolio__filter li').on('click', function () {
@@ -30,8 +32,6 @@
             var containerEl = document.querySelector('.portfolio__gallery');
             var mixer = mixitup(containerEl);
         }
-    });
-
      document.addEventListener('DOMContentLoaded', function () {
         const isRTL = "{{ app()->getLocale() }}" === "ar";
 

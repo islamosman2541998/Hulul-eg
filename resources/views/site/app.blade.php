@@ -19,7 +19,6 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    {!! \App\Settings\SettingSingleton::getInstance()->getScript('body_script') !!}
 
     <x-site.layouts.navbar />
 
@@ -31,10 +30,10 @@
 
     @include('site.layouts.script')
 
-    {{-- مرة واحدة فقط --}}
+@hasSection('uses_livewire')
     @livewireScripts
+@endif
 
-    {!! \App\Settings\SettingSingleton::getInstance()->getScript('footer_script') !!}
 
 </body>
 </html>

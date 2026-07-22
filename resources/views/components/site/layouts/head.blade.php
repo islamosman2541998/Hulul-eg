@@ -58,7 +58,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     @stack('preload')
     @yield('style')
 
+@hasSection('uses_livewire')
     @livewireStyles
+@endif
 </head>
 
   
