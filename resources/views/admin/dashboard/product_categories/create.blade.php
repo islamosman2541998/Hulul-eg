@@ -37,7 +37,6 @@
 
                                                 @livewireStyles
                                                 @livewire('admin.slug.auto-generate-slug-component', ['locale' => $locale])
-                                                @livewireScripts
                                                 {{-- title slug livewire ------------------------------------------------------------------------------------- --}}
 
 

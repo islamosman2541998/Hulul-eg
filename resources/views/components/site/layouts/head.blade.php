@@ -14,9 +14,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Play:wght@400;700&display=swap"
+    rel="stylesheet"
+>
 
     <meta name="msapplication-TileImage"
         content="https://snapster.foxthemes.me/wp-content/uploads/2020/05/favicon.png" />
@@ -37,12 +38,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{ asset('site/fonts/nouislider.min.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('site/css/elegant-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/owl.carousel.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/magnific-popup.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/slicknav.min.css') }}" />
+    
     <link rel="stylesheet" href="{{ asset('site/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.12') }}" />
@@ -56,7 +54,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-THXZWWKN');</script>
 <!-- End Google Tag Manager -->
 
-    {!! \App\Settings\SettingSingleton::getInstance()->getScript('header_script') !!}
 
     @stack('preload')
     @yield('style')
@@ -64,9 +61,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     @livewireStyles
 </head>
 
-<body>
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+  
 
-    {!! \App\Settings\SettingSingleton::getInstance()->getScript('body_script') !!}

@@ -52,7 +52,7 @@ class HomeController extends Controller
             ->take(20)
             ->get()
             ->shuffle()
-            ->take(12)
+            ->take(6)
             ->values();
 
         return view('site.pages.index', array_merge($data, [

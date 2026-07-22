@@ -48,7 +48,6 @@
                                                         {{-- title slug livewire ------------------------------------------------------------------------------------- --}}
                                                         @livewireStyles
                                                         @livewire('admin.slug.auto-generate-slug-component'  , ['locale' => $locale ])
-                                                        @livewireScripts
                                                         {{-- title slug livewire ------------------------------------------------------------------------------------- --}}
 
 
@@ -282,7 +281,6 @@
 {{--                                                    //here--}}
                                                     @livewireStyles
                                                     @livewire("admin.calculate-after-sale")
-                                                    @livewireScripts
 
                                                     {{-- code ------------------------------------------------------------------------------------- --}}
                                                     <div class="row mb-3">

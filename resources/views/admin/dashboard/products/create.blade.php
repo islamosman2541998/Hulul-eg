@@ -282,7 +282,6 @@
                                                 {{-- //here --}}
                                                 @livewireStyles
                                                 @livewire('admin.calculate-after-sale')
-                                                @livewireScripts
 
 
                                                 {{-- feature ------------------------------------------------------------------------------------- --}}

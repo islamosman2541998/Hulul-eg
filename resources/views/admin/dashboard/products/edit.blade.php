@@ -428,7 +428,7 @@
 
                                                 @livewireStyles
                                                 @livewire('admin.calculate-after-sale', ['model' => @$product])
-                                                @livewireScripts
+                                                
 
                                                 {{-- code ------------------------------------------------------------------------------------- --}}
                                                 <div class="col-12">
