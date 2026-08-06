@@ -25,33 +25,36 @@
                      </div>
                  @else
                      <div class="col-12">
-                         <!-- Swiper wrapper -->
-                         <div class="swiper blogs-swiper">
-                             <div class="swiper-wrapper">
-                                 @foreach ($blogs as $blog)
-                                     <div class="swiper-slide">
-                                         <div class="blog__item latest__item">
-                                             <img src="{{ asset($blog->pathInView()) }}" alt="{{ $blog->title }}">
+                         <div class="blogs-slider-wrap">
+                             <!-- Swiper wrapper -->
+                             <div class="swiper blogs-swiper">
+                                 <div class="swiper-wrapper">
+                                     @foreach ($blogs as $blog)
+                                         <div class="swiper-slide">
+                                             <div class="blog__item latest__item">
+                                                 <img src="{{ asset($blog->pathInView()) }}" alt="{{ $blog->title }}">
 
-                                             <div class="blog-content d-flex flex-column justify-content-center align-items-center  p-3">
-                                                 <h4>{{ $blog->title }}</h4>
-                                                 
-                                                 <p>{!! Str::limit($blog->description, 70) !!}</p>
-                                                 <ul>
-                                                     <li>{{ $blog->created_at->format('Y-m-d') }}</li>
-                                                 </ul>
-                                                 <a href="{{ route('site.site.blogs.show', $blog->id) }}">
-                                                     @lang('admin.read_more') 
-                                                 </a>
+                                                 <div class="blog-content d-flex flex-column align-items-center p-3">
+                                                     <h4>{{ $blog->title }}</h4>
+
+                                                     <p>{!! Str::limit($blog->description, 70) !!}</p>
+                                                     <ul>
+                                                         <li>{{ $blog->created_at->format('Y-m-d') }}</li>
+                                                     </ul>
+                                                     <a href="{{ route('site.site.blogs.show', $blog->id) }}">
+                                                         @lang('admin.read_more')
+                                                     </a>
+                                                 </div>
+
                                              </div>
-
                                          </div>
-                                     </div>
-                                 @endforeach
+                                     @endforeach
+                                 </div>
+
+                                 <!-- Pagination -->
+                                 <div class="swiper-pagination"></div>
                              </div>
 
-                             <!-- Pagination & Navigation -->
-                             <div class="swiper-pagination"></div>
                              <div class="blogs-button-prev swiper-button-prev"></div>
                              <div class="blogs-button-next swiper-button-next"></div>
                          </div>
@@ -72,20 +75,50 @@
      .swiper .swiper-slide {
          display: flex;
          justify-content: center;
+         height: auto;
+     }
+
+     .blogs-swiper .swiper-wrapper {
+         align-items: stretch;
      }
 
      .blog__item.latest__item {
          width: 100%;
          max-width: 420px;
+         height: 100%;
          box-sizing: border-box;
+         display: flex;
+         flex-direction: column;
      }
 
-     .blogs-swiper {
+     .blog__item.latest__item img {
+         flex-shrink: 0;
+         width: 100%;
+         height: 220px;
+         object-fit: cover;
+     }
+
+     .blog__item.latest__item .blog-content {
+         flex: 1 1 auto;
+         width: 100%;
+     }
+
+     .blog__item.latest__item .blog-content p {
+         flex: 1 1 auto;
+     }
+
+     .blog__item.latest__item .blog-content a {
+         margin-top: 12px;
+         flex-shrink: 0;
+     }
+
+     .blogs-slider-wrap {
+         position: relative;
          padding: 0 64px;
      }
 
-     .blogs-swiper .swiper-button-prev,
-     .blogs-swiper .swiper-button-next {
+     .blogs-slider-wrap .swiper-button-prev,
+     .blogs-slider-wrap .swiper-button-next {
          top: 50%;
          margin-top: 0;
          transform: translateY(-50%);
@@ -99,33 +132,33 @@
          transition: background 0.3s ease, border-color 0.3s ease;
      }
 
-     .blogs-swiper .swiper-button-prev {
+     .blogs-slider-wrap .swiper-button-prev {
          left: 0;
      }
 
-     .blogs-swiper .swiper-button-next {
+     .blogs-slider-wrap .swiper-button-next {
          right: 0;
      }
 
-     .blogs-swiper .swiper-button-prev:hover,
-     .blogs-swiper .swiper-button-next:hover {
+     .blogs-slider-wrap .swiper-button-prev:hover,
+     .blogs-slider-wrap .swiper-button-next:hover {
          background: linear-gradient(135deg, #1a1c6e 0%, #00d8ff 100%);
          border-color: transparent;
      }
 
-     .blogs-swiper .swiper-button-prev:after,
-     .blogs-swiper .swiper-button-next:after {
+     .blogs-slider-wrap .swiper-button-prev:after,
+     .blogs-slider-wrap .swiper-button-next:after {
          font-size: 16px;
          font-weight: 700;
      }
 
      @media (max-width: 767px) {
-         .blogs-swiper {
+         .blogs-slider-wrap {
              padding: 0 46px;
          }
 
-         .blogs-swiper .swiper-button-prev,
-         .blogs-swiper .swiper-button-next {
+         .blogs-slider-wrap .swiper-button-prev,
+         .blogs-slider-wrap .swiper-button-next {
              width: 38px;
              height: 38px;
              --swiper-navigation-size: 13px;
