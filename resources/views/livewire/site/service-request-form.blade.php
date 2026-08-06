@@ -31,12 +31,8 @@
                             <div class="grid">
                                 <div>
                                     <label>{{ __('messages.full_name') }} *</label>
-                                    <input
-                                        class="input @error('name') error @enderror"
-                                        type="text"
-                                        wire:model="name"
-                                        placeholder="{{ __('messages.your_name') }}"
-                                    >
+                                    <input class="input @error('name') error @enderror" type="text" wire:model="name"
+                                        placeholder="{{ __('messages.your_name') }}">
                                     @error('name')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -44,12 +40,8 @@
 
                                 <div>
                                     <label>{{ __('messages.email') }} *</label>
-                                    <input
-                                        class="input @error('email') error @enderror"
-                                        type="email"
-                                        wire:model="email"
-                                        placeholder="{{ __('messages.email_placeholder') }}"
-                                    >
+                                    <input class="input @error('email') error @enderror" type="email"
+                                        wire:model="email" placeholder="{{ __('messages.email_placeholder') }}">
                                     @error('email')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -57,12 +49,9 @@
 
                                 <div>
                                     <label>{{ __('messages.phone') }}</label>
-                                    <input
-                                        class="input @error('phone') error @enderror"
-                                        type="tel"
+                                    <input class="input @error('phone') error @enderror" type="tel"
                                         wire:model="phone"
-                                        placeholder="{{ __('messages.phone_placeholder') }} required"
-                                    >
+                                        placeholder="{{ __('messages.phone_placeholder') }} required">
                                     @error('phone')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -70,12 +59,8 @@
 
                                 <div>
                                     <label>{{ __('messages.company') }}</label>
-                                    <input
-                                        class="input @error('company') error @enderror"
-                                        type="text"
-                                        wire:model="company"
-                                        placeholder="{{ __('messages.company_name') }} required" 
-                                    >
+                                    <input class="input @error('company') error @enderror" type="text"
+                                        wire:model="company" placeholder="{{ __('messages.company_name') }} required">
                                     @error('company')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -83,13 +68,11 @@
 
                                 <div>
                                     <label>{{ __('messages.service') }} *</label>
-                                    <select
-                                        class="input @error('service_category_id') error @enderror"
-                                        wire:model="service_category_id"
-                                    >
+                                    <select class="input @error('service_category_id') error @enderror"
+                                        wire:model="service_category_id">
                                         <option value="">{{ __('messages.select_service') }}</option>
 
-                                        @foreach($serviceCategories as $category)
+                                        @foreach ($serviceCategories as $category)
                                             <option value="{{ $category->id }}">
                                                 {{ $category->transNow->title ?? $category->service_unique_name }}
                                             </option>
@@ -113,11 +96,8 @@
 
                                 <div class="full">
                                     <label>{{ __('messages.project_brief') }}</label>
-                                    <textarea
-                                        class="input @error('message') error @enderror"
-                                        wire:model="message"
-                                        placeholder="{{ __('messages.project_brief_placeholder') }}"
-                                    ></textarea>
+                                    <textarea class="input @error('message') error @enderror" wire:model="message"
+                                        placeholder="{{ __('messages.project_brief_placeholder') }}"></textarea>
 
                                     @error('message')
                                         <span class="error-message">{{ $message }}</span>
@@ -128,12 +108,8 @@
                                     <label>{{ __('messages.attach_file_optional') }}</label>
 
                                     <div class="file-upload-wrapper">
-                                        <input
-                                            type="file"
-                                            wire:model="attachment"
-                                            id="fileUpload"
-                                            style="display: none;"
-                                        >
+                                        <input type="file" wire:model="attachment" id="fileUpload"
+                                            style="display: none;">
 
                                         <label for="fileUpload" class="drop" style="cursor: pointer;">
                                             <i class="fa-regular fa-folder-open"></i>
@@ -163,13 +139,14 @@
                             </div>
 
                             <div class="actions">
-                                <button class="btn" type="submit" wire:loading.attr="disabled">
+                                <button class="btn" type="submit" wire:loading.attr="disabled"
+                                    wire:target="submitService">
                                     <span wire:loading.remove wire:target="submitService">
                                         <i class="fa-solid fa-paper-plane"></i>
                                         {{ __('messages.submit') }}
                                     </span>
 
-                                    <span wire:loading wire:target="submitService">
+                                    <span wire:cloak wire:loading wire:target="submitService">
                                         <i class="fa-solid fa-spinner fa-spin"></i>
                                         {{ __('messages.submitting') }}
                                     </span>
@@ -182,7 +159,6 @@
                             </div>
                         </form>
                     </div>
-
                 @elseif ($activeForm === 'meeting')
                     <div class="form-card active-form-card">
                         <div class="form-header">
@@ -193,12 +169,8 @@
                             <div class="grid">
                                 <div>
                                     <label>{{ __('messages.full_name') }} *</label>
-                                    <input
-                                        class="input @error('meeting_name') error @enderror"
-                                        type="text"
-                                        wire:model="meeting_name"
-                                        placeholder="{{ __('messages.your_name') }}"
-                                    >
+                                    <input class="input @error('meeting_name') error @enderror" type="text"
+                                        wire:model="meeting_name" placeholder="{{ __('messages.your_name') }}">
                                     @error('meeting_name')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -206,12 +178,9 @@
 
                                 <div>
                                     <label>{{ __('messages.email') }} *</label>
-                                    <input
-                                        class="input @error('meeting_email') error @enderror"
-                                        type="email"
+                                    <input class="input @error('meeting_email') error @enderror" type="email"
                                         wire:model="meeting_email"
-                                        placeholder="{{ __('messages.email_placeholder') }}"
-                                    >
+                                        placeholder="{{ __('messages.email_placeholder') }}">
                                     @error('meeting_email')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -219,12 +188,9 @@
 
                                 <div>
                                     <label>{{ __('messages.phone') }}</label>
-                                    <input
-                                        class="input @error('meeting_phone') error @enderror"
-                                        type="tel"
+                                    <input class="input @error('meeting_phone') error @enderror" type="tel"
                                         wire:model="meeting_phone"
-                                        placeholder="{{ __('messages.phone_placeholder') }} required"
-                                    >
+                                        placeholder="{{ __('messages.phone_placeholder') }} required">
                                     @error('meeting_phone')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -232,12 +198,9 @@
 
                                 <div>
                                     <label>{{ __('messages.company') }}</label>
-                                    <input
-                                        class="input @error('meeting_company') error @enderror"
-                                        type="text"
+                                    <input class="input @error('meeting_company') error @enderror" type="text"
                                         wire:model="meeting_company"
-                                        placeholder="{{ __('messages.company_name') }} required"
-                                    >
+                                        placeholder="{{ __('messages.company_name') }} required">
                                     @error('meeting_company')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -254,11 +217,8 @@
 
                                 <div>
                                     <label>{{ __('messages.preferred_date') }}</label>
-                                    <input
-                                        class="input @error('preferred_date') error @enderror"
-                                        type="date"
-                                        wire:model="preferred_date"
-                                    >
+                                    <input class="input @error('preferred_date') error @enderror" type="date"
+                                        wire:model="preferred_date">
                                     @error('preferred_date')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -266,11 +226,8 @@
 
                                 <div>
                                     <label>{{ __('messages.preferred_time') }}</label>
-                                    <input
-                                        class="input @error('preferred_time') error @enderror"
-                                        type="time"
-                                        wire:model="preferred_time"
-                                    >
+                                    <input class="input @error('preferred_time') error @enderror" type="time"
+                                        wire:model="preferred_time">
                                     @error('preferred_time')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -278,11 +235,8 @@
 
                                 <div class="full">
                                     <label>{{ __('messages.message') }}</label>
-                                    <textarea
-                                        class="input @error('meeting_message') error @enderror"
-                                        wire:model="meeting_message"
-                                        placeholder="{{ __('messages.meeting_message_placeholder') }}"
-                                    ></textarea>
+                                    <textarea class="input @error('meeting_message') error @enderror" wire:model="meeting_message"
+                                        placeholder="{{ __('messages.meeting_message_placeholder') }}"></textarea>
 
                                     @error('meeting_message')
                                         <span class="error-message">{{ $message }}</span>
@@ -336,20 +290,14 @@
                     </div>
 
                     <div class="request-buttons">
-                        <button
-                            class="btn {{ $activeForm === 'service' ? 'active-request-btn' : '' }}"
-                            wire:click="showServiceForm"
-                            type="button"
-                        >
+                        <button class="btn {{ $activeForm === 'service' ? 'active-request-btn' : '' }}"
+                            wire:click="showServiceForm" type="button">
                             <i class="fa-regular fa-pen-to-square"></i>
                             {{ __('messages.request_service') }}
                         </button>
 
-                        <button
-                            class="btn {{ $activeForm === 'meeting' ? 'active-request-btn' : '' }}"
-                            wire:click="showMeetingForm"
-                            type="button"
-                        >
+                        <button class="btn {{ $activeForm === 'meeting' ? 'active-request-btn' : '' }}"
+                            wire:click="showMeetingForm" type="button">
                             <i class="fa-regular fa-calendar"></i>
                             {{ __('messages.request_meeting') }}
                         </button>
@@ -371,7 +319,7 @@
     }
 
     .active-request-btn {
-        box-shadow: 0 0 0 2px rgba(255,255,255,.25), 0 12px 30px rgba(66, 211, 255, .25);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, .25), 0 12px 30px rgba(66, 211, 255, .25);
     }
 
     .form-visual {
