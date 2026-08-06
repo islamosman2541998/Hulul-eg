@@ -12,7 +12,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::with('translations')->get();
+        $blogs = Blog::with('translations')->active()->orderBy('sort', 'ASC')->get();
 
         return view('site.pages.blogs.index', compact('blogs'));
     }
