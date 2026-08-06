@@ -53,6 +53,7 @@ class FaqController extends Controller
             }
         }
         $faq->save();
+        $this->clearHomeCache();
 
         session()->flash('success','FAQ created');
         return redirect()->route('admin.faqs.index');
@@ -80,6 +81,7 @@ class FaqController extends Controller
             $faq->translateOrNew($locale)->answer = $trans['answer'] ?? $faq->translate($locale)->answer ?? null;
         }
         $faq->save();
+        $this->clearHomeCache();
 
         session()->flash('success','FAQ updated');
         return redirect()->back();
@@ -95,6 +97,7 @@ public function show($id)
     public function destroy(Faq $faq)
     {
         $faq->delete();
+        $this->clearHomeCache();
         session()->flash('success','FAQ deleted');
         return redirect()->route('admin.faqs.index');
     }
@@ -103,6 +106,7 @@ public function show($id)
     {
         $faq->status = !$faq->status;
         $faq->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 }

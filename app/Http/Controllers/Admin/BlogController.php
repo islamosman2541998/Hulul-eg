@@ -44,6 +44,7 @@ class BlogController extends Controller
         }
 
         Blog::create($data);
+        $this->clearHomeCache();
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Blog created');
     }
@@ -72,6 +73,7 @@ class BlogController extends Controller
         }
 
         $blog->update($data);
+        $this->clearHomeCache();
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Blog updated');
     }
@@ -84,6 +86,7 @@ class BlogController extends Controller
             $blog->status = 0;
         }
         $blog->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.status_changed_sucessfully'));
         return redirect()->back();
     }
@@ -96,6 +99,7 @@ class BlogController extends Controller
             $blog->feature = 0;
         }
         $blog->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.featured_changed_sucessfully'));
         return redirect()->back();
     }
@@ -107,6 +111,7 @@ class BlogController extends Controller
             @unlink($file);
         }
      $blog->delete();
+        $this->clearHomeCache();
         return back()->with('success', 'Blog deleted');
     }
 }

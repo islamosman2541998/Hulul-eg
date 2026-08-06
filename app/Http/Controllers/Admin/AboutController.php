@@ -85,6 +85,7 @@ class AboutController extends Controller
 
         }
         $about->save();
+        $this->clearHomeCache();
 
         session()->flash('success', __('About updated successfully'));
         return redirect()->route('admin.about.edit');

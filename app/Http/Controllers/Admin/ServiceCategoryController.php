@@ -199,6 +199,7 @@ class ServiceCategoryController extends Controller
             $serviceCategory->occasions()->attach($request->input('occasions'));
         }
 
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return redirect(
             LaravelLocalization::localizeURL(route('admin.service.index'))
@@ -444,6 +445,7 @@ class ServiceCategoryController extends Controller
             $serviceCategory->occasions()->sync($request->input('occasions'));
         }
 
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.updated_sucessfully'));
         return redirect()->back();
     }
@@ -489,6 +491,7 @@ class ServiceCategoryController extends Controller
         $article = ServiceCategory::findOrfail($id);
         $article->status == 1 ? $article->status = 0 : $article->status = 1;
         $article->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 
@@ -497,6 +500,7 @@ class ServiceCategoryController extends Controller
         $article = ServiceCategory::findOrfail($id);
         $article->feature == 1 ? $article->feature = 0 : $article->feature = 1;
         $article->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 
@@ -514,6 +518,7 @@ class ServiceCategoryController extends Controller
         }
 
         $serviceCategory->delete();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.deleted_sucessfully'));
         return redirect()->back();
     }

@@ -45,6 +45,7 @@ class HomeSettingPageController extends Controller
             $data['image'] = $this->upload_file($request->file('image'), ('HomeSetting'));
         }
         HomeSettingPage::create($data);
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return back();
     }
@@ -93,6 +94,7 @@ class HomeSettingPageController extends Controller
             $data['pdf'] = $this->upload_file($request->file('pdf'), ('HomeSetting'));
         }
         $homeSetting->update($data);
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.updated_sucessfully'));
         return redirect()->back();
     }
@@ -101,6 +103,7 @@ class HomeSettingPageController extends Controller
         $news = HomeSettingPage::findOrfail($id);
         $news->status == 1 ? $news->status = 0 : $news->status = 1;
         $news->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('articles.status_changed_sucessfully'));
 
         return redirect()->back();

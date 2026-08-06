@@ -316,6 +316,7 @@ class ProductController extends Controller
             $product->filters()->attach($request->filters);
         }
 
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return redirect((route('admin.products.index')));
     }
@@ -579,6 +580,7 @@ class ProductController extends Controller
             $product->productCategoriesProducts()->sync($request->categories);
         }
 
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.updated_sucessfully'));
         return redirect()->back();
     }
@@ -612,6 +614,7 @@ class ProductController extends Controller
         $product->update(['updated_by' => auth()->id()]);
         $product->trans()->delete();
         $product->delete();
+        $this->clearHomeCache();
 
         session()->flash('danger', trans('message.admin.deleted_sucessfully'));
         return redirect((route('admin.products.index')));
@@ -628,6 +631,7 @@ class ProductController extends Controller
         }
         $product->updated_by = auth()->id();
         $product->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.featured_changed_sucessfully'));
         return redirect()->back();
     }
@@ -643,6 +647,7 @@ class ProductController extends Controller
         }
         $product->updated_by = auth()->id();
         $product->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.status_changed_sucessfully'));
         return redirect()->back();
     }
@@ -731,6 +736,7 @@ class ProductController extends Controller
             }
             session()->flash('success', trans('pages.delete_all_sucessfully'));
         }
+        $this->clearHomeCache();
         return redirect()->back();
     }
 

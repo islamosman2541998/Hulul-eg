@@ -118,6 +118,7 @@ class ProductCategoryController extends Controller
         }
 
 
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return redirect(route('admin.product_category.index'));
     }
@@ -193,6 +194,7 @@ class ProductCategoryController extends Controller
             $group->images()->saveMany($imgArr);
         }
 
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.updated_sucessfully'));
         return redirect()->back();
     }
@@ -221,6 +223,7 @@ class ProductCategoryController extends Controller
                 $img->delete();
             }
         }
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.deleted_sucessfully'));
         return redirect()->route('admin.product_category.index');
     }
@@ -235,6 +238,7 @@ class ProductCategoryController extends Controller
             $product->feature = 0;
         }
         $product->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.featured_changed_sucessfully'));
         return redirect()->back();
     }
@@ -249,6 +253,7 @@ class ProductCategoryController extends Controller
             $product->status = 0;
         }
         $product->save();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.status_changed_sucessfully'));
         return redirect()->back();
     }
@@ -317,6 +322,7 @@ class ProductCategoryController extends Controller
             }
             session()->flash('success', trans('pages.delete_all_sucessfully'));
         }
+        $this->clearHomeCache();
         return redirect()->back();
     }
 }

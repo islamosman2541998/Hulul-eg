@@ -41,6 +41,7 @@ class NewsController extends Controller
             $data['image'] = $this->upload_file($request->file('image'), ('news'));
         }
         News::create($data);
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return back();
     }
@@ -66,6 +67,7 @@ class NewsController extends Controller
             $data['image'] = $this->upload_file($request->file('image'), ('news'));
         }
         $news->update($data);
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.updated_sucessfully'));
         return redirect()->back();
     }
@@ -75,6 +77,7 @@ class NewsController extends Controller
     {
         @unlink($news->image);
         $news->delete();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.deleted_sucessfully'));
         return redirect()->back();
     }
@@ -85,6 +88,7 @@ class NewsController extends Controller
         $news = News::findOrfail($id);
         $news->status == 1 ? $news->status = 0 : $news->status = 1;
         $news->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 
@@ -93,6 +97,7 @@ class NewsController extends Controller
         $news = News::findOrfail($id);
         $news->feature == 1 ? $news->feature = 0 : $news->feature = 1;
         $news->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 
@@ -122,6 +127,7 @@ class NewsController extends Controller
             }
             session()->flash('success', trans('pages.delete_all_sucessfully'));
         }
+        $this->clearHomeCache();
         return redirect()->back();
     }
 }

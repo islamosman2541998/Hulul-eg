@@ -48,6 +48,7 @@ class StatisticController extends Controller
             $data['image'] = $this->upload_file($request->file('image'), ('statistic'));
         }
         Statistic::create($data);
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.created_sucessfully'));
         return back();
     }
@@ -73,6 +74,7 @@ class StatisticController extends Controller
             $data['image'] = $this->upload_file($request->file('image'), ('statistic'));
         }
         $statistic->update($data);
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.updated_sucessfully'));
         return redirect()->back();
     }
@@ -82,6 +84,7 @@ class StatisticController extends Controller
     {
         @unlink($statistic->image);
         $statistic->delete();
+        $this->clearHomeCache();
         session()->flash('success', trans('message.admin.deleted_sucessfully'));
         return redirect()->back();
     }
@@ -92,6 +95,7 @@ class StatisticController extends Controller
         $statistic = Statistic::findOrfail($id);
         $statistic->status == 1 ? $statistic->status = 0 : $statistic->status = 1;
         $statistic->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 
@@ -100,6 +104,7 @@ class StatisticController extends Controller
         $statistic = Statistic::findOrfail($id);
         $statistic->feature == 1 ? $statistic->feature = 0 : $statistic->feature = 1;
         $statistic->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 
@@ -129,6 +134,7 @@ class StatisticController extends Controller
             }
             session()->flash('success', trans('pages.delete_all_sucessfully'));
         }
+        $this->clearHomeCache();
         return redirect()->back();
     }
 }

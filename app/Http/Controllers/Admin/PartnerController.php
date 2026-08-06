@@ -56,6 +56,7 @@ class PartnerController extends Controller
             }
         }
         $partner->save();
+        $this->clearHomeCache();
 
         session()->flash('success', __('partners.created_success'));
         return redirect()->route('admin.partners.index');
@@ -90,6 +91,7 @@ class PartnerController extends Controller
             $partner->translateOrNew($locale)->title = $trans['title'] ?? $partner->translate($locale)->title ?? null;
         }
         $partner->save();
+        $this->clearHomeCache();
 
         session()->flash('success', __('partners.updated_success'));
         return redirect()->route('admin.partners.index');
@@ -104,6 +106,7 @@ class PartnerController extends Controller
     {
         if ($partner->image) Storage::disk('public')->delete('attachments/partners/'.$partner->image);
         $partner->delete();
+        $this->clearHomeCache();
         session()->flash('success', __('partners.deleted_success'));
         return redirect()->route('admin.partners.index');
     }
@@ -112,6 +115,7 @@ class PartnerController extends Controller
     {
         $partner->status = !$partner->status;
         $partner->save();
+        $this->clearHomeCache();
         return redirect()->back();
     }
 }
