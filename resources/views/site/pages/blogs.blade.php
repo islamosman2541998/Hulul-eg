@@ -94,22 +94,41 @@
      .blog__item.latest__item img {
          flex-shrink: 0;
          width: 100%;
-         height: 220px;
+         height: 180px;
          object-fit: cover;
      }
 
      .blog__item.latest__item .blog-content {
          flex: 1 1 auto;
          width: 100%;
+         padding: 20px !important;
+     }
+
+     .blog__item.latest__item .blog-content h4 {
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
      }
 
      .blog__item.latest__item .blog-content p {
-         flex: 1 1 auto;
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
      }
 
      .blog__item.latest__item .blog-content a {
          margin-top: 12px;
          flex-shrink: 0;
+     }
+
+     .blogs-swiper {
+         padding-bottom: 40px;
+     }
+
+     .blogs-swiper .swiper-pagination {
+         bottom: 0;
      }
 
      .blogs-slider-wrap {
