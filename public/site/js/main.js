@@ -28,10 +28,6 @@
             $('.portfolio__filter li').removeClass('active');
             $(this).addClass('active');
         });
-        if ($('.portfolio__gallery').length > 0) {
-            var containerEl = document.querySelector('.portfolio__gallery');
-            var mixer = mixitup(containerEl);
-        }
      document.addEventListener('DOMContentLoaded', function () {
         const isRTL = "{{ app()->getLocale() }}" === "ar";
 
