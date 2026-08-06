@@ -1819,6 +1819,47 @@ ol {
   margin-left: 5px;
 }
 
+.blog-content a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 216, 255, 0.5);
+  color: #ffffff !important;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.blog-content a:after {
+  content: "\2192";
+  font-size: 15px;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+html[dir="rtl"] .blog-content a:after {
+  content: "\2190";
+}
+
+.blog-content a:hover {
+  background: linear-gradient(135deg, #1a1c6e 0%, #00d8ff 100%);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+.blog-content a:hover:after {
+  transform: translateX(4px);
+}
+
+html[dir="rtl"] .blog-content a:hover:after {
+  transform: translateX(-4px);
+}
+
 /*---------------------
   Blog Details Hero
 -----------------------*/
