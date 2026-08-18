@@ -47,7 +47,11 @@
 
     main p,
     main h2,
-    main h3 {
+    main h3,
+    main h4,
+    main h5,
+    main h6,
+    main strong {
         color: #fff !important;
     }
 
