@@ -51,6 +51,8 @@
     main h4,
     main h5,
     main h6,
+    main span,
+    main li,
     main strong {
         color: #fff !important;
     }
