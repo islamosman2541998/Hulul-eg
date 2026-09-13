@@ -7,7 +7,6 @@
 {{-- <script defer src="{{ asset('site/js/jquery.magnific-popup.min.js') }}"></script> --}}
 {{-- <script defer src="{{ asset('site/js/mixitup.min.js') }}"></script> --}}
 <script defer src="{{ asset('site/js/masonry.pkgd.min.js') }}"></script>
-<script defer src="{{ asset('site/js/jquery.slicknav.js') }}"></script>
 <script defer src="{{ asset('site/js/owl.carousel.min.js') }}"></script>
 
 <!-- Swiper -->
@@ -21,7 +20,7 @@
 {{-- <script defer src="{{ asset('site/js/cdn.min.js') }}"></script> --}}
 {{-- <script defer src="{{ asset('site/js/nouislider.min.js') }}"></script> --}}
 <script defer src="{{ asset('site/js/custom.js') }}"></script>
-<script defer src="{{ asset('site/js/main.js?v=0.0.2') }}"></script>
+<script defer src="{{ asset('site/js/main.js?v=0.0.3') }}"></script>
 
 @stack('scripts')
 

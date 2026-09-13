@@ -13,7 +13,7 @@
             </div>
             <div class="col-lg-10">
                 <div class="header__nav__option" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-                    <nav class="header__nav__menu mobile-menu" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+                    <nav class="header__nav__menu" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
                         <ul>
                             @php
                                 $items = Cache::get('menus');
@@ -65,10 +65,20 @@
                 </div>
             </div>
         </div>
-        <div id="mobile-menu-wrap" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}"
-            data-locale="{{ app()->getLocale() }}"></div>
+        {{-- mobile / tablet menu button (hidden on desktop) --}}
+        <button type="button" class="mobile-nav-toggle" aria-controls="mobileNav" aria-expanded="false"
+            aria-label="{{ app()->getLocale() == 'ar' ? 'فتح القائمة' : 'Open menu' }}"
+            data-label-open="{{ app()->getLocale() == 'ar' ? 'فتح القائمة' : 'Open menu' }}"
+            data-label-close="{{ app()->getLocale() == 'ar' ? 'إغلاق القائمة' : 'Close menu' }}">
+            <span class="mobile-nav-toggle__bar"></span>
+            <span class="mobile-nav-toggle__bar"></span>
+            <span class="mobile-nav-toggle__bar"></span>
+        </button>
     </div>
+
+    @include('site.layouts.mobileMenu')
 </header>
+<div class="mobile-nav-backdrop" aria-hidden="true"></div>
 <!-- Header End -->
 
 <script>
@@ -78,6 +88,7 @@
             return;
         }
 
+        // home page: transparent at the top, solid once scrolled
         const onScroll = function() {
             header.classList.toggle('header--scrolled', window.scrollY > 20);
         };
@@ -86,45 +97,57 @@
         window.addEventListener('scroll', onScroll, {
             passive: true
         });
+
+        // mobile / tablet menu
+        const toggle = header.querySelector('.mobile-nav-toggle');
+        const panel = document.getElementById('mobileNav');
+        const backdrop = document.querySelector('.mobile-nav-backdrop');
+        if (!toggle || !panel) {
+            return;
+        }
+
+        const isOpen = () => header.classList.contains('header--menu-open');
+
+        const setOpen = function(open) {
+            header.classList.toggle('header--menu-open', open);
+            document.documentElement.classList.toggle('mobile-nav-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.setAttribute('aria-label', open ? toggle.dataset.labelClose : toggle.dataset.labelOpen);
+        };
+
+        toggle.addEventListener('click', () => setOpen(!isOpen()));
+
+        if (backdrop) {
+            backdrop.addEventListener('click', () => setOpen(false));
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isOpen()) {
+                setOpen(false);
+                toggle.focus();
+            }
+        });
+
+        // back to desktop width: the panel does not exist there
+        window.matchMedia('(min-width: 992px)').addEventListener('change', function(e) {
+            if (e.matches) {
+                setOpen(false);
+            }
+        });
+
+        panel.addEventListener('click', function(e) {
+            const subToggle = e.target.closest('.mobile-nav__toggle');
+            if (subToggle) {
+                const sub = document.getElementById(subToggle.getAttribute('aria-controls'));
+                const expanded = subToggle.getAttribute('aria-expanded') === 'true';
+                subToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+                sub.hidden = expanded;
+                return;
+            }
+
+            if (e.target.closest('a')) {
+                setOpen(false);
+            }
+        });
     })();
-
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth > 991) {
-            return;
-        }
-
-        const toggle = e.target.closest(
-            '#mobile-menu-wrap .slicknav_parent > .slicknav_item, #mobile-menu-wrap .dropdown-toggle, .slicknav_nav .dropdown-toggle'
-        );
-
-        if (!toggle) {
-            return;
-        }
-
-        const li = toggle.closest('li');
-
-        if (!li) {
-            return;
-        }
-
-        const dropdown = li.querySelector(':scope > .dropdown-menu');
-
-        if (!dropdown) {
-            return;
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        dropdown.classList.toggle('mobile-open');
-
-        const isOpen = dropdown.classList.contains('mobile-open');
-
-        const originalToggle = li.querySelector('.dropdown-toggle');
-        if (originalToggle) {
-            originalToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
-
-        li.classList.toggle('mobile-dropdown-open', isOpen);
-    });
 </script>
