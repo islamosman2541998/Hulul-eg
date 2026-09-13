@@ -358,14 +358,14 @@ ol {
   Header
 -----------------------*/
 .header {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   background: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  z-index: 9;
+  z-index: 1000;
 }
+/* sizes, the solid/scrolled state and the mobile bar: see "Fixed site header" at the end of this file */
 
 .header__logo {
   padding: 30px 0;
@@ -1283,173 +1283,120 @@ ol {
 }
 
 /*---------------------
-  Breadcrumb
+  Page cover (breadcrumb)
+  Same size and spacing on every inner page. The header is fixed above it,
+  so the cover never sits behind the navbar.
 -----------------------*/
-/*---------------------
-  Global Breadcrumb
------------------------*/
-
 .breadcrumb-option.set-bg {
-    position: relative;
+  position: relative;
+  width: 100%;
+  height: auto !important;
+  min-height: 320px;
+  margin: 0;
+  padding: 40px 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-color: #174f55;
+  overflow: hidden;
+}
 
-    width: 100%;
-    height: clamp(280px, 18.6vw, 360px) !important;
-
-    padding: 0 !important;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-position: center center;
-    background-color: #174f55;
-
-    overflow: hidden;
+/* keeps the title readable on any cover image */
+.breadcrumb-option.set-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 0, 30, 0.35);
+  pointer-events: none;
 }
 
 .breadcrumb-option.set-bg > .container {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .breadcrumb__text {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  padding: 0 15px;
+  text-align: center;
 }
 
 .breadcrumb__text h2 {
-    color: #ffffff;
-    font-size: 50px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 12px;
+  overflow-wrap: break-word;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
 }
 
 .breadcrumb__links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .breadcrumb__links a {
-    position: relative;
-
-    display: inline-block;
-
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 300;
-
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  position: relative;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .breadcrumb__links span {
-    display: inline-block;
-
-    color: #00bfe7;
-    font-size: 16px;
-    font-weight: 300;
-
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  display: inline-block;
+  color: #00bfe7;
+  font-size: 16px;
+  font-weight: 300;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
-
 
 /* Tablet */
-@media only screen and (min-width: 768px) and (max-width: 1199px) {
+@media only screen and (max-width: 1199px) {
+  .breadcrumb-option.set-bg {
+    min-height: 280px;
+  }
 
-    .breadcrumb-option.set-bg {
-        height: 310px !important;
-
-        background-size: cover;
-        background-position: center center;
-    }
-
-    .breadcrumb__text h2 {
-        font-size: 42px;
-    }
+  .breadcrumb__text h2 {
+    font-size: 40px;
+  }
 }
-
 
 /* Mobile */
 @media only screen and (max-width: 767px) {
+  .breadcrumb-option.set-bg {
+    min-height: 220px;
+    padding: 30px 0 !important;
+  }
 
-    .breadcrumb-option.set-bg {
-        height: 310px !important;
-        min-height: 310px !important;
+  .breadcrumb__text h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
 
-        padding: 0 !important;
-
-        background-size: cover;
-        background-position: center center;
-    }
-
-    .breadcrumb__text {
-        padding: 70px 15px 0;
-    }
-
-    .breadcrumb__text h2 {
-        font-size: 34px;
-        line-height: 1.2;
-        margin-bottom: 10px;
-    }
-
-    .breadcrumb__links a,
-    .breadcrumb__links span {
-        font-size: 14px;
-    }
+  .breadcrumb__links a,
+  .breadcrumb__links span {
+    font-size: 14px;
+  }
 }
-
 
 /* Very small mobile */
 @media only screen and (max-width: 380px) {
+  .breadcrumb-option.set-bg {
+    min-height: 200px;
+  }
 
-    .breadcrumb-option.set-bg {
-        height: 290px !important;
-        min-height: 290px !important;
-    }
-
-    .breadcrumb__text {
-        padding-top: 65px;
-    }
-
-    .breadcrumb__text h2 {
-        font-size: 29px;
-    }
-}
-
-.breadcrumb__text h2 {
-  color: #ffffff;
-  font-size: 50px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.breadcrumb__links a {
-  font-size: 16px;
-  color: #ffffff;
-  font-weight: 300;
-  display: inline-block;
-  /* margin-right: 32px; */
-  position: relative;
-}
-
-.breadcrumb__links a:after {
-  position: absolute;
-  right: -22px;
-  top: -3px;
-  content: "";
-  color: #adadad;
-  font-size: 20px;
-}
-
-.breadcrumb__links span {
-  font-size: 16px;
-  color: #00bfe7;
-  font-weight: 300;
-  display: inline-block;
+  .breadcrumb__text h2 {
+    font-size: 26px;
+  }
 }
 
 /*---------------------
@@ -2816,7 +2763,7 @@ body {
   }
 }
 /* ===== Fix mobile menu + dropdown correctly ===== */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 991px) {
 
     .header,
     .header .container,
@@ -2973,7 +2920,7 @@ body {
 }
 
 /* ===== Mobile menu direction fix AR / EN ===== */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 991px) {
 
     #mobile-menu-wrap[data-locale="ar"] .slicknav_nav {
         direction: rtl !important;
@@ -3065,7 +3012,7 @@ body {
     }
 }
 /* Hide custom dropdown arrow inside mobile menu */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 991px) {
     #mobile-menu-wrap .dropdown-caret,
     .slicknav_nav .dropdown-caret,
     .slicknav_nav .dropdown-toggle .dropdown-caret,
@@ -3077,4 +3024,108 @@ body {
     .slicknav_nav .nav-link.dropdown-toggle::after {
         display: none !important;
     }
+}
+
+/*---------------------
+  Fixed site header
+  - home page: transparent over the hero, turns solid once the page is scrolled
+  - other pages: always solid, and the page content starts below it
+-----------------------*/
+:root {
+  --header-h: 110px;
+  --header-h-compact: 84px;
+}
+
+html {
+  scroll-padding-top: var(--header-h-compact);
+}
+
+.header {
+  --bar-h: var(--header-h);
+  border-bottom: 0;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header--solid,
+.header--scrolled {
+  --bar-h: var(--header-h-compact);
+  background-color: rgba(16, 0, 40, 0.96);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.header > .container {
+  position: relative;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.header > .container > .row {
+  align-items: center;
+  min-height: var(--bar-h);
+  transition: min-height 0.3s ease;
+}
+
+.header .header__logo,
+.header .header__nav__option {
+  padding: 0;
+}
+
+.header .header__logo a {
+  display: flex;
+  align-items: center;
+}
+
+/* pages other than home: content starts right under the bar */
+.header--solid ~ main {
+  padding-top: var(--header-h-compact);
+}
+
+@media only screen and (max-width: 991px) {
+  :root {
+    --header-h: 72px;
+    --header-h-compact: 64px;
+  }
+
+  .header {
+    height: auto;
+  }
+
+  .header .logoImg {
+    height: 2.4rem;
+    margin-top: 0 !important;
+  }
+
+  /* the button is placed against the header container, not the menu wrapper */
+  .header #mobile-menu-wrap {
+    position: static !important;
+  }
+
+  /* menu button: vertically centered in the bar, on the opposite side of the logo */
+  .header .slicknav_btn {
+    position: absolute;
+    top: calc(var(--bar-h) / 2);
+    right: 15px;
+    left: auto;
+    margin: 0 !important;
+    transform: translateY(-50%);
+    transition: top 0.3s ease;
+  }
+
+  [dir="rtl"] .header .slicknav_btn {
+    left: 15px !important;
+    right: auto !important;
+  }
+
+  /* open menu: never taller than the screen */
+  .header .slicknav_nav {
+    max-height: calc(100vh - var(--bar-h)) !important;
+    max-height: calc(100dvh - var(--bar-h)) !important;
+    overflow-y: auto !important;
+  }
+
+  .header:has(.slicknav_open) {
+    background-color: rgba(16, 0, 40, 0.98);
+  }
 }

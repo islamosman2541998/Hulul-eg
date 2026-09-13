@@ -1,5 +1,7 @@
 <!-- Header Section Begin -->
-<header class="header" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+{{-- Home: transparent over the hero until scrolled. Other pages: always solid. --}}
+<header class="header {{ request()->routeIs('site.home') ? 'header--overlay' : 'header--solid' }}"
+    dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
@@ -69,18 +71,25 @@
 </header>
 <!-- Header End -->
 
-<style>
-    [dir="rtl"] .slicknav_btn {
-        position: absolute;
-        left: 10px !important;
-        right: auto !important;
-        top: -81px;
-        background: #00bfe7;
-    }
-</style>
 <script>
+    (function() {
+        const header = document.querySelector('.header');
+        if (!header) {
+            return;
+        }
+
+        const onScroll = function() {
+            header.classList.toggle('header--scrolled', window.scrollY > 20);
+        };
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, {
+            passive: true
+        });
+    })();
+
     document.addEventListener('click', function(e) {
-        if (window.innerWidth > 767) {
+        if (window.innerWidth > 991) {
             return;
         }
 

@@ -79,8 +79,3 @@
 
 @endsection
 
-<style>
-    .hero{
-        margin-top: 60px !important;
-    }    
-</style>

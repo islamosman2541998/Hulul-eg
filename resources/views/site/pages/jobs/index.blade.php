@@ -19,12 +19,28 @@
                     </div>
                 </div>
             </div>
-            
-            {{-- Livewire Component --}}
-            @livewire('site.job-list')
         </div>
     </div>
     <!-- Breadcrumb End -->
+
+    <section class="jobs-list-section">
+        <div class="container">
+            {{-- Livewire Component --}}
+            @livewire('site.job-list')
+        </div>
+    </section>
+
+    <style>
+        .jobs-list-section {
+            padding: 50px 0 80px;
+        }
+
+        @media (max-width: 767px) {
+            .jobs-list-section {
+                padding: 30px 0 60px;
+            }
+        }
+    </style>
 @endsection
 
 
