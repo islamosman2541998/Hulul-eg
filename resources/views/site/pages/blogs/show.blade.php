@@ -52,10 +52,6 @@
             margin-top: 70px !important;
         }
 
-        i {
-            margin-top: 13px !important;
-        }
-
         .theH1 {
             line-height: 1.3;
             overflow-wrap: anywhere;

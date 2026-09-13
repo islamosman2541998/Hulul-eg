@@ -285,6 +285,16 @@
                background-color 0.25s ease;
        }
 
+       /* keep the icons centered even if a page styles every <i> */
+       .floating-site-actions i {
+           margin: 0 !important;
+           line-height: 1 !important;
+       }
+
+       .floating-whatsapp-btn i {
+           font-size: inherit !important;
+       }
+
        /* ==============================
        Meeting Button
     ============================== */

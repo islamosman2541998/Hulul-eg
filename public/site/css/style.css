@@ -1147,16 +1147,24 @@ ol {
 }
 
 .footer__top__social a {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
   font-size: 15px;
   color: #ffffff;
   height: 40px;
   width: 40px;
   background: linear-gradient(135deg, #0a012b 0%, #1a1c6e 40%, #2e38a3 70%, #00d8ff 100%);
   border-radius: 50%;
-  line-height: 44px;
+  line-height: 1;
   text-align: center;
   margin-right: 6px;
+}
+
+.footer__top__social a i {
+  margin: 0 !important;
+  line-height: 1;
 }
 
 .footer__top__social a:last-child {

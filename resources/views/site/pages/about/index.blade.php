@@ -99,11 +99,6 @@
 
 @endsection
 <style>
-  
-
-    i {
-        margin-top: 13px !important;
-    }
     .about-images-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
