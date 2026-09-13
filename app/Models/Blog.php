@@ -3,6 +3,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,6 +61,21 @@ class Blog extends Model
     public function getTransNowAttribute()
     {
         return $this->translations()->where('locale', app()->getLocale())->first();
+    }
+
+    /**
+     * Plain-text preview of the description for blog cards. The editor HTML is
+     * stripped first, so headings, inline colors or a tag cut in half by the
+     * limit can never leak into the card layout.
+     */
+    public function excerpt(int $limit = 150): string
+    {
+        $html = preg_replace('#<(script|style)\b[^>]*>.*?</\1>#is', '', (string) $this->description) ?? '';
+        $text = strip_tags(str_replace('<', ' <', $html));
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = trim(preg_replace('/[\s\x{00A0}]+/u', ' ', $text) ?? $text);
+
+        return Str::limit($text, $limit);
     }
 
     public static function staticPath(): string

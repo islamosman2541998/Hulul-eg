@@ -86,10 +86,7 @@
                                                                 <div class="col-sm-10 mb-2">
                                                                     <textarea id="description{{ $key }}" name="{{ $locale }}[description]"> {{ old($locale . '.description') ?? $trans->description }} </textarea>
                                                                     <script type="text/javascript">
-                                                                        CKEDITOR.replace('description{{ $key }}', {
-                                                                            filebrowserUploadUrl: "{{ route('admin.ckeditor.upload', ['_token' => csrf_token()]) }}",
-                                                                            filebrowserUploadMethod: 'form'
-                                                                        });
+                                                                        CKEDITOR.replace('description{{ $key }}', blogEditorConfig('{{ $locale }}'));
                                                                     </script>
                                                                     @if ($errors->has($locale . '.description'))
                                                                         <span
@@ -179,10 +176,7 @@
                                                                 <div class="col-sm-10 mb-2">
                                                                     <textarea id="description{{ $key }}" name="{{ $locale }}[description]"> {{ old($locale . '.description') }} </textarea>
                                                                     <script type="text/javascript">
-                                                                        CKEDITOR.replace('description{{ $key }}', {
-                                                                            filebrowserUploadUrl: "{{ route('admin.ckeditor.upload', ['_token' => csrf_token()]) }}",
-                                                                            filebrowserUploadMethod: 'form'
-                                                                        });
+                                                                        CKEDITOR.replace('description{{ $key }}', blogEditorConfig('{{ $locale }}'));
                                                                     </script>
                                                                     @if ($errors->has($locale . '.description'))
                                                                         <span
@@ -499,15 +493,5 @@
 
 @section('style')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
-    <script>
-        $(function() {
-            @foreach ($languages as $key => $locale)
-                CKEDITOR.replace('description{{ $key }}', {
-                    filebrowserUploadUrl: "{{ route('admin.ckeditor.upload', ['_token' => csrf_token()]) ?? '#' }}",
-                    filebrowserUploadMethod: 'form'
-                });
-            @endforeach
-        });
-    </script>
+    @include('admin.dashboard.blogs.partials.editor-config')
 @endsection

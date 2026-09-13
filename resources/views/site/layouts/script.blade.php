@@ -21,7 +21,7 @@
 {{-- <script defer src="{{ asset('site/js/cdn.min.js') }}"></script> --}}
 {{-- <script defer src="{{ asset('site/js/nouislider.min.js') }}"></script> --}}
 <script defer src="{{ asset('site/js/custom.js') }}"></script>
-<script defer src="{{ asset('site/js/main.js') }}"></script>
+<script defer src="{{ asset('site/js/main.js?v=0.0.2') }}"></script>
 
 @stack('scripts')
 

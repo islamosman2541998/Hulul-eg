@@ -37,7 +37,7 @@
                                                  <div class="blog-content d-flex flex-column align-items-center p-3">
                                                      <h4>{{ $blog->title }}</h4>
 
-                                                     <p>{!! Str::limit($blog->description, 70) !!}</p>
+                                                     <p>{{ $blog->excerpt(150) }}</p>
                                                      <ul>
                                                          <li>{{ $blog->created_at->format('Y-m-d') }}</li>
                                                      </ul>
@@ -82,45 +82,8 @@
          align-items: stretch;
      }
 
-     .blog__item.latest__item {
-         width: 100%;
+     .blogs-swiper .blog__item.latest__item {
          max-width: 420px;
-         height: 100%;
-         box-sizing: border-box;
-         display: flex;
-         flex-direction: column;
-     }
-
-     .blog__item.latest__item img {
-         flex-shrink: 0;
-         width: 100%;
-         height: 180px;
-         object-fit: cover;
-     }
-
-     .blog__item.latest__item .blog-content {
-         flex: 1 1 auto;
-         width: 100%;
-         padding: 20px !important;
-     }
-
-     .blog__item.latest__item .blog-content h4 {
-         display: -webkit-box;
-         -webkit-line-clamp: 2;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-     }
-
-     .blog__item.latest__item .blog-content p {
-         display: -webkit-box;
-         -webkit-line-clamp: 2;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
-     }
-
-     .blog__item.latest__item .blog-content a {
-         margin-top: 12px;
-         flex-shrink: 0;
      }
 
      .blogs-swiper {
@@ -181,6 +144,18 @@
              width: 38px;
              height: 38px;
              --swiper-navigation-size: 13px;
+         }
+     }
+
+     /* Phones: no room beside the card, so swipe + dots take over from the arrows */
+     @media (max-width: 575px) {
+         .blogs-slider-wrap {
+             padding: 0;
+         }
+
+         .blogs-slider-wrap .swiper-button-prev,
+         .blogs-slider-wrap .swiper-button-next {
+             display: none;
          }
      }
  </style>

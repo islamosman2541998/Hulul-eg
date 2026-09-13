@@ -58,7 +58,7 @@
 
                 @forelse ($blogs as $key => $blog)
 
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                    <div class="col-lg-4 col-md-6 mb-4 d-flex">
 
                         <div class="blog__item latest__item">
 
@@ -66,15 +66,11 @@
                                 alt="{{ $blog->title }}">
 
                             <div
-                                class="blog-content d-flex flex-column justify-content-center align-items-center p-3">
+                                class="blog-content d-flex flex-column align-items-center p-3">
 
-                                <h4>
-                                    {{ $blog->title }}
-                                </h4>
+                                <h4>{{ $blog->title }}</h4>
 
-                                <p>
-                                    {!! Str::limit($blog->description, 65) !!}
-                                </p>
+                                <p>{{ $blog->excerpt(150) }}</p>
 
                                 <ul>
                                     <li>
