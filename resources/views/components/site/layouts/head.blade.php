@@ -58,7 +58,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     @stack('preload')
     @yield('style')
 
-@hasSection('uses_livewire')
+{{-- Livewire assets only on pages that render a Livewire component (see AppServiceProvider) --}}
+@if (View::hasSection('uses_livewire') || app()->bound('livewire.used_on_page'))
     @livewireStyles
 @endif
 </head>

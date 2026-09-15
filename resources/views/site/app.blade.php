@@ -30,7 +30,7 @@
 
     @include('site.layouts.script')
 
-@hasSection('uses_livewire')
+@if (View::hasSection('uses_livewire') || app()->bound('livewire.used_on_page'))
     @livewireScripts
 @endif
 
