@@ -60,9 +60,10 @@ class JobForm extends Component
     // Reset form
     $this->reset(['name', 'email', 'phone', 'cv', 'message']);
 
-    // Show success & close modal
-    session()->flash('success', 'Application submitted successfully!');
-    $this->dispatchBrowserEvent('close-apply-modal');
+    // closes the apply modal and shows the "application received" popup (see job-list.blade.php)
+    $this->dispatchBrowserEvent('job-application-sent', [
+        'job' => optional($cv->job)->title,
+    ]);
 }
 
     public function render()

@@ -71,7 +71,15 @@ return [
     'For_any_questions_about_careers' => 'لأي استفسارات حول الوظائف',
     'job_desc' => 'وصف الوظيفة',
     'Description' => 'الوصف',
-    
+
+    // popup after applying
+    'application_received_title' => 'تم إرسال طلبك بنجاح!',
+    'application_received_text' => 'شكرًا لاهتمامك بالانضمام إلى فريق حلول. استلمنا طلبك للتقديم على وظيفة «:job»، وسيقوم فريقنا بمراجعته والتواصل معك في أقرب وقت.',
+    'application_received_text_generic' => 'شكرًا لاهتمامك بالانضمام إلى فريق حلول. استلمنا طلبك، وسيقوم فريقنا بمراجعته والتواصل معك في أقرب وقت.',
+    'application_received_hint' => 'سنتواصل معك عبر البريد الإلكتروني أو رقم الهاتف الذي أدخلته.',
+    'got_it' => 'حسنًا',
+    'close' => 'إغلاق',
+
 
 
 ];

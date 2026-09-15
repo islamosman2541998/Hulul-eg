@@ -73,5 +73,13 @@ return [
     'job_desc' => 'Job Description',
     'Description' => 'Description',
 
+    // popup after applying
+    'application_received_title' => 'Application received!',
+    'application_received_text' => 'Thank you for your interest in joining the Hulul team. We\'ve received your application for “:job” and our team will review it and get back to you soon.',
+    'application_received_text_generic' => 'Thank you for your interest in joining the Hulul team. We\'ve received your application and our team will review it and get back to you soon.',
+    'application_received_hint' => 'We\'ll reach out using the email or phone number you provided.',
+    'got_it' => 'Got it',
+    'close' => 'Close',
+
 
 ];
