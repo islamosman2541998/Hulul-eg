@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\Site;
 
 use Livewire\Component;
+use App\Support\AdminNotifier;
 use App\Models\ServiceRequest;
+use App\Mail\Admin\MeetingRequestReceived;
+use App\Mail\Admin\ServiceRequestReceived;
 use App\Models\ServiceCategory;
 use App\Models\MeetingRequest;
 use Livewire\WithFileUploads;
@@ -157,7 +160,9 @@ class ServiceRequestForm extends Component
             $data['attachment'] = $filename;
         }
 
-        ServiceRequest::create($data);
+        $serviceRequest = ServiceRequest::create($data);
+
+        AdminNotifier::send(new ServiceRequestReceived($serviceRequest));
 
         return redirect()->route('site.thank-you');
 
@@ -177,7 +182,7 @@ class ServiceRequestForm extends Component
     $this->validate();
 
     try {
-        MeetingRequest::create([
+        $meetingRequest = MeetingRequest::create([
             'name' => $this->meeting_name,
             'email' => $this->meeting_email,
             'phone' => $this->meeting_phone,
@@ -188,6 +193,8 @@ class ServiceRequestForm extends Component
             'message' => $this->meeting_message,
             'status' => 'new',
         ]);
+
+        AdminNotifier::send(new MeetingRequestReceived($meetingRequest));
 
         return redirect()->route('site.thank-you');
 

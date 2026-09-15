@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Site;
 use App\Models\Cv;
 use App\Models\Job;
 use Livewire\Component;
+use App\Support\AdminNotifier;
+use App\Mail\Admin\JobApplicationReceived;
 use Livewire\WithFileUploads;
 
 class JobForm extends Component
@@ -44,14 +46,16 @@ class JobForm extends Component
     $cvPath = $this->cv->store('cvs', 'public');
 
     // Save to database
-    Cv::create([
+    $cv = Cv::create([
         'job_id' => $this->jobId,
         'name' => $this->name,
         'email' => $this->email,
         'phone' => $this->phone,
-        'cv_file' => $cvPath,  
+        'cv_file' => $cvPath,
         'message' => $this->message,
     ]);
+
+    AdminNotifier::send(new JobApplicationReceived($cv, $this->message));
 
     // Reset form
     $this->reset(['name', 'email', 'phone', 'cv', 'message']);
