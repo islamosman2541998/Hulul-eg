@@ -238,24 +238,23 @@
                ? 'مرحبًا، أريد الاستفسار عن خدماتكم.'
                : 'Hello, I would like to ask about your services.';
 
-       // Egypt + Saudi WhatsApp numbers from the site settings; numbers that are not set are skipped
+       // Saudi + Egypt WhatsApp numbers from the site settings; numbers that are not set are skipped
        $whatsappNumbers = collect([
-           [
-               'label' => __('messages.whatsapp_egypt'),
-               'flag' => 'eg',
-               'raw' => $settings->getItem('whatsapp') ?: $settings->getItem('mobile'),
-               'code' => \App\Support\WhatsApp::EGYPT,
-           ],
            [
                'label' => __('messages.whatsapp_saudi'),
                'flag' => 'sa',
                'raw' => $settings->getItem('whatsapp_ksa') ?: $settings->getItem('mobile_ksa'),
                'code' => \App\Support\WhatsApp::SAUDI_ARABIA,
            ],
+           [
+               'label' => __('messages.whatsapp_egypt'),
+               'flag' => 'eg',
+               'raw' => $settings->getItem('whatsapp') ?: $settings->getItem('mobile'),
+               'code' => \App\Support\WhatsApp::EGYPT,
+           ],
        ])
            ->map(fn($item) => $item + [
                'url' => \App\Support\WhatsApp::link($item['raw'], $item['code'], $whatsappMessage),
-               'display' => \App\Support\WhatsApp::firstPart($item['raw']),
            ])
            ->filter(fn($item) => $item['url'])
            ->values();
@@ -297,10 +296,7 @@
                                    rel="noopener noreferrer">
                                    <img class="wa-menu__flag" src="https://flagcdn.com/w40/{{ $number['flag'] }}.png"
                                        width="28" height="21" loading="lazy" alt="">
-                                   <span class="wa-menu__info">
-                                       <span class="wa-menu__label">{{ $number['label'] }}</span>
-                                       <span class="wa-menu__number" dir="ltr">{{ $number['display'] }}</span>
-                                   </span>
+                                   <span class="wa-menu__label">{{ $number['label'] }}</span>
                                    <i class="fa-brands fa-whatsapp wa-menu__icon" aria-hidden="true"></i>
                                </a>
                            </li>
@@ -442,7 +438,7 @@
            align-items: center;
            gap: 12px;
 
-           padding: 11px 12px;
+           padding: 13px 12px;
            border-radius: 12px;
 
            color: #111b21 !important;
@@ -465,33 +461,19 @@
            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
        }
 
-       .wa-menu__info {
-           display: flex;
-           flex-direction: column;
+       .wa-menu__label {
            flex-grow: 1;
            min-width: 0;
-           text-align: start;
-       }
 
-       .wa-menu__label {
            color: #111b21;
-           font-size: 14px;
+           font-size: 15px;
            font-weight: 600;
-           line-height: 1.3;
-       }
+           line-height: 1.35;
+           text-align: start;
 
-       .wa-menu__number {
-           color: #667781;
-           font-size: 13px;
-           line-height: 1.5;
-           white-space: nowrap;
            overflow: hidden;
            text-overflow: ellipsis;
-       }
-
-       /* the number itself is written left to right, but it lines up with its label */
-       [dir="rtl"] .wa-menu__number {
-           text-align: right;
+           white-space: nowrap;
        }
 
        .wa-menu__icon {

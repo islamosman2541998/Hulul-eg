@@ -342,7 +342,7 @@ return [
 
     // floating WhatsApp button
     'whatsapp_title' => 'تواصل معنا عبر واتساب',
-    'whatsapp_subtitle' => 'اختر الرقم الأقرب إليك',
+    'whatsapp_subtitle' => 'اختر الدولة الأقرب إليك',
     'whatsapp_egypt' => 'مصر',
     'whatsapp_saudi' => 'السعودية',
 ];
