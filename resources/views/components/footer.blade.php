@@ -123,10 +123,14 @@
                                        <i class="fa fa-whatsapp"></i>
                                        <span>
                                            <strong>@lang('admin.mobile'):</strong>
-                                           <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings->getItem('mobile_ksa')) }}"
-                                               target="_blank" rel="noopener noreferrer">
+                                           @php $ksaWhatsapp = \App\Support\WhatsApp::link($settings->getItem('mobile_ksa'), \App\Support\WhatsApp::SAUDI_ARABIA); @endphp
+                                           @if ($ksaWhatsapp)
+                                               <a href="{{ $ksaWhatsapp }}" target="_blank" rel="noopener noreferrer">
+                                                   {{ $settings->getItem('mobile_ksa') }}
+                                               </a>
+                                           @else
                                                {{ $settings->getItem('mobile_ksa') }}
-                                           </a>
+                                           @endif
                                        </span>
                                    </li>
                                    <li>
@@ -229,12 +233,32 @@
    @php
        $settings = \App\Settings\SettingSingleton::getInstance();
 
-       $whatsappNumber = preg_replace('/[^0-9]/', '', $settings->getItem('mobile'));
-
        $whatsappMessage =
            app()->getLocale() === 'ar'
                ? 'مرحبًا، أريد الاستفسار عن خدماتكم.'
                : 'Hello, I would like to ask about your services.';
+
+       // Egypt + Saudi WhatsApp numbers from the site settings; numbers that are not set are skipped
+       $whatsappNumbers = collect([
+           [
+               'label' => __('messages.whatsapp_egypt'),
+               'flag' => 'eg',
+               'raw' => $settings->getItem('whatsapp') ?: $settings->getItem('mobile'),
+               'code' => \App\Support\WhatsApp::EGYPT,
+           ],
+           [
+               'label' => __('messages.whatsapp_saudi'),
+               'flag' => 'sa',
+               'raw' => $settings->getItem('whatsapp_ksa') ?: $settings->getItem('mobile_ksa'),
+               'code' => \App\Support\WhatsApp::SAUDI_ARABIA,
+           ],
+       ])
+           ->map(fn($item) => $item + [
+               'url' => \App\Support\WhatsApp::link($item['raw'], $item['code'], $whatsappMessage),
+               'display' => \App\Support\WhatsApp::firstPart($item['raw']),
+           ])
+           ->filter(fn($item) => $item['url'])
+           ->values();
    @endphp
 
    <div class="floating-site-actions" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
@@ -249,11 +273,46 @@
            </span>
        </a>
 
-       @if ($whatsappNumber)
-           <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode($whatsappMessage) }}"
-               class="floating-whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+       @if ($whatsappNumbers->count() === 1)
+           <a href="{{ $whatsappNumbers->first()['url'] }}" class="floating-whatsapp-btn" target="_blank"
+               rel="noopener noreferrer" aria-label="WhatsApp">
+               <i class="fa-brands fa-whatsapp"></i>
+           </a>
+       @elseif ($whatsappNumbers->count() > 1)
+           {{-- more than one number: the button opens a small menu to pick one --}}
+           <div class="floating-whatsapp">
+               <div class="wa-menu" id="waMenu" hidden>
+                   <div class="wa-menu__head">
+                       <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                       <div class="wa-menu__head-text">
+                           <strong>@lang('messages.whatsapp_title')</strong>
+                           <span>@lang('messages.whatsapp_subtitle')</span>
+                       </div>
+                   </div>
 
-               <i class="fa-brands fa-whatsapp"></i> </a>
+                   <ul class="wa-menu__list">
+                       @foreach ($whatsappNumbers as $number)
+                           <li>
+                               <a href="{{ $number['url'] }}" class="wa-menu__item" target="_blank"
+                                   rel="noopener noreferrer">
+                                   <img class="wa-menu__flag" src="https://flagcdn.com/w40/{{ $number['flag'] }}.png"
+                                       width="28" height="21" loading="lazy" alt="">
+                                   <span class="wa-menu__info">
+                                       <span class="wa-menu__label">{{ $number['label'] }}</span>
+                                       <span class="wa-menu__number" dir="ltr">{{ $number['display'] }}</span>
+                                   </span>
+                                   <i class="fa-brands fa-whatsapp wa-menu__icon" aria-hidden="true"></i>
+                               </a>
+                           </li>
+                       @endforeach
+                   </ul>
+               </div>
+
+               <button type="button" class="floating-whatsapp-btn" id="waToggle" aria-expanded="false"
+                   aria-controls="waMenu" aria-label="WhatsApp">
+                   <i class="fa-brands fa-whatsapp"></i>
+               </button>
+           </div>
        @endif
 
    </div>
@@ -289,6 +348,168 @@
        .floating-site-actions i {
            margin: 0 !important;
            line-height: 1 !important;
+       }
+
+       /* ==============================
+       WhatsApp numbers menu
+    ============================== */
+
+       .floating-whatsapp {
+           position: relative;
+           display: flex;
+           flex-direction: column;
+           align-items: flex-end;
+       }
+
+       .wa-menu {
+           position: absolute;
+           bottom: calc(100% + 12px);
+           /* the buttons sit on the right of the screen in both languages, so anchor right */
+           right: 0;
+           left: auto;
+           z-index: 1;
+
+           width: 290px;
+           max-width: calc(100vw - 32px);
+           overflow: hidden;
+
+           border-radius: 16px;
+           background: #ffffff;
+           box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+
+           opacity: 0;
+           visibility: hidden;
+           transform: translateY(10px) scale(0.97);
+           transform-origin: bottom right;
+           transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+       }
+
+       .wa-menu[hidden] {
+           display: none;
+       }
+
+       .wa-menu.is-open {
+           opacity: 1;
+           visibility: visible;
+           transform: none;
+           transition: opacity 0.22s ease, transform 0.22s ease;
+       }
+
+       .wa-menu__head {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+
+           padding: 14px 16px;
+
+           background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+           color: #ffffff;
+       }
+
+       .wa-menu__head i {
+           font-size: 22px;
+       }
+
+       .wa-menu__head-text {
+           display: flex;
+           flex-direction: column;
+           line-height: 1.35;
+           text-align: start;
+       }
+
+       .wa-menu__head-text strong {
+           font-size: 14px;
+           font-weight: 700;
+       }
+
+       .wa-menu__head-text span {
+           font-size: 12px;
+           opacity: 0.9;
+       }
+
+       .wa-menu__list {
+           margin: 0;
+           padding: 6px;
+           list-style: none;
+       }
+
+       .wa-menu__list li {
+           list-style: none;
+       }
+
+       .wa-menu__item {
+           display: flex;
+           align-items: center;
+           gap: 12px;
+
+           padding: 11px 12px;
+           border-radius: 12px;
+
+           color: #111b21 !important;
+           text-decoration: none !important;
+           transition: background 0.2s ease;
+       }
+
+       .wa-menu__item:hover,
+       .wa-menu__item:focus-visible {
+           background: #f0f5f3;
+           outline: none;
+       }
+
+       .wa-menu__flag {
+           flex-shrink: 0;
+           width: 28px;
+           height: 21px;
+           border-radius: 4px;
+           object-fit: cover;
+           box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+       }
+
+       .wa-menu__info {
+           display: flex;
+           flex-direction: column;
+           flex-grow: 1;
+           min-width: 0;
+           text-align: start;
+       }
+
+       .wa-menu__label {
+           color: #111b21;
+           font-size: 14px;
+           font-weight: 600;
+           line-height: 1.3;
+       }
+
+       .wa-menu__number {
+           color: #667781;
+           font-size: 13px;
+           line-height: 1.5;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+       }
+
+       /* the number itself is written left to right, but it lines up with its label */
+       [dir="rtl"] .wa-menu__number {
+           text-align: right;
+       }
+
+       .wa-menu__icon {
+           flex-shrink: 0;
+           color: #25d366;
+           font-size: 18px;
+       }
+
+       @media only screen and (max-width: 380px) {
+           .wa-menu {
+               width: 260px;
+           }
+       }
+
+       @media (prefers-reduced-motion: reduce) {
+           .wa-menu {
+               transition: none;
+           }
        }
 
        .floating-whatsapp-btn i {
@@ -449,3 +670,54 @@
            }
        }
    </style>
+
+<script>
+    (function() {
+        const toggle = document.getElementById('waToggle');
+        const menu = document.getElementById('waMenu');
+
+        if (!toggle || !menu) {
+            return;
+        }
+
+        const isOpen = () => menu.classList.contains('is-open');
+
+        const setOpen = function(open) {
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+            if (open) {
+                menu.hidden = false;
+                requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('is-open')));
+                return;
+            }
+
+            menu.classList.remove('is-open');
+            setTimeout(() => {
+                if (!isOpen()) {
+                    menu.hidden = true;
+                }
+            }, 250);
+        };
+
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            setOpen(!isOpen());
+        });
+
+        // tapping anywhere else, or picking a number, closes the menu
+        document.addEventListener('click', function(e) {
+            if (isOpen() && !menu.contains(e.target)) {
+                setOpen(false);
+            } else if (isOpen() && e.target.closest('.wa-menu__item')) {
+                setOpen(false);
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isOpen()) {
+                setOpen(false);
+                toggle.focus();
+            }
+        });
+    })();
+</script>

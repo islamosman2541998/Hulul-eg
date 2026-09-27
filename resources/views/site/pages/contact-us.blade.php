@@ -92,10 +92,14 @@
                                 <i class="fa fa-whatsapp"></i>
                                 <span>
                                     <strong>@lang('admin.mobile'):</strong>
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings->getItem('mobile_ksa')) }}"
-                                        target="_blank" rel="noopener noreferrer">
+                                    @php $ksaWhatsapp = \App\Support\WhatsApp::link($settings->getItem('mobile_ksa'), \App\Support\WhatsApp::SAUDI_ARABIA); @endphp
+                                    @if ($ksaWhatsapp)
+                                        <a href="{{ $ksaWhatsapp }}" target="_blank" rel="noopener noreferrer">
+                                            {{ $settings->getItem('mobile_ksa') }}
+                                        </a>
+                                    @else
                                         {{ $settings->getItem('mobile_ksa') }}
-                                    </a>
+                                    @endif
                                 </span>
                             </li>
 

@@ -351,4 +351,10 @@ return [
 
 
 
+
+    // floating WhatsApp button
+    'whatsapp_title' => 'Chat with us on WhatsApp',
+    'whatsapp_subtitle' => 'Pick the number closest to you',
+    'whatsapp_egypt' => 'Egypt',
+    'whatsapp_saudi' => 'Saudi Arabia',
 ];

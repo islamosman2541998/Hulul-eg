@@ -15,6 +15,15 @@ use App\Models\PromoCode;
 
 class SettingsController extends Controller
 {
+    /**
+     * Site settings fields that must always be offered in the form, and the field each one
+     * belongs under. The row is created on the fly, so a new field shows up in the dashboard
+     * without adding it to the database by hand.
+     */
+    private const SITE_SETTING_EXTRA_KEYS = [
+        'whatsapp_ksa' => 'whatsapp',
+    ];
+
     public function index()
     {
         $items = Settings::get();
@@ -33,6 +42,7 @@ class SettingsController extends Controller
 
         switch ($key) {
             case 'site_setting':
+                $settings = $this->siteSettingValues($settingMain);
                 return view('admin.dashboard.settings.form', compact('settings', 'settingMain'));
 
             case 'meta_setting':
@@ -66,6 +76,26 @@ class SettingsController extends Controller
 
                 return view('admin.dashboard.settings.form', compact('settings', 'settingMain'));
         }
+    }
+
+    /**
+     * Site settings values, with the extra keys created if missing and sorted so every added
+     * field sits directly under the field it belongs with, whatever order the rows were created in.
+     */
+    private function siteSettingValues(Settings $settingMain)
+    {
+        foreach (array_keys(self::SITE_SETTING_EXTRA_KEYS) as $key) {
+            $settingMain->values()->firstOrCreate(['key' => $key], ['type' => 0]);
+        }
+
+        $values = $settingMain->values()->get();
+
+        return $values->sortBy(function ($value) use ($values) {
+            $anchor = self::SITE_SETTING_EXTRA_KEYS[$value->key] ?? null;
+            $anchorId = $anchor ? optional($values->firstWhere('key', $anchor))->id : null;
+
+            return $anchorId ? $anchorId + 0.5 : $value->id;
+        })->values();
     }
 
     public function form_update(Request $request, $id)
