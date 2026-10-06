@@ -120,9 +120,14 @@
                                         <td>{{ $meeting_request->preferred_date ?? '—' }}</td>
                                         <td>{{ $meeting_request->preferred_time ?? '—' }}</td>
 
-                                        <td>
-                                            @if ($meeting_request->message)
-                                                {{ Str::limit($meeting_request->message, 50) }}
+                                        <td class="message-cell">
+                                            @if (filled($meeting_request->message))
+                                                <button type="button" class="js-message-preview"
+                                                    data-message="{{ $meeting_request->message }}"
+                                                    data-sender="{{ $meeting_request->name }}"
+                                                    title="@lang('admin.full_message')">
+                                                    {{ Str::limit($meeting_request->message, 40) }}
+                                                </button>
                                             @else
                                                 —
                                             @endif
@@ -167,4 +172,6 @@
             </div>
         </div>
     </div>
+
+    @include('admin.dashboard.partials.message-modal')
 @endsection

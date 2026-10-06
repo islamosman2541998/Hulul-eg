@@ -650,4 +650,10 @@ return [
     'status_scheduled' => 'تم تحديد موعد',
     'status_cancelled' => 'ملغي',
     'status_done' => 'منتهي',
+
+    // message popup
+    'full_message' => 'نص الرسالة',
+    'close' => 'إغلاق',
+    'copy' => 'نسخ',
+    'copied' => 'تم النسخ',
 ];

@@ -78,7 +78,18 @@
                                         <td>{{ $service_request->email }}</td>
                                         <td>{{ $service_request->phone ?? '—' }}</td>
                                         <td>{{ $service_request->company ?? '—' }}</td>
-                                        <td>{{ $service_request->message ?? '—' }}</td>
+                                        <td class="message-cell">
+                                            @if (filled($service_request->message))
+                                                <button type="button" class="js-message-preview"
+                                                    data-message="{{ $service_request->message }}"
+                                                    data-sender="{{ $service_request->name }}"
+                                                    title="@lang('admin.full_message')">
+                                                    {{ Str::limit($service_request->message, 40) }}
+                                                </button>
+                                            @else
+                                                —
+                                            @endif
+                                        </td>
                                         <td>{{ $service_request->timeline ?? '—' }}</td>
 
                                         <td class="">
@@ -114,4 +125,6 @@
             </div>
         </div>
     </div>
+
+    @include('admin.dashboard.partials.message-modal')
 @endsection

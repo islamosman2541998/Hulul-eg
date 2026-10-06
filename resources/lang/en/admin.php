@@ -617,4 +617,10 @@ return [
     'status_scheduled' => 'Scheduled',
     'status_cancelled' => 'Cancelled',
     'status_done' => 'Done',
+
+    // message popup
+    'full_message' => 'Full message',
+    'close' => 'Close',
+    'copy' => 'Copy',
+    'copied' => 'Copied',
 ];
