@@ -606,4 +606,15 @@ return [
 
 
 
+
+    // meeting requests
+    'message' => 'Message',
+    'meeting_type' => 'Meeting Type',
+    'preferred_date' => 'Preferred Date',
+    'preferred_time' => 'Preferred Time',
+    'status_new' => 'New',
+    'status_contacted' => 'Contacted',
+    'status_scheduled' => 'Scheduled',
+    'status_cancelled' => 'Cancelled',
+    'status_done' => 'Done',
 ];

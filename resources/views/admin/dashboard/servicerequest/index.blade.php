@@ -56,6 +56,8 @@
                                     <th>@lang('admin.email')</th>
                                     <th>@lang('admin.phone')</th>
                                     <th>@lang('admin.company')</th>
+                                    <th>@lang('admin.message')</th>
+                                    
                                     <th>@lang('admin.timeline')</th>
                                     <th class="">@lang('admin.attachment')</th>
                                     <th class="text-center">@lang('admin.actions')</th>
@@ -76,6 +78,7 @@
                                         <td>{{ $service_request->email }}</td>
                                         <td>{{ $service_request->phone ?? '—' }}</td>
                                         <td>{{ $service_request->company ?? '—' }}</td>
+                                        <td>{{ $service_request->message ?? '—' }}</td>
                                         <td>{{ $service_request->timeline ?? '—' }}</td>
 
                                         <td class="">

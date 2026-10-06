@@ -1,9 +1,17 @@
 @extends('admin.app')
 
-@section('title', 'Meeting Requests')
-@section('title_page', 'Meeting Requests')
+@section('title', trans('admin.meetingRequests'))
+@section('title_page', trans('admin.meetingRequests'))
 
 @section('content')
+    @php
+        // the stored values are English; show them in the dashboard language
+        $meetingTypes = [
+            'Online' => trans('messages.online'),
+            'Phone call' => trans('messages.phone_call'),
+            'Office meeting' => trans('messages.office_meeting'),
+        ];
+    @endphp
     <div class="container-fluid">
         <div class="card">
             <div class="card-body search-group">
@@ -13,7 +21,7 @@
                             <input type="text"
                                    value="{{ request('name') }}"
                                    name="name"
-                                   placeholder="{{ trans('pages.search_title') }}"
+                                   placeholder="{{ trans('admin.name') }}"
                                    class="form-control">
                         </div>
 
@@ -21,7 +29,7 @@
                             <input type="text"
                                    value="{{ request('email') }}"
                                    name="email"
-                                   placeholder="Email"
+                                   placeholder="{{ trans('admin.email') }}"
                                    class="form-control">
                         </div>
 
@@ -29,7 +37,7 @@
                             <input type="text"
                                    value="{{ request('phone') }}"
                                    name="phone"
-                                   placeholder="Phone"
+                                   placeholder="{{ trans('admin.phone') }}"
                                    class="form-control">
                         </div>
 
@@ -37,22 +45,18 @@
                             <input type="text"
                                    value="{{ request('company') }}"
                                    name="company"
-                                   placeholder="Company"
+                                   placeholder="{{ trans('admin.company') }}"
                                    class="form-control">
                         </div>
 
                         <div class="col-md-3 mb-2">
                             <select name="meeting_type" class="form-control">
-                                <option value="">Meeting Type</option>
-                                <option value="Online" {{ request('meeting_type') == 'Online' ? 'selected' : '' }}>
-                                    Online
-                                </option>
-                                <option value="Phone call" {{ request('meeting_type') == 'Phone call' ? 'selected' : '' }}>
-                                    Phone call
-                                </option>
-                                <option value="Office meeting" {{ request('meeting_type') == 'Office meeting' ? 'selected' : '' }}>
-                                    Office meeting
-                                </option>
+                                <option value="">@lang('admin.meeting_type')</option>
+                                @foreach ($meetingTypes as $value => $label)
+                                    <option value="{{ $value }}" {{ request('meeting_type') == $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -95,11 +99,11 @@
                                     <th>@lang('admin.email')</th>
                                     <th>@lang('admin.phone')</th>
                                     <th>@lang('admin.company')</th>
-                                    <th>Meeting Type</th>
-                                    <th>Preferred Date</th>
-                                    <th>Preferred Time</th>
-                                    <th>Message</th>
-                                    <th>Status</th>
+                                    <th>@lang('admin.meeting_type')</th>
+                                    <th>@lang('admin.preferred_date')</th>
+                                    <th>@lang('admin.preferred_time')</th>
+                                    <th>@lang('admin.message')</th>
+                                    <th>@lang('admin.status')</th>
                                     <th class="text-center">@lang('admin.actions')</th>
                                 </tr>
                             </thead>
@@ -112,7 +116,7 @@
                                         <td>{{ $meeting_request->email }}</td>
                                         <td>{{ $meeting_request->phone ?? '—' }}</td>
                                         <td>{{ $meeting_request->company ?? '—' }}</td>
-                                        <td>{{ $meeting_request->meeting_type ?? '—' }}</td>
+                                        <td>{{ $meetingTypes[$meeting_request->meeting_type] ?? ($meeting_request->meeting_type ?? '—') }}</td>
                                         <td>{{ $meeting_request->preferred_date ?? '—' }}</td>
                                         <td>{{ $meeting_request->preferred_time ?? '—' }}</td>
 
@@ -125,8 +129,9 @@
                                         </td>
 
                                         <td>
+                                            @php $status = $meeting_request->status ?: 'new'; @endphp
                                             <span class="badge bg-info">
-                                                {{ $meeting_request->status ?? 'new' }}
+                                                {{ trans()->has('admin.status_' . $status) ? trans('admin.status_' . $status) : $status }}
                                             </span>
                                         </td>
 
@@ -134,7 +139,7 @@
                                             <form action="{{ route('admin.meeting_request.destroy', $meeting_request->id) }}"
                                                   method="POST"
                                                   style="display:inline"
-                                                  onsubmit="return confirm('هل تريد الحذف؟');">
+                                                  onsubmit="return confirm('{{ trans('admin.are_you_sure') }}');">
                                                 @csrf
                                                 @method('DELETE')
 

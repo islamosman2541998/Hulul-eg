@@ -639,4 +639,15 @@ return [
 
 
 
+
+    // meeting requests
+    'message' => 'الرسالة',
+    'meeting_type' => 'نوع الاجتماع',
+    'preferred_date' => 'التاريخ المفضل',
+    'preferred_time' => 'الوقت المفضل',
+    'status_new' => 'جديد',
+    'status_contacted' => 'تم التواصل',
+    'status_scheduled' => 'تم تحديد موعد',
+    'status_cancelled' => 'ملغي',
+    'status_done' => 'منتهي',
 ];
