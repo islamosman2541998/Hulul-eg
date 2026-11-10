@@ -32,7 +32,7 @@
                                      @foreach ($blogs as $blog)
                                          <div class="swiper-slide">
                                              <div class="blog__item latest__item">
-                                                 <img src="{{ asset($blog->pathInView()) }}" alt="{{ $blog->title }}">
+                                                 <img src="{{ asset($blog->pathInView()) }}" alt="{{ $blog->title }}" loading="lazy" decoding="async">
 
                                                  <div class="blog-content d-flex flex-column align-items-center p-3">
                                                      <h4>{{ $blog->title }}</h4>

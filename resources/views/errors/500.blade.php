@@ -1,5 +1,7 @@
 @extends('site.app')
 
+@section('robots', 'noindex')
+
 @section('title',  @$metaSetting->where('key', 'portfolio_meta_title_' . $current_lang)->first()->value)
 @section('meta_key',   @$metaSetting->where('key', 'portfolio_meta_key_' . $current_lang)->first()->value)
 @section('meta_description',    @$metaSetting->where('key', 'portfolio_meta_description_' . $current_lang)->first()->value)

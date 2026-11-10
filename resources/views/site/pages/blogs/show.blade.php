@@ -1,8 +1,41 @@
 @extends('site.app')
 
-@section('title', @$blog->transNow->meta_title)
-@section('meta_key', @$blog->transNow->meta_key)
-@section('meta_description', @$blog->transNow->meta_description)
+@section('title', $blog->transNow?->meta_title ?: ($blog->transNow?->title ?? ''))
+@section('meta_key', $blog->transNow?->meta_key ?? '')
+@section('meta_description', $blog->transNow?->meta_description ?: $blog->excerpt(160))
+@section('og_type', 'article')
+@section('og_image', asset($blog->pathInView()))
+
+@push('schema')
+    @php
+        $blogSchema = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'BlogPosting',
+                    'headline' => $blog->transNow?->title,
+                    'description' => $blog->transNow?->meta_description ?: $blog->excerpt(160),
+                    'image' => asset($blog->pathInView()),
+                    'datePublished' => $blog->created_at?->toAtomString(),
+                    'dateModified' => ($blog->updated_at ?? $blog->created_at)?->toAtomString(),
+                    'inLanguage' => app()->getLocale(),
+                    'mainEntityOfPage' => url()->current(),
+                    'author' => ['@id' => url('/') . '#organization'],
+                    'publisher' => ['@id' => url('/') . '#organization'],
+                ],
+                [
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => [
+                        ['@type' => 'ListItem', 'position' => 1, 'name' => __('site.home'), 'item' => route('site.home')],
+                        ['@type' => 'ListItem', 'position' => 2, 'name' => __('blogs.blogs'), 'item' => route('site.site.blogs.index')],
+                        ['@type' => 'ListItem', 'position' => 3, 'name' => $blog->transNow?->title, 'item' => url()->current()],
+                    ],
+                ],
+            ],
+        ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($blogSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+@endpush
 
 
 @section('content')

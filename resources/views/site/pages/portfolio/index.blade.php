@@ -1,4 +1,6 @@
-@extends('site.app') 
+@extends('site.app')
+
+@section('title', __('site.our_portfolio'))
 
 @section('content')
 
@@ -8,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>@lang('site.our_portfolio')</h2>
+                        <h1>@lang('site.our_portfolio')</h1>
                         <div class="breadcrumb__links">
                             <a href="{{ route('site.home') }}">Home</a>
                             <span>@lang('site.portfolio')</span>

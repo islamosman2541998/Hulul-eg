@@ -17,7 +17,12 @@
                         <div class="col-lg-6">
                             <div class="hero__text">
                                 <span class="slider-desc">{!! $slide->description !!} </span>
-                                <h2>{{ $slide->title }}</h2>
+                                {{-- the first slide's title is the home page's only H1 --}}
+                                @if ($index === 0)
+                                    <h1>{{ $slide->title }}</h1>
+                                @else
+                                    <h2>{{ $slide->title }}</h2>
+                                @endif
                                 <a href="{{ route('site.about-us') }}" class="primary-btn">@lang('home.see_more')</a>
                             </div>
                         </div>

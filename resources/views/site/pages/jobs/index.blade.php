@@ -1,6 +1,6 @@
 @extends('site.app')
 
-@section('title', 'Careers')
+@section('title', __('job.Join_the_HULUL_team'))
 
 
 

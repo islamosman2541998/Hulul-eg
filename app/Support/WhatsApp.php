@@ -37,13 +37,32 @@ class WhatsApp
      */
     public static function firstPart(?string $raw): ?string
     {
+        return static::parts($raw)[0] ?? null;
+    }
+
+    /**
+     * Every number in a settings field ("0106… - 0100…", "0106…- 0100…", "0106, 0100").
+     * A dash only separates when it touches a space, so "010-6100-1368" stays one number.
+     */
+    public static function parts(?string $raw): array
+    {
         $raw = trim((string) $raw);
 
         if ($raw === '') {
-            return null;
+            return [];
         }
 
-        return trim(preg_split('/\s*[,\/|]\s*|\s+[-–]\s+|\s{2,}/u', $raw)[0]);
+        $parts = preg_split('/\s*[,\/|]\s*|\s*[-–]\s+|\s+[-–]\s*|\s{2,}/u', $raw);
+
+        return array_values(array_filter(array_map('trim', $parts), fn ($part) => $part !== ''));
+    }
+
+    /** tel: link target in international format (+201061001368), or null when the number is unusable. */
+    public static function tel(?string $raw, string $countryCode): ?string
+    {
+        $number = static::number($raw, $countryCode);
+
+        return $number ? '+' . $number : null;
     }
 
     /** Full wa.me link, or null when no usable number was set. */

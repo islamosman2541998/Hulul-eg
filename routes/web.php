@@ -12,6 +12,7 @@ use App\Http\Controllers\Site\AboutController;
 use App\Http\Controllers\Site\ProductController;
 use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ServicesController;
+use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\ContactUsController;
 use App\Http\Controllers\Site\PortfolioController;
 use App\Http\Controllers\Site\SubscribeController;
@@ -32,6 +33,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 */
 
 
+// outside the localized group: one sitemap for both languages, no /ar or /en redirect
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -64,7 +67,8 @@ Route::group([
     Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
     Route::get('/services/{slug}', [ServicesController::class, 'show'])->name('services.show');
     Route::get('categories-services/{slug}', function ($slug) {
-        return redirect()->route('site.services.show', $slug);
+        // permanent: old menu links pass their ranking to the real service URL
+        return redirect()->route('site.services.show', $slug, 301);
     })->name('categories-services.show');
     Route::get('/service_request', [ServiceRequestController::class, 'index'])->name('service_request.index');
 Route::view('/thank-you', 'site.thank-you')

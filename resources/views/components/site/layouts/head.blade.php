@@ -1,15 +1,33 @@
 <head>
     <meta charset="UTF-8">
 
-    <title> {{ @$settings->getItem('site_name') }} | @yield('title', $settings->getItem('meta_title_' . $current_lang)) </title>
+    <title>{{ $metaTitle }}</title>
 
-    <meta name="keywords" content="@yield('meta_key', $settings->getItem('meta_key_' . $current_lang))">
-    <meta name="description" content="@yield('meta_description', $settings->getItem('meta_description_' . $current_lang))">
-    <link rel="canonical" href="{{ url()->current() }}" />
-    <meta property="og:title" content="{{ $title }}" />
-    <meta property="og:type" content="website" />
+    <meta name="keywords" content="{{ $metaKeywords }}">
+    <meta name="description" content="{{ $metaDescription }}">
+    @if ($robots)
+        <meta name="robots" content="{{ $robots }}">
+    @else
+        <link rel="canonical" href="{{ url()->current() }}" />
+    @endif
+    @foreach ($alternates as $hreflang => $href)
+        <link rel="alternate" hreflang="{{ $hreflang }}" href="{{ $href }}" />
+    @endforeach
+
+    <meta property="og:site_name" content="{{ $siteName }}" />
+    <meta property="og:title" content="{{ $metaTitle }}" />
+    <meta property="og:description" content="{{ $metaDescription }}" />
+    <meta property="og:type" content="{{ $ogType }}" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta name="og:image" content="{{ asset($settings->getItem('logo') ?? 'site/img/logos/logo.png') }}">
+    <meta property="og:image" content="{{ $ogImage }}" />
+    <meta property="og:locale" content="{{ $ogLocale }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $metaTitle }}" />
+    <meta name="twitter:description" content="{{ $metaDescription }}" />
+    <meta name="twitter:image" content="{{ $ogImage }}" />
+
+    <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+    @stack('schema')
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +37,6 @@
     rel="stylesheet"
 >
 
-    <meta name="msapplication-TileImage"
-        content="https://snapster.foxthemes.me/wp-content/uploads/2020/05/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ asset('site/fonts/css2.css') }}" />
@@ -43,7 +59,7 @@
     
     <link rel="stylesheet" href="{{ asset('site/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper-bundle.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.19') }}" />
+    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.20') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/custom.css?v=0.0.11') }}" />
 
 <!-- Google Tag Manager -->

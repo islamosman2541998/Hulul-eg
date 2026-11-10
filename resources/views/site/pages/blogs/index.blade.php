@@ -21,9 +21,9 @@
 
                     <div class="breadcrumb__text">
 
-                        <h2>
+                        <h1>
                             @lang('blogs.blogs')
-                        </h2>
+                        </h1>
 
                         <div class="breadcrumb__links">
 

@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>@lang('home.contact-us')</h2>
+                        <h1>@lang('home.contact-us')</h1>
                         <div class="breadcrumb__links">
                             <a href="{{ route('site.home') }}">@lang('home.home')/</a>
                             <span>@lang('home.contact-us')</span>
@@ -53,9 +53,15 @@
                                 <i class="fa fa-phone"></i>
                                 <span>
                                     <strong>@lang('admin.phone'):</strong>
-                                    <a href="tel:{{ $settings->getItem('mobile') }}">
-                                        {{ $settings->getItem('mobile') }}
-                                    </a>
+                                    @foreach (\App\Support\WhatsApp::parts($settings->getItem('mobile')) as $phone)
+                                        @if (! $loop->first) - @endif
+                                        @php $phoneTel = \App\Support\WhatsApp::tel($phone, \App\Support\WhatsApp::EGYPT); @endphp
+                                        @if ($phoneTel)
+                                            <a href="tel:{{ $phoneTel }}">{{ $phone }}</a>
+                                        @else
+                                            {{ $phone }}
+                                        @endif
+                                    @endforeach
                                 </span>
                             </li>
 

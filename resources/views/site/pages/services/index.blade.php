@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>@lang('services.our_services')</h2>
+                        <h1>@lang('services.our_services')</h1>
                         <div class="breadcrumb__links">
                             <a href="{{ route('site.home') }}">@lang('services.home')</a>
                             <span>@lang('services.services')</span>

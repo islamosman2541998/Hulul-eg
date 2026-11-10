@@ -552,7 +552,8 @@ ol {
   opacity: 1;
 }
 
-.hero__slider.owl-carousel .owl-item.active .hero__text h2 {
+.hero__slider.owl-carousel .owl-item.active .hero__text h2,
+.hero__slider.owl-carousel .owl-item.active .hero__text h1 {
   top: 0;
   opacity: 1;
 }
@@ -658,7 +659,9 @@ ol {
   transition: all, 0.3s;
 }
 
-.hero__text h2 {
+/* the first slide uses an h1; ".hero" outweighs custom.css's ".hero h1" */
+.hero__text h2,
+.hero .hero__text h1 {
   color: #ffffff;
   font-size: 42px;
   font-weight: 700;
@@ -1324,7 +1327,8 @@ ol {
   text-align: center;
 }
 
-.breadcrumb__text h2 {
+.breadcrumb__text h2,
+.breadcrumb__text h1 {
   color: #ffffff;
   font-size: 48px;
   font-weight: 700;
@@ -1365,7 +1369,8 @@ ol {
     min-height: 280px;
   }
 
-  .breadcrumb__text h2 {
+  .breadcrumb__text h2,
+  .breadcrumb__text h1 {
     font-size: 40px;
   }
 }
@@ -1377,7 +1382,8 @@ ol {
     padding: 30px 0 !important;
   }
 
-  .breadcrumb__text h2 {
+  .breadcrumb__text h2,
+  .breadcrumb__text h1 {
     font-size: 30px;
     margin-bottom: 10px;
   }
@@ -1394,7 +1400,8 @@ ol {
     min-height: 200px;
   }
 
-  .breadcrumb__text h2 {
+  .breadcrumb__text h2,
+  .breadcrumb__text h1 {
     font-size: 26px;
   }
 }
@@ -2609,7 +2616,8 @@ html[dir="rtl"] .blog-content a:hover:after {
     display: none;
   }
 
-  .hero__text h2 {
+  .hero__text h2,
+  .hero .hero__text h1 {
     font-size: 40px;
     line-height: 40px;
   }
@@ -2671,7 +2679,8 @@ html[dir="rtl"] .blog-content a:hover:after {
 
 /* Small Device = 320px */
 @media only screen and (max-width: 479px) {
-  .hero__text h2 {
+  .hero__text h2,
+  .hero .hero__text h1 {
     font-size: 30px;
     line-height: 40px;
   }

@@ -12,7 +12,7 @@
                         <div class="swiper-slide">
                             <a target="_blank" href="{{ $partner->url }}" class="partner-card">
                                 <img src="{{ asset('storage/attachments/partners/' . $partner->image) }}"
-                                    alt="partner-{{ $loop->index }}" />
+                                    alt="{{ $partner->title ?: 'partner-' . $loop->index }}" loading="lazy" decoding="async" />
                             </a>
                         </div>
                     @empty

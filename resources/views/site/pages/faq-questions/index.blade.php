@@ -1,6 +1,6 @@
 @extends('site.app')
 
-@section('title', @$metaSetting->where('key', 'faq_meta_title_' . $current_lang)->first()->value)
+@section('title', @$metaSetting->where('key', 'faq_meta_title_' . $current_lang)->first()->value ?: __('home.faq-index'))
 @section('meta_key', @$metaSetting->where('key', 'faq_meta_key_' . $current_lang)->first()->value)
 @section('meta_description', @$metaSetting->where('key', 'faq_meta_description_' . $current_lang)->first()->value)
 

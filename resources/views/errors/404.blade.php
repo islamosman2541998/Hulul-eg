@@ -1,5 +1,6 @@
 @extends('site.app')
 
+@section('robots', 'noindex')
 
 @section('content')
 

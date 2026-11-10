@@ -1,8 +1,40 @@
 @extends('site.app')
 
-{{-- @section('title', @$service->trans->where('locale', $current_lang)->first()->meta_title)
-@section('meta_key', @$service->trans->where('locale', $current_lang)->first()->meta_key)
-@section('meta_description', @$service->trans->where('locale', $current_lang)->first()->meta_description) --}}
+{{-- dashboard meta first; the service's own title/description keep the page from going out blank --}}
+@section('title', $category->transNow?->meta_title ?: ($category->transNow?->title ?? ''))
+@section('meta_key', $category->transNow?->meta_key ?? '')
+@section('meta_description', $category->transNow?->meta_desc ?: ($category->transNow?->description ?? ''))
+
+@push('schema')
+    @php
+        $serviceSchema = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                array_filter([
+                    '@type' => 'Service',
+                    'name' => $category->transNow?->title,
+                    'description' => \Illuminate\Support\Str::limit(trim(html_entity_decode(strip_tags(str_replace('<', ' <', (string) $category->transNow?->description)), ENT_QUOTES | ENT_HTML5, 'UTF-8')), 300),
+                    'url' => url()->current(),
+                    'image' => asset($category->pathInView()),
+                    'provider' => ['@id' => url('/') . '#organization'],
+                    'areaServed' => [
+                        ['@type' => 'Country', 'name' => 'Egypt'],
+                        ['@type' => 'Country', 'name' => 'Saudi Arabia'],
+                    ],
+                ]),
+                [
+                    '@type' => 'BreadcrumbList',
+                    'itemListElement' => [
+                        ['@type' => 'ListItem', 'position' => 1, 'name' => __('services.home'), 'item' => route('site.home')],
+                        ['@type' => 'ListItem', 'position' => 2, 'name' => __('services.services'), 'item' => route('site.services.index')],
+                        ['@type' => 'ListItem', 'position' => 3, 'name' => $category->transNow?->title, 'item' => url()->current()],
+                    ],
+                ],
+            ],
+        ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($serviceSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+@endpush
 
 @section('content')
     <!-- Breadcrumb Begin -->
@@ -11,7 +43,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>{{ $category->transNow->title ?? '' }}</h2>
+                        <h1>{{ $category->transNow->title ?? '' }}</h1>
                         <div class="breadcrumb__links">
                             <a href="{{ route('site.home') }}">@lang('services.home')</a>
                             <span>{{ $category->transNow->title ?? '' }}</span>

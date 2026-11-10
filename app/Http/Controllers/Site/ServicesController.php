@@ -7,6 +7,7 @@ use App\Models\Services;
 use App\Models\HomeSettingPage;
 use App\Models\ServiceCategory;
 use App\Http\Controllers\Controller;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class ServicesController extends Controller
 {
@@ -30,7 +31,19 @@ class ServicesController extends Controller
     {
         $category = ServiceCategory::whereHas('translations', function ($query) use ($slug) {
             $query->where('slug', $slug);
-        })->with('transNow')->firstOrFail();
+        })->with('transNow', 'translations')->firstOrFail();
+
+        // one URL per language: a slug from another language moves to this language's slug
+        $localSlug = $category->transNow?->slug;
+        if ($localSlug && $localSlug !== $slug) {
+            return redirect()->route('site.services.show', $localSlug, 301);
+        }
+
+        // slugs differ per language, so the head can't just swap /ar for /en
+        view()->share('seoAlternates', $category->translations
+            ->filter(fn ($trans) => $trans->slug && LaravelLocalization::checkLocaleInSupportedLocales($trans->locale))
+            ->mapWithKeys(fn ($trans) => [$trans->locale => url($trans->locale . '/services/' . rawurlencode($trans->slug))])
+            ->all());
 
         $services = Services::where('service_category_id', $category->id)
             ->with('transNow')

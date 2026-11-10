@@ -8,7 +8,7 @@
                     : asset($services_section->image);
             @endphp
 
-            <img src="{{ $sectionImage }}" class="applicationImg d-none d-sm-block" alt="">
+            <img src="{{ $sectionImage }}" class="applicationImg d-none d-sm-block" alt="" loading="lazy" decoding="async">
 
             <div class="col-lg-8">
                 <div class="callto__text">

@@ -91,8 +91,16 @@
                                        <i class="fa fa-phone"></i>
                                        <span>
                                            <strong>@lang('admin.phone'):</strong>
-                                           <a
-                                               href="tel:{{ $settings->getItem('mobile') }}">{{ $settings->getItem('mobile') }}</a>
+                                           {{-- the field can hold several numbers; each gets its own dialable link --}}
+                                           @foreach (\App\Support\WhatsApp::parts($settings->getItem('mobile')) as $phone)
+                                               @if (! $loop->first) - @endif
+                                               @php $phoneTel = \App\Support\WhatsApp::tel($phone, \App\Support\WhatsApp::EGYPT); @endphp
+                                               @if ($phoneTel)
+                                                   <a href="tel:{{ $phoneTel }}">{{ $phone }}</a>
+                                               @else
+                                                   {{ $phone }}
+                                               @endif
+                                           @endforeach
                                        </span>
                                    </li>
                                    <li>
