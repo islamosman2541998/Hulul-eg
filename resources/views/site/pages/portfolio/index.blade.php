@@ -1,6 +1,8 @@
 @extends('site.app')
 
-@section('title', __('site.our_portfolio'))
+@section('title', @$metaSetting->where('key', 'portfolio_meta_title_' . $current_lang)->first()->value ?: __('site.our_portfolio'))
+@section('meta_key', @$metaSetting->where('key', 'portfolio_meta_key_' . $current_lang)->first()->value)
+@section('meta_description', @$metaSetting->where('key', 'portfolio_meta_description_' . $current_lang)->first()->value)
 
 @section('content')
 

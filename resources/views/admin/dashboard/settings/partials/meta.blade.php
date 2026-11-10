@@ -249,6 +249,52 @@
                                         </div>
                                     </div>
 
+                                    {{-- Services and portfolio listing pages read these keys (site.pages.services.index / portfolio.index) --}}
+                                    @foreach (['services' => __('services.services'), 'portfolio' => __('site.portfolio')] as $metaPage => $metaPageLabel)
+                                    <div class="accordion mt-4 mb-4" id="accordionExample{{ $metaPage }}">
+                                        <div class="accordion-item border rounded">
+                                            <h2 class="accordion-header" id="heading{{ $metaPage }}">
+                                                <button class="accordion-button fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $metaPage }}" aria-expanded="true" aria-controls="collapse{{ $metaPage }}">
+                                                    {{ $metaPageLabel }}
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{ $metaPage }}" class="accordion-collapse collapse show mt-3" aria-labelledby="heading{{ $metaPage }}" data-bs-parent="#accordionExample{{ $metaPage }}">
+                                                <div class="accordion-body">
+
+                                                    @foreach ($languages as $key => $locale)
+                                                    {{-- meta_title_--}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label">{{ trans('admin.meta_title_in') . trans('lang.' .Locale::getDisplayName($locale)) }}</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" type="text" name="{{ $metaPage }}_meta_title_{{ $locale }}" value="{{ @$settings[$metaPage . '_meta_title_' . $locale] }}">
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- meta_description_--}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label"> {{ trans('admin.meta_description_in') . trans('lang.' .Locale::getDisplayName($locale)) }}
+                                                        </label>
+                                                        <div class="col-sm-10 mb-2">
+                                                            <textarea name="{{ $metaPage }}_meta_description_{{ $locale }}" class="form-control description"> {{ @$settings[$metaPage . '_meta_description_' . $locale] }} </textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- meta_key_--}}
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-2 col-form-label"> {{ trans('admin.meta_key_in') . trans('lang.' .Locale::getDisplayName($locale)) }}
+                                                        </label>
+                                                        <div class="col-sm-10 mb-2">
+                                                            <textarea name="{{ $metaPage }}_meta_key_{{ $locale }}" class="form-control description"> {{ @$settings[$metaPage . '_meta_key_' . $locale] }} </textarea>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+
                                     <!--News--->
                                     <div class="accordion mt-4 mb-4" id="accordionExampleNews">
                                         <div class="accordion-item border rounded">
