@@ -109,15 +109,17 @@
                                 </span>
                             </li>
 
-                            <li>
-                                <i class="fa fa-envelope"></i>
-                                <span>
-                                    <strong>@lang('admin.email'):</strong>
-                                    <a href="mailto:INFO@HOLOLNET.COM">
-                                        INFO@HOLOLNET.COM
-                                    </a>
-                                </span>
-                            </li>
+                            @if ($settings->getItem('email_ksa'))
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <span>
+                                        <strong>@lang('admin.email'):</strong>
+                                        <a href="mailto:{{ $settings->getItem('email_ksa') }}">
+                                            {{ $settings->getItem('email_ksa') }}
+                                        </a>
+                                    </span>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

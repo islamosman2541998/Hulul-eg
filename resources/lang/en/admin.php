@@ -346,6 +346,7 @@ return [
     'mobile' => 'Mobile Number',
     'whatsapp' => 'WhatsApp Number (Egypt)',
     'whatsapp_ksa' => 'WhatsApp Number (Saudi Arabia)',
+    'email_ksa' => 'Email (Saudi Arabia)',
     'instagram' => 'Instagram',
     'linked_in' => 'LinkedIn',
     'youtube' => 'YouTube',

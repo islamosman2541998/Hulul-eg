@@ -4,10 +4,7 @@
     $currentPath = trim(request()->path(), '/');
     $homePaths = [$locale, ''];
 
-    $menuUrl = fn ($item) => LaravelLocalization::getLocalizedURL(
-        $locale,
-        $item->type === 'dynamic' ? $item->dynamic_url : $item->url,
-    );
+    $menuUrl = fn ($item) => LaravelLocalization::getLocalizedURL($locale, $item->path());
 
     // same rule as the desktop menu: home matches only home, other pages match themselves and their sub-pages
     $isCurrent = function ($url) use ($currentPath, $homePaths) {

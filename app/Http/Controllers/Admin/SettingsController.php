@@ -22,6 +22,7 @@ class SettingsController extends Controller
      */
     private const SITE_SETTING_EXTRA_KEYS = [
         'whatsapp_ksa' => 'whatsapp',
+        'email_ksa' => 'email',
     ];
 
     public function index()

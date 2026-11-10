@@ -13,10 +13,7 @@
 @foreach ($items->where('parent_id', $parent_id ?? 0) as $item)
     @php
         // compute the item's localized url
-$itemUrl = LaravelLocalization::getLocalizedURL(
-    $locale,
-    $item->type === 'dynamic' ? $item->dynamic_url : $item->url,
-);
+$itemUrl = LaravelLocalization::getLocalizedURL($locale, $item->path());
 
 // normalized path (no leading slash)
 $itemPath = trim(parse_url($itemUrl, PHP_URL_PATH) ?? '', '/');

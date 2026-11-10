@@ -15,11 +15,12 @@ class PageController extends Controller
 {
     public function show(string $id)
     {   
+        // a page switched off in the dashboard is gone for visitors too, not just hidden from menus
         if (is_numeric($id)) {
-            $page = Pages::findOrFail($id);
-            $page_name = $page->trans->first()->slug ?? 'page'; 
+            $page = Pages::active()->findOrFail($id);
+            $page_name = $page->trans->first()->slug ?? 'page';
         } else {
-            $page = Pages::with('trans')->WhereTranslation('slug', $id)->get()->first();
+            $page = Pages::active()->with('trans')->WhereTranslation('slug', $id)->get()->first();
             if ($page == null) abort('404');
             $page_name = $id; 
         }

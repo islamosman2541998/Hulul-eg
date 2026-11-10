@@ -1,8 +1,13 @@
 @extends('site.app')
 
+@php
+    // the dashboard saves the description in meta_desc, through a rich editor (so it arrives as HTML)
+    $seoDescription = trim(preg_replace('/[\s\x{00A0}]+/u', ' ', html_entity_decode(strip_tags((string) $blog->transNow?->meta_desc), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+    $seoDescription = $seoDescription !== '' ? \Illuminate\Support\Str::limit($seoDescription, 160) : $blog->excerpt(160);
+@endphp
 @section('title', $blog->transNow?->meta_title ?: ($blog->transNow?->title ?? ''))
 @section('meta_key', $blog->transNow?->meta_key ?? '')
-@section('meta_description', $blog->transNow?->meta_description ?: $blog->excerpt(160))
+@section('meta_description', $seoDescription)
 @section('og_type', 'article')
 @section('og_image', asset($blog->pathInView()))
 
@@ -14,7 +19,7 @@
                 [
                     '@type' => 'BlogPosting',
                     'headline' => $blog->transNow?->title,
-                    'description' => $blog->transNow?->meta_description ?: $blog->excerpt(160),
+                    'description' => $seoDescription,
                     'image' => asset($blog->pathInView()),
                     'datePublished' => $blog->created_at?->toAtomString(),
                     'dateModified' => ($blog->updated_at ?? $blog->created_at)?->toAtomString(),

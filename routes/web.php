@@ -4,13 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Site\FaqController;
 use App\Http\Controllers\Site\JobController;
-use App\Http\Controllers\Site\NewController;
 use App\Http\Controllers\Site\BlogController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\AboutController;
-use App\Http\Controllers\Site\ProductController;
-use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ServicesController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\ContactUsController;
@@ -59,9 +56,11 @@ Route::group([
     Route::get('/blogs', [BlogController::class, 'index'])->name('site.blogs.index');
     Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('site.blogs.show');
 
-    Route::get('/news', [NewController::class, 'index'])->name('news.index');
-    // Route::get('/news', [NewController::class, 'maya'])->name('news.maya');
-    Route::get('/news/{news}', [NewController::class, 'show'])->name('news.show');
+    // news, products and product categories are leftovers of the templates the site was built on
+    // (medical news, a flower shop): their URLs pass visitors and ranking on to the live section
+    // closest to them instead of serving thin pages. Names kept so old views still build links.
+    Route::get('/news', fn () => redirect()->route('site.site.blogs.index', [], 301))->name('news.index');
+    Route::get('/news/{news}', fn () => redirect()->route('site.site.blogs.index', [], 301))->name('news.show');
 
 
     Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
@@ -75,14 +74,14 @@ Route::view('/thank-you', 'site.thank-you')
     ->name('thank-you');
     Route::post('/subscribe', [SubscribeController::class, 'store'])->name('subscribe.store');
 
-    Route::get('categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
-    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('categories/{id}', fn () => redirect()->route('site.services.index', [], 301))->name('categories.show');
+    Route::get('categories', fn () => redirect()->route('site.services.index', [], 301))->name('categories.index');
     Route::get('portfolio', [PortfolioController::class, 'index'])
         ->name('portfolio.index');
-    Route::get('products/{id}', [ProductController::class, 'show'])->name('products.show');
-    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('products/{id}', fn () => redirect()->route('site.services.index', [], 301))->name('products.show');
+    Route::get('products', fn () => redirect()->route('site.services.index', [], 301))->name('products.index');
 
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
-    Route::get('/jobs/{slug}', [JobController::class, 'show'])->name('jobs.show');
-    Route::post('/jobs/{slug}/apply', [JobController::class, 'apply'])->name('jobs.apply');
+    // jobs open in a popup on the list (details and the apply form), so a job has no page of its own
+    Route::get('/jobs/{slug}', fn () => redirect()->route('site.jobs.index', [], 301))->name('jobs.show');
 });

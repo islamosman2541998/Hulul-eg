@@ -6,6 +6,9 @@
 
 @section('meta_description', @$metaSetting->where('key', 'thank_meta_description_' . $current_lang)->first()->value)
 
+{{-- only reached after sending a form; nothing here for search results --}}
+@section('robots', 'noindex, follow')
+
 
 
 @section('content')

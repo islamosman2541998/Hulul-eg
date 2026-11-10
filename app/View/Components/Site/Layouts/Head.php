@@ -85,11 +85,31 @@ class Head extends Component
             return $this->defaultTitle() ?: $this->siteName;
         }
 
-        if (Route::currentRouteName() === 'site.home' || Str::contains($page, $this->siteName)) {
+        if (Route::currentRouteName() === 'site.home') {
+            return $page;
+        }
+
+        $page = $this->withoutBrand($page) ?: $page;
+
+        if (Str::contains($page, $this->siteName)) {
             return $page;
         }
 
         return $page . ' | ' . $this->siteName;
+    }
+
+    /**
+     * A dashboard title with the brand already at its start or end ("… | حلول", "Hulul - …")
+     * loses it, so the site name added after it is the only one and always the same spelling.
+     */
+    private function withoutBrand(string $title): string
+    {
+        $brand = '(?:' . preg_quote($this->siteName, '/') . '|حلول(?:\s+hulul)?|hulul(?:[\s-]?eg)?(?:\s+agency)?)';
+
+        $title = preg_replace('/\s*[|\-–—]\s*' . $brand . '\s*$/iu', '', $title) ?? $title;
+        $title = preg_replace('/^\s*' . $brand . '\s*[|\-–—]\s*/iu', '', $title) ?? $title;
+
+        return trim($title);
     }
 
     private function getMetaDescription(): string
