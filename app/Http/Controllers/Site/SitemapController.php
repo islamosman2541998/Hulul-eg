@@ -50,8 +50,10 @@ class SitemapController extends Controller
             }
         }
 
-        return response()
-            ->view('site.sitemap', compact('pages'))
-            ->header('Content-Type', 'application/xml; charset=UTF-8');
+        // the declaration lives here, not in the Blade view: servers with short_open_tag on
+        // would read "<?xml" in the template as PHP and fail to compile it
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . trim(view('site.sitemap', compact('pages'))->render());
+
+        return response($xml)->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 }
