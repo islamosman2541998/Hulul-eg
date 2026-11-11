@@ -128,6 +128,7 @@ class SeoContentSeeder extends Seeder
             $this->leftoverPages();
             $this->digitalMarketingService();
             $this->shortDescriptions();
+            $this->restoreArticleTitles();
             $this->blogSlugs();
             $this->faqs();
         });
@@ -311,6 +312,73 @@ class SeoContentSeeder extends Seeder
         foreach ($articles as [$id, $locale, $old, $new]) {
             $this->setIfUnchanged('blog_translations', ['blog_id' => $id, 'locale' => $locale], 'meta_desc',
                 '<p>' . $new . '</p>', [$old], "article #{$id} ({$locale}): meta description");
+        }
+    }
+
+    /**
+     * Five short search titles were typed into the article's title field instead of its meta
+     * title, which also regenerated the slug: the page heading changed and the article moved to
+     * a new address, leaving the indexed one as a 404. The heading and address go back; the
+     * short title moves to the meta title, where it was meant to go (the <title> in results).
+     * Only rows still holding that short title as their heading are touched.
+     */
+    private function restoreArticleTitles(): void
+    {
+        $articles = [
+            // [blog, locale, short title typed in, original title, original slug, original meta title]
+            [18, 'ar', 'كيف يبني الموقع الاحترافي ثقة العملاء؟',
+                'كيف يساعد الموقع الالكتروني الاحترافي في كسب الثقة وزيادة العملاء',
+                'كيف-يساعد-الموقع-الالكتروني-الاحترافي-في-كسب-الثقة-وزيادة-العملاء',
+                'اكتشف كيف يساعدك الموقع الالكتروني الاحترافي في بناء الثقة'],
+            [18, 'en', 'How a Professional Website Builds Customer Trust',
+                'How Does a Professional Website Help Build Trust and Attract More Customers?',
+                'how-does-a-professional-website-help-build-trust-and-attract-more-customers',
+                'Discover how a professional website can help you build trust'],
+            [20, 'en', 'Why Digital Marketing Matters for Business Success',
+                'The Importance of Digital Marketing in Business Success',
+                'the-importance-of-digital-marketing-in-business-success',
+                'The Importance of Digital Marketing in Business Success'],
+            [22, 'ar', 'أشهر أخطاء SEO التي تضر ترتيب موقعك',
+                'أشهر أخطاء SEO تؤثر على ترتيب موقعك في محركات البحث',
+                'أشهر-أخطاء-seo-تؤثر-على-ترتيب-موقعك-في-محركات-البحث',
+                'أشهر أخطاء SEO تؤثر على ترتيب موقعك في محركات البحث'],
+            [22, 'en', 'Common SEO Mistakes That Hurt Your Rankings',
+                'The Most Common SEO Mistakes That Affect Your Website’s Search Engine Rankings',
+                'the-most-common-seo-mistakes-that-affect-your-website-s-search-engine-rankings',
+                'The Most Common SEO Mistakes That Affect Your Website’s Search Engine Rankings'],
+        ];
+
+        foreach ($articles as [$id, $locale, $short, $title, $slug, $oldMeta]) {
+            $label = "article #{$id} ({$locale}): title and address";
+            $where = ['blog_id' => $id, 'locale' => $locale];
+            $row = DB::table('blog_translations')->where($where)->first();
+
+            if (! $row) {
+                $this->note('skipped', "{$label}: row not found");
+                continue;
+            }
+            if ($this->plain($row->title) === $this->plain($title) && $row->slug === $slug) {
+                $this->note('already done', $label);
+                continue;
+            }
+            if ($this->plain($row->title) !== $this->plain($short)) {
+                $this->note('kept', "{$label}: edited again in the dashboard");
+                continue;
+            }
+            if (DB::table('blog_translations')->where('slug', $slug)->where('id', '!=', $row->id)->exists()) {
+                $this->note('kept', "{$label}: \"{$slug}\" is used by another article");
+                continue;
+            }
+
+            $update = ['title' => $title, 'slug' => $slug];
+
+            // the short title becomes the search title, unless the meta title was set to something else
+            if (in_array($this->plain($row->meta_title), ['', $this->plain($short), $this->plain($oldMeta), $this->plain($title)], true)) {
+                $update['meta_title'] = $short;
+            }
+
+            DB::table('blog_translations')->where('id', $row->id)->update($update);
+            $this->note('updated', $label . (isset($update['meta_title']) ? ', short title moved to meta title' : ''));
         }
     }
 
