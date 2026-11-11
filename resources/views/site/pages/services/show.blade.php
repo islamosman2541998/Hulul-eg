@@ -38,7 +38,7 @@
 
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ asset('site/img/111.jpeg') }}">
+    <div class="breadcrumb-option spad set-bg" data-setbg="{{ webp_asset('site/img/111.jpeg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -76,7 +76,7 @@
                     <!-- Card 1 -->
                     <a class="card highlight" href="{{ route('site.service_request.index') }}">
                         <span class="icon" aria-hidden="true">
-                            <img src="{{ asset(path: $service->image) }}" alt="{{ $service->transNow->title ?? '' }}"
+                            <img src="{{ webp_asset($service->image) }}" alt="{{ $service->transNow->title ?? '' }}"
                                 style="width: 40px; height: 40px;">
 
                         </span>

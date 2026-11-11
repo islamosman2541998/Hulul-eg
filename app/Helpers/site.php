@@ -38,3 +38,32 @@ if (!function_exists('getPages')) {
         return $pages ;
     }
 }
+
+
+if (! function_exists('alternate_url')) {
+    /**
+     * This page in another language, for the language switcher. Pages whose slug differs per
+     * language (services, articles) share the exact URLs as `seoAlternates`, so the switcher
+     * lands on the page itself instead of a slug from the other language that redirects.
+     */
+    function alternate_url(string $locale): string
+    {
+        $alternates = \Illuminate\Support\Facades\View::shared('seoAlternates') ?: [];
+
+        return $alternates[$locale]
+            ?? \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($locale);
+    }
+}
+
+
+if (! function_exists('webp_asset')) {
+    /**
+     * asset() for an uploaded image, served as the lighter WebP copy when `php artisan
+     * images:webp` has made one (photo.jpg -> photo.webp next to it). Anything else, or an image
+     * without a copy yet, gets the usual asset() URL.
+     */
+    function webp_asset(?string $path): string
+    {
+        return asset(\App\Support\Images::webp((string) $path));
+    }
+}

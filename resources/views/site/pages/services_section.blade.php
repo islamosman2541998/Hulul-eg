@@ -4,11 +4,11 @@
         <div class="row">
             @php
                 $sectionImage = app()->getLocale() == 'ar'
-                    ? asset('site/img/services-ar.png')
-                    : asset($services_section->image);
+                    ? webp_asset('site/img/services-ar.png')
+                    : webp_asset($services_section->image);
             @endphp
 
-            <img src="{{ $sectionImage }}" class="applicationImg d-none d-sm-block" alt="" loading="lazy" decoding="async">
+            <img src="{{ $sectionImage }}" class="applicationImg d-none d-sm-block" alt="{{ trim(strip_tags($services_section->transNow->title ?? '')) }}" loading="lazy" decoding="async">
 
             <div class="col-lg-8">
                 <div class="callto__text">

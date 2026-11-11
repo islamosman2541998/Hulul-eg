@@ -39,6 +39,8 @@ return [
     'our_services'              => 'Our Services',
     'home'                      => 'Home',
     'service_request'           => 'Service Request',
+    'service_request_title'     => 'Request a Service or a Quote',
+    'service_request_description' => 'Request a service or a quote from HULUL for digital marketing, websites and apps, branding or content in Egypt and Saudi Arabia. Our team will reply.',
     'see_more_services'         => 'See More Services',
     'see_more_works'            => 'See More Works',
     

@@ -49,6 +49,14 @@ class ConvertImagesToWebp extends Command
                     $image->scale(width: $maxW);
                 }
                 $image->encodeUsingFormat(Format::WEBP, quality: $quality)->save($webpPath);
+
+                // pages use the copy only when it is lighter; a heavier one is just clutter
+                if (filesize($webpPath) >= filesize($original)) {
+                    @unlink($webpPath);
+                    $this->line("[SKIP] " . basename($original) . " - already smaller than WebP");
+                    continue;
+                }
+
                 $count++;
                 $this->line("[OK] " . basename($webpPath));
             } catch (\Throwable $e) {

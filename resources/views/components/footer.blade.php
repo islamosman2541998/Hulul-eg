@@ -10,9 +10,9 @@
                <div class="row">
                    <div class="col-lg-6 col-md-6">
                        <div class="footer__top__logo">
-                           <a href="#"><img
+                           <a href="{{ route('site.home') }}"><img
                                    src="{{ asset($settings->getItem(app()->getLocale() == 'en' ? 'logo_en' : 'logo_ar')) }}"
-                                   class="logoImg" alt=""></a>
+                                   class="logoImg" alt="{{ $settings->getItem('site_name') }}"></a>
                        </div>
                    </div>
                    <div class="col-lg-6 col-md-6">
@@ -40,8 +40,18 @@
                            <h5>@lang('admin.quicklinks')</h5>
                            <ul>
                                @forelse ($footerLinks as $link)
+                                   @php
+                                       // with the language in the address (/ar/about-us): a bare /about-us redirects,
+                                       // and sends crawlers (no browser language) to the English page
+                                       $linkPath = $link->path() ?: ($link->dynamic_url ?: $link->url);
+                                       $linkHref = ! $linkPath
+                                           ? '#'
+                                           : (\Illuminate\Support\Str::startsWith($linkPath, ['http://', 'https://'])
+                                               ? $linkPath
+                                               : LaravelLocalization::getLocalizedURL(app()->getLocale(), $linkPath));
+                                   @endphp
                                    <li><a
-                                           href="{{ $link->type === 'static' && $link->url ? url($link->url) : ($link->dynamic_url ? url($link->dynamic_url) : '#') }}">{{ $link->trans->where('locale', app()->getLocale())->first()->title ?? 'No Title' }}</a>
+                                           href="{{ $linkHref }}">{{ $link->trans->where('locale', app()->getLocale())->first()->title ?? 'No Title' }}</a>
                                    </li>
                                @empty
 

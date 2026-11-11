@@ -20,7 +20,7 @@
                                <a href="{{ route('site.services.show', $service->transNow->slug) }}">
                                    <div class="services__item">
                                        <div class="services__item__icon">
-                                           <img src="{{ $service->pathInView() }}" class="iconImg" alt="">
+                                           <img src="{{ webp_asset($service->pathInView()) }}" class="iconImg" alt="">
                                        </div>
 
                                        <h4>{{ $service->transNow->title }}</h4>

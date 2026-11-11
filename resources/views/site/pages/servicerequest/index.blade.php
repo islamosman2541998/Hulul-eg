@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Service Request</title>
-
-    <link rel="stylesheet" href="{{ asset('site/css/custom.css') }}">
-
-    <x-site.layouts.head />
-
-    @livewireStyles
-
+{{-- read by the head component below: one <title>, a description of this page, canonical and hreflang --}}
+@section('title', __('services.service_request_title'))
+@section('meta_description', __('services.service_request_description'))
+@section('uses_livewire', '1')
+@section('style')
     <style>
         [wire\:cloak] {
             display: none !important;
         }
     </style>
-</head>
+@endsection
+
+<x-site.layouts.head />
 
 <body>
 

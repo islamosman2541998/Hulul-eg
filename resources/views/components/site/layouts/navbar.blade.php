@@ -8,7 +8,7 @@
                 <div class="header__logo">
                     <a href="{{ route('site.home') }}"><img
                             src="{{ asset($settings->getItem(app()->getLocale() == 'en' ? 'logo_en' : 'logo_ar')) }}"
-                            class="logoImg" alt=""></a>
+                            class="logoImg" alt="{{ $settings->getItem('site_name') }}"></a>
                 </div>
             </div>
             <div class="col-lg-10">
@@ -43,7 +43,7 @@
                             <li class="lang-switch d-flex align-items-center ms-lg-3">
                                 @foreach ($locals as $lang)
                                     @php
-                                        $url = LaravelLocalization::getLocalizedURL($lang);
+                                        $url = alternate_url($lang);
                                         $isActive = app()->getLocale() === $lang;
                                     @endphp
 

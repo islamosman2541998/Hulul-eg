@@ -130,6 +130,8 @@ class SeoContentSeeder extends Seeder
             $this->shortDescriptions();
             $this->restoreArticleTitles();
             $this->blogSlugs();
+            $this->articleLinks();
+            $this->subServiceTitles();
             $this->faqs();
         });
 
@@ -408,6 +410,106 @@ class SeoContentSeeder extends Seeder
         }
 
         $this->note($changed ? 'updated' : 'already done', "article slugs: leading/trailing dashes ({$changed} rows)");
+    }
+
+    /**
+     * Links inside the articles: English articles pointed at the Arabic pages and the other way
+     * round, some carried "?utm_source=chatgpt.com" (copied from ChatGPT), and one used a service
+     * slug from the other language (a redirect). Each link to this site now opens the page in the
+     * article's own language, at its final address. The English text also called the company
+     * "Solutions" (حلول translated); those three link texts get the brand name.
+     */
+    private function articleLinks(): void
+    {
+        $serviceSlugs = DB::table('service_category_translations')->whereNotNull('slug')->get(['service_cat_id', 'locale', 'slug']);
+        $byLocale = $serviceSlugs->groupBy('locale')->map(fn ($rows) => $rows->pluck('slug', 'service_cat_id'));
+        $serviceOf = $serviceSlugs->pluck('service_cat_id', 'slug');
+
+        $brand = [
+            '> Solutions Team</a>' => '> HULUL team</a>',
+            '> Contact the Solutions Team</a>' => '> Contact the HULUL team</a>',
+            '> Solutions</a> Help' => '> HULUL</a> Help',
+        ];
+
+        $changed = 0;
+        foreach (DB::table('blog_translations')->get(['id', 'locale', 'description']) as $row) {
+            $locale = $row->locale;
+
+            $text = preg_replace_callback(
+                '#href="https?://(?:www\.)?hululeg\.com(/[^"]*)?"#i',
+                function ($match) use ($locale, $byLocale, $serviceOf) {
+                    $parts = parse_url($match[1] ?? '/') ?: [];
+                    $segments = array_values(array_filter(explode('/', $parts['path'] ?? ''), 'strlen'));
+
+                    if (in_array($segments[0] ?? null, ['ar', 'en'], true)) {
+                        $segments[0] = $locale;
+                    } else {
+                        array_unshift($segments, $locale);
+                    }
+
+                    if (($segments[1] ?? null) === 'services' && isset($segments[2])) {
+                        $id = $serviceOf[rawurldecode($segments[2])] ?? null;
+                        if ($id && isset($byLocale[$locale][$id])) {
+                            $segments[2] = rawurlencode($byLocale[$locale][$id]);
+                        }
+                    }
+
+                    parse_str($parts['query'] ?? '', $query);
+                    $query = array_filter($query, fn ($key) => ! str_starts_with((string) $key, 'utm_'), ARRAY_FILTER_USE_KEY);
+
+                    return 'href="https://hululeg.com/' . implode('/', $segments)
+                        . ($query ? '?' . http_build_query($query) : '')
+                        . (isset($parts['fragment']) ? '#' . $parts['fragment'] : '') . '"';
+                },
+                (string) $row->description
+            );
+
+            // a link written as its own address shows the corrected address
+            $text = preg_replace_callback(
+                '#(<a\b[^>]*href="(https://hululeg\.com[^"]*)"[^>]*>)\s*https?://(?:www\.)?hululeg\.com[^<\s]*\s*(</a>)#i',
+                fn ($match) => $match[1] . e(rawurldecode($match[2])) . $match[3],
+                $text
+            );
+
+            if ($locale === 'en') {
+                $text = strtr($text, $brand);
+            }
+
+            if ($text !== (string) $row->description) {
+                DB::table('blog_translations')->where('id', $row->id)->update(['description' => $text]);
+                $changed++;
+            }
+        }
+
+        $this->note($changed ? 'updated' : 'already done', "article links: language, tracking, brand name ({$changed} articles)");
+    }
+
+    /**
+     * Sub-service titles began with a number ("1- ", "2- " … "4- ", "6- ", skipping 5) shown
+     * inside each heading on the service page. The cards are already in order, so the numbers go.
+     */
+    private function subServiceTitles(): void
+    {
+        $changed = 0;
+
+        foreach (DB::table('services_translations')->get(['id', 'locale', 'title']) as $row) {
+            $title = trim((string) preg_replace('/^\s*\d+\s*-\s*/u', '', (string) $row->title, 1, $numbered));
+
+            if (! $numbered) {
+                continue;
+            }
+
+            if ($row->locale === 'en') {
+                $title = $title === 'ads' ? 'Paid Advertising Campaigns' : ucfirst($title);
+            }
+
+            if ($title !== '' && $title !== $row->title) {
+                DB::table('services_translations')->where('id', $row->id)->update(['title' => $title]);
+                $changed++;
+            }
+        }
+
+        $this->note($changed ? 'updated' : 'already done', "sub-service titles: numbering removed ({$changed} rows)");
     }
 
     /**

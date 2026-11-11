@@ -16,8 +16,8 @@
     {{-- Breadcrumb Begin --}}
     <div
         class="breadcrumb-option set-bg"
-        data-setbg="{{ asset('site/img/111.jpeg') }}"
-        style="background-image: url('{{ asset('site/img/111.jpeg') }}');"
+        data-setbg="{{ webp_asset('site/img/111.jpeg') }}"
+        style="background-image: url('{{ webp_asset('site/img/111.jpeg') }}');"
     >
         <div class="container">
 

@@ -7,7 +7,7 @@
 @section('content')
 
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad w-100 h-50 set-bg" data-setbg="{{ asset('site/img/111.jpeg') }}">
+    <div class="breadcrumb-option spad w-100 h-50 set-bg" data-setbg="{{ webp_asset('site/img/111.jpeg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -33,7 +33,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 text-center">
                         <div class="services__item">
                             <div class="services__item__icon mx-auto">
-                                <img src="{{ $category->pathInView() }}" alt="{{ $category->transNow->title ?? '' }}" />
+                                <img src="{{ webp_asset($category->pathInView()) }}" alt="{{ $category->transNow->title ?? '' }}" />
                             </div>
                             <h4>{{ $category->transNow->title ?? 'N/A' }}</h4>
                             <p>
@@ -108,7 +108,7 @@
                     @forelse ($partners as $partner)
                         <div class="swiper-slide">
                             <a target="_blank" href="{{ $partner->url }}" class="partner-card">
-                                <img src="{{ asset('storage/attachments/partners/' . $partner->image) }}"
+                                <img src="{{ webp_asset('storage/attachments/partners/' . $partner->image) }}"
                                     alt="partner-{{ $loop->index }}" />
                             </a>
                         </div>

@@ -9,7 +9,7 @@
                     {{-- Logo & Site Name --}}
                     <div class="col-12">
                         <div class="title d-flex justify-content-center align-items-center my-md-5 my-3">
-                            <img class="img-fluid login-icon" src="{{ asset('site/img/logo.png') }}"
+                            <img class="img-fluid login-icon" src="{{ webp_asset('site/img/logo.png') }}"
                                 alt="{{ __('messages.site_name') }}" />
                             <h1 class="mx-md-3 mx-1">{{ __('messages.site_name') }}</h1>
                         </div>

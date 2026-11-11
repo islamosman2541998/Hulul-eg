@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad w-100 h-50 set-bg" data-setbg="{{ asset('site/img/111.jpeg') }}">
+    <div class="breadcrumb-option spad w-100 h-50 set-bg" data-setbg="{{ webp_asset('site/img/111.jpeg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -30,16 +30,16 @@
                 <div class="col-lg-6">
                     <div class="">
                         {{-- <div class="about-big-image">
-                            <img src="{{ asset('storage/' . $about->ceo_image) }}" alt="{{ $about->title }}">
+                            <img src="{{ webp_asset('storage/' . $about->ceo_image) }}" alt="{{ $about->title }}">
                         </div> --}}
 
                         <div class="">
                             <div class="about-small-image">
-                                <img src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}">
+                                <img src="{{ webp_asset('storage/' . $about->image) }}" alt="{{ $about->title }}">
                             </div>
 
                             {{-- <div class="about-small-image">
-                                <img src="{{ asset('storage/' . $about->image_background) }}" alt="{{ $about->title }}">
+                                <img src="{{ webp_asset('storage/' . $about->image_background) }}" alt="{{ $about->title }}">
                             </div> --}}
                         </div>
                     </div>

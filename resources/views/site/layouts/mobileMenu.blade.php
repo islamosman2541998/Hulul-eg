@@ -73,7 +73,7 @@
         </a>
 
         @foreach ($locals as $lang)
-            <a href="{{ LaravelLocalization::getLocalizedURL($lang) }}" class="mobile-nav__lang" rel="alternate"
+            <a href="{{ alternate_url($lang) }}" class="mobile-nav__lang" rel="alternate"
                 hreflang="{{ $lang }}">
                 <i class="fa-solid fa-globe" aria-hidden="true"></i>
                 <span>{{ $lang == 'en' ? 'English' : 'عربي' }}</span>

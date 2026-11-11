@@ -10,8 +10,8 @@
 
        @forelse ($slides as $index => $slide)
     <div class="hero__item set-bg bgImg"
-         @if($index === 0) style="background-image: url('{{ asset($slide->pathInView()) }}');" @endif
-         data-setbg="{{ asset($slide->pathInView()) }}">
+         @if($index === 0) style="background-image: url('{{ webp_asset($slide->pathInView()) }}');" @endif
+         data-setbg="{{ webp_asset($slide->pathInView()) }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -38,7 +38,7 @@
 <!-- Hero Section End -->
 @if(isset($slides[0]))
     @push('preload')
-        <link rel="preload" as="image" href="{{ asset($slides[0]->pathInView()) }}" fetchpriority="high">
+        <link rel="preload" as="image" href="{{ webp_asset($slides[0]->pathInView()) }}" fetchpriority="high">
     @endpush
 @endif
 <style>

@@ -48,7 +48,7 @@
                                             }
 
                                             return [
-                                                'src' => asset($galleryImage->pathInView('portfolios')),
+                                                'src' => webp_asset($galleryImage->pathInView('portfolios')),
                                                 'type' => $mediaType,
                                             ];
                                         })
@@ -59,7 +59,7 @@
                             <a href="javascript:void(0)" class="work__link"
                                 onclick="openPortfolioPopup(
     'image',
-    @js(asset($item->image)),
+    @js(webp_asset($item->image)),
     @js($item->transNow->title ?? ''),
     @js($item->link ?? ''),
     @js(app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link'),
@@ -67,7 +67,7 @@
 )"
                                 title="{{ $item->transNow->title ?? '' }}">
 
-                                <img src="{{ asset($item->image) }}" class="img-fluid w-100"
+                                <img src="{{ webp_asset($item->image) }}" class="img-fluid w-100"
                                     alt="{{ $item->transNow->title ?? '' }}"
                                     style="height: 15rem; object-fit: cover; border-radius: 1rem;">
 
@@ -103,7 +103,7 @@
                                                 }
 
                                                 return [
-                                                    'src' => asset($galleryImage->pathInView('portfolios')),
+                                                    'src' => webp_asset($galleryImage->pathInView('portfolios')),
                                                     'type' => $mediaType,
                                                 ];
                                             })
@@ -112,13 +112,13 @@
                                         : [];
                                     $videoSrc = $item->is_youtube_video
                                         ? $item->youtube_embed_url
-                                        : asset($item->image);
+                                        : webp_asset($item->image);
 
                                     $videoThumb = $item->is_youtube_video
                                         ? ($item->image
-                                            ? asset($item->image)
+                                            ? webp_asset($item->image)
                                             : $item->youtube_thumbnail)
-                                        : asset($item->image);
+                                        : webp_asset($item->image);
 
                                     $popupType = $item->is_youtube_video ? 'youtube' : 'video';
                                 @endphp
@@ -140,7 +140,7 @@
                                     @else
                                         @php
                                             $videoPreviewSrc =
-                                                asset($item->image) .
+                                                webp_asset($item->image) .
                                                 '?v=' .
                                                 ($item->updated_at?->timestamp ?? $item->id);
                                         @endphp
@@ -172,7 +172,7 @@
                             <a href="javascript:void(0)" class="work__link"
                                 onclick="openPortfolioPopup(
             'pdf',
-            @js(asset($item->image)),
+            @js(webp_asset($item->image)),
             @js($item->transNow->title ?? ''),
             @js($item->link ?? ''),
             @js(app()->getLocale() == 'ar' ? 'زيارة الرابط' : 'Visit Link'),
@@ -198,7 +198,7 @@
                         @else
                             <a href="{{ $item->link ?? '#' }}" class="work__link external-link" target="_blank"
                                 title="{{ $item->transNow->title ?? '' }}">
-                                <img src="{{ asset($item->image) }}" class="img-fluid w-100"
+                                <img src="{{ webp_asset($item->image) }}" class="img-fluid w-100"
                                     alt="{{ $item->transNow->title ?? '' }}"
                                     style="height: 15rem; object-fit: cover; border-radius: 1rem;">
 
@@ -580,6 +580,13 @@
     }
 </style>
 <script>
+    // attribute="value" built in code, so no attribute in this file reads like an address
+    // ("/ar/${src}" was being picked up and reported as a broken link), and titles with
+    // quotes can't break the markup
+    function portfolioAttr(name, value) {
+        const text = String(value ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+        return name + '="' + text + '"';
+    }
     window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link',
         galleryImages = []) {
         const popup = document.getElementById('portfolioPopup');
@@ -604,13 +611,13 @@
                 let mediaHtml = '';
 
                 if (type === 'image') {
-                    mediaHtml = `<img src="${src}" alt="${title}">`;
+                    mediaHtml = `<img ${portfolioAttr('src', src)} ${portfolioAttr('alt', title)}>`;
                 }
 
                 if (type === 'video') {
                     mediaHtml = `
             <video controls playsinline>
-                <source src="${src}" type="video/mp4">
+                <source ${portfolioAttr('src', src)} type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         `;
@@ -619,12 +626,12 @@
                 if (type === 'pdf') {
                     mediaHtml = `
         <object
-            data="${src}#toolbar=1&navpanes=0"
+            ${portfolioAttr('data', src + '#toolbar=1&navpanes=0')}
             type="application/pdf"
             style="width:100%; height:75vh; border-radius:14px; background:#fff;">
             <div style="color:#fff; text-align:center; padding:30px;">
                 <p>PDF preview is not available.</p>
-                <a href="${src}" target="_blank" style="color:#fff; text-decoration:underline;">
+                <a ${portfolioAttr('href', src)} target="_blank" style="color:#fff; text-decoration:underline;">
                     Open PDF
                 </a>
             </div>
@@ -659,14 +666,14 @@
         } else {
             if (type === 'image') {
                 body.innerHTML = `
-                    <img src="${src}" alt="${title}">
+                    <img ${portfolioAttr('src', src)} ${portfolioAttr('alt', title)}>
                 `;
             }
 
             if (type === 'video') {
                 body.innerHTML = `
                     <video controls autoplay playsinline>
-                        <source src="${src}" type="video/mp4">
+                        <source ${portfolioAttr('src', src)} type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 `;
@@ -675,8 +682,8 @@
                 body.innerHTML = `
         <div class="youtube-popup-frame">
             <iframe
-                src="${src}?autoplay=1&rel=0"
-                title="${title}"
+                ${portfolioAttr('src', src + '?autoplay=1&rel=0')}
+                ${portfolioAttr('title', title)}
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
@@ -687,12 +694,12 @@
             if (type === 'pdf') {
                 body.innerHTML = `
         <object
-            data="${src}#toolbar=1&navpanes=0"
+            ${portfolioAttr('data', src + '#toolbar=1&navpanes=0')}
             type="application/pdf"
             style="width:100%; height:75vh; border-radius:14px; background:#fff;">
             <div style="color:#fff; text-align:center; padding:30px;">
                 <p>PDF preview is not available.</p>
-                <a href="${src}" target="_blank" style="color:#fff; text-decoration:underline;">
+                <a ${portfolioAttr('href', src)} target="_blank" style="color:#fff; text-decoration:underline;">
                     Open PDF
                 </a>
             </div>
@@ -703,7 +710,7 @@
 
         if (link && link.trim() !== '' && actions) {
             actions.innerHTML = `
-                <a href="${link}" target="_blank" class="portfolio-popup-link">
+                <a ${portfolioAttr('href', link)} target="_blank" class="portfolio-popup-link">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     <span>${linkText}</span>
                 </a>
@@ -794,7 +801,7 @@
                     }
 
                     return [
-                        'src' => asset($galleryImage->pathInView('portfolios')),
+                        'src' => webp_asset($galleryImage->pathInView('portfolios')),
                         'type' => $mediaType,
                     ];
                 })
@@ -808,15 +815,15 @@
             $galleryImages = [];
         } elseif ($openItem->type == 'video') {
             $popupType = 'video';
-            $popupSrc = asset($openItem->image);
+            $popupSrc = webp_asset($openItem->image);
             $galleryImages = [];
         } elseif ($openItem->type == 'pdf') {
             $popupType = 'pdf';
-            $popupSrc = asset($openItem->image);
+            $popupSrc = webp_asset($openItem->image);
             $galleryImages = [];
         } else {
             $popupType = 'image';
-            $popupSrc = asset($openItem->image);
+            $popupSrc = webp_asset($openItem->image);
         }
 
         $popupTitle = $openItem->transNow->title ?? '';

@@ -11,7 +11,7 @@
                 @php
                     $title = $portfolio->transNow->title ?? ($portfolio->title ?? 'No Title');
                     $description = $portfolio->transNow->description ?? ($portfolio->description ?? '');
-                    $image = $portfolio->image ? asset($portfolio->image) : asset('attachments/no_image/no_image.png');
+                    $image = $portfolio->image ? webp_asset($portfolio->image) : asset('attachments/no_image/no_image.png');
                 @endphp
 
                 <a href="{{ route('site.portfolio.index', ['item' => $portfolio->id]) }}" class="portfolio-modern-card">
