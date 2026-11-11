@@ -105,13 +105,13 @@
     {{-- Job Details Modal --}}
     @if ($selectedJob)
         <div class="modal fade" id="jobModal" tabindex="-1" wire:ignore.self>
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content bg-dark text-light" style="border-radius:18px;">
                     <div class="modal-header border-0">
                         <h5 class="modal-title text-white">
                             {{ $selectedJob->transNow->title ?? '' }}
                         </h5>
-                        <button type="button" class="close text-light" data-dismiss="modal">
+                        <button type="button" class="close text-light" data-bs-dismiss="modal" data-dismiss="modal" aria-label="{{ __('job.close') }}">
                             <span style="font-size:30px;">&times;</span>
                         </button>
                     </div>
@@ -148,7 +148,7 @@
                         <div class="text-right mt-4">
                             <button wire:click="showApplyForm({{ $selectedJob->id }})" class="btn btn-info"
                                 data-dismiss="modal">
-                                Apply Now
+                                @lang('job.apply_now')
                             </button>
                         </div>
                     </div>
@@ -160,13 +160,13 @@
     {{-- Apply Form Modal --}}
     @if ($selectedJob)
         <div class="modal fade" id="applyModal" tabindex="-1" wire:ignore.self>
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content bg-dark text-light" style="border-radius:18px;">
                     <div class="modal-header border-0">
                         <h5 class="modal-title text-white">
-                            Apply for {{ $selectedJob->transNow->title ?? '' }}
+                            @lang('job.apply_for', ['job' => $selectedJob->transNow->title ?? ''])
                         </h5>
-                        <button type="button" class="close text-light" data-dismiss="modal">
+                        <button type="button" class="close text-light" data-bs-dismiss="modal" data-dismiss="modal" aria-label="{{ __('job.close') }}">
                             <span style="font-size:30px;">&times;</span>
                         </button>
                     </div>

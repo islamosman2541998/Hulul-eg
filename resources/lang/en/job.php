@@ -30,6 +30,7 @@ return [
     'remove' => 'Remove',
     'create_new' => 'Create New Job',
     'apply_now' => 'Apply Now',
+    'apply_for' => 'Apply for :job',
     'upload_image' => 'Upload image',
 
     // placeholders / helpers

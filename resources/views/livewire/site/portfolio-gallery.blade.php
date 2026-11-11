@@ -455,6 +455,29 @@
         transform: translateY(-2px);
     }
 
+    /* PDF items: an open button on phones, under the preview on larger screens */
+    .portfolio-pdf-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        min-height: 40vh;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .portfolio-pdf-card--below {
+        min-height: 0;
+        padding: 14px 0 0;
+    }
+
+    .portfolio-pdf-icon {
+        font-size: 64px;
+        color: #fff;
+        opacity: 0.85;
+    }
+
     .portfolio-slider {
         position: relative;
         width: 100%;
@@ -587,6 +610,32 @@
         const text = String(value ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
         return name + '="' + text + '"';
     }
+    /*
+     * Phone browsers don't show a PDF inside <object> (the popup stayed an empty grey box) and
+     * these files run to 15MB, so phones get a button that opens the file; larger screens keep
+     * the preview, with the same button underneath.
+     */
+    const portfolioPdfLabel = @js(app()->getLocale() === 'ar' ? 'عرض الملف (PDF)' : 'View the file (PDF)');
+    function portfolioPdf(src) {
+        const button = `
+            <a ${portfolioAttr('href', src)} target="_blank" rel="noopener" class="portfolio-popup-link portfolio-pdf-open">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>${portfolioPdfLabel}</span>
+            </a>`;
+
+        if (window.matchMedia('(max-width: 991px), (pointer: coarse)').matches) {
+            return `<div class="portfolio-pdf-card">
+                <i class="fa-solid fa-file-pdf portfolio-pdf-icon"></i>
+                ${button}
+            </div>`;
+        }
+
+        return `
+            <object ${portfolioAttr('data', src + '#toolbar=1&navpanes=0')} type="application/pdf"
+                style="width:100%; height:70vh; border-radius:14px; background:#fff;"></object>
+            <div class="portfolio-pdf-card portfolio-pdf-card--below">${button}</div>`;
+    }
+
     window.openPortfolioPopup = function(type, src, title = '', link = '', linkText = 'Visit Link',
         galleryImages = []) {
         const popup = document.getElementById('portfolioPopup');
@@ -624,19 +673,7 @@
                 }
 
                 if (type === 'pdf') {
-                    mediaHtml = `
-        <object
-            ${portfolioAttr('data', src + '#toolbar=1&navpanes=0')}
-            type="application/pdf"
-            style="width:100%; height:75vh; border-radius:14px; background:#fff;">
-            <div style="color:#fff; text-align:center; padding:30px;">
-                <p>PDF preview is not available.</p>
-                <a ${portfolioAttr('href', src)} target="_blank" style="color:#fff; text-decoration:underline;">
-                    Open PDF
-                </a>
-            </div>
-        </object>
-    `;
+                    mediaHtml = portfolioPdf(src);
                 }
 
                 return `
@@ -692,19 +729,7 @@
     `;
             }
             if (type === 'pdf') {
-                body.innerHTML = `
-        <object
-            ${portfolioAttr('data', src + '#toolbar=1&navpanes=0')}
-            type="application/pdf"
-            style="width:100%; height:75vh; border-radius:14px; background:#fff;">
-            <div style="color:#fff; text-align:center; padding:30px;">
-                <p>PDF preview is not available.</p>
-                <a ${portfolioAttr('href', src)} target="_blank" style="color:#fff; text-decoration:underline;">
-                    Open PDF
-                </a>
-            </div>
-        </object>
-    `;
+                body.innerHTML = portfolioPdf(src);
             }
         }
 

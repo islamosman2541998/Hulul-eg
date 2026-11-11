@@ -27,7 +27,7 @@
 
         </div>
         <div>
-            <input type="number" wire:model.defer="phone" placeholder="@lang('home.phone')" />
+            <input type="tel" wire:model.defer="phone" placeholder="@lang('home.phone')" autocomplete="tel" inputmode="tel" />
             @error('phone')
                 <div class="text-danger small">{{ $message }}</div>
             @enderror

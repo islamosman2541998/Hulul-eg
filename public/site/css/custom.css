@@ -1307,3 +1307,21 @@ textarea {
         min-height: 520px;
     }
 }
+/* Service request on phones: the card kept its desktop height (min(720px, 88vh)), squeezing the
+   form and the intro into two small scroll boxes. Here the card grows with its content. */
+@media screen and (max-width: 768px) {
+    .request-content .stage {
+        height: auto;
+    }
+
+    .request-content .switcher {
+        height: auto !important;
+        overflow: visible;
+    }
+
+    .request-content .form-visual,
+    .request-content .switcher .content {
+        height: auto !important;
+        overflow: visible !important;
+    }
+}

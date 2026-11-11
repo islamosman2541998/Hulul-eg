@@ -48,19 +48,19 @@
                                 </div>
 
                                 <div>
-                                    <label>{{ __('messages.phone') }}</label>
+                                    <label>{{ __('messages.phone') }} *</label>
                                     <input class="input @error('phone') error @enderror" type="tel"
                                         wire:model="phone"
-                                        placeholder="{{ __('messages.phone_placeholder') }} required">
+                                        placeholder="{{ __('messages.phone_placeholder') }}">
                                     @error('phone')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div>
-                                    <label>{{ __('messages.company') }}</label>
+                                    <label>{{ __('messages.company') }} *</label>
                                     <input class="input @error('company') error @enderror" type="text"
-                                        wire:model="company" placeholder="{{ __('messages.company_name') }} required">
+                                        wire:model="company" placeholder="{{ __('messages.company_name') }}">
                                     @error('company')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
@@ -187,20 +187,20 @@
                                 </div>
 
                                 <div>
-                                    <label>{{ __('messages.phone') }}</label>
+                                    <label>{{ __('messages.phone') }} *</label>
                                     <input class="input @error('meeting_phone') error @enderror" type="tel"
                                         wire:model="meeting_phone"
-                                        placeholder="{{ __('messages.phone_placeholder') }} required">
+                                        placeholder="{{ __('messages.phone_placeholder') }}">
                                     @error('meeting_phone')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div>
-                                    <label>{{ __('messages.company') }}</label>
+                                    <label>{{ __('messages.company') }} *</label>
                                     <input class="input @error('meeting_company') error @enderror" type="text"
                                         wire:model="meeting_company"
-                                        placeholder="{{ __('messages.company_name') }} required">
+                                        placeholder="{{ __('messages.company_name') }}">
                                     @error('meeting_company')
                                         <span class="error-message">{{ $message }}</span>
                                     @enderror

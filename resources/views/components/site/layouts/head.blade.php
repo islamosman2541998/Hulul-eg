@@ -59,8 +59,8 @@
     
     <link rel="stylesheet" href="{{ asset('site/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('site/css/swiper-bundle.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.20') }}" />
-    <link rel="stylesheet" href="{{ asset('site/css/custom.css?v=0.0.11') }}" />
+    <link rel="stylesheet" href="{{ asset('site/css/style.css?v=0.0.21') }}" />
+    <link rel="stylesheet" href="{{ asset('site/css/custom.css?v=0.0.12') }}" />
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

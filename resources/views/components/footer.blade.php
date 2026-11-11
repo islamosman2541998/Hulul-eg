@@ -192,6 +192,14 @@
            padding: 0px !important;
        }
 
+       /* without the container's side padding the rows ran 12px past both screen edges on phones */
+       @media only screen and (max-width: 991px) {
+           .footer-container {
+               padding-left: 15px !important;
+               padding-right: 15px !important;
+           }
+       }
+
        @media only screen and (max-width: 767px) {
            footer {
                padding: 30px 0px !important;

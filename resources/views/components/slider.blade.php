@@ -36,6 +36,28 @@
     </div>
 </section>
 <!-- Hero Section End -->
+{{-- Owl's loop copies the first slide (with its h1) at both ends; search engines render the page
+     and would count three h1s. The copies get an h2: same styles, one h1 left. --}}
+<script>
+    (function () {
+        function demoteClonedTitles() {
+            document.querySelectorAll('.hero__slider .owl-item.cloned h1').forEach(function (h1) {
+                var h2 = document.createElement('h2');
+                h2.className = h1.className;
+                h2.innerHTML = h1.innerHTML;
+                h1.replaceWith(h2);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var slider = document.querySelector('.hero__slider');
+            if (!slider) return;
+            // clones appear when Owl starts and again on every refresh (resize)
+            new MutationObserver(demoteClonedTitles).observe(slider, { childList: true, subtree: true });
+            demoteClonedTitles();
+        });
+    })();
+</script>
 @if(isset($slides[0]))
     @push('preload')
         <link rel="preload" as="image" href="{{ webp_asset($slides[0]->pathInView()) }}" fetchpriority="high">

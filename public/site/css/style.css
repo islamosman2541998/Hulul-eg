@@ -3404,3 +3404,85 @@ html {
     padding-bottom: 13px;
   }
 }
+
+/*---------------------
+  Home hero: long title
+-----------------------*/
+/* The home H1 is the first slide's title, now a full sentence of up to four lines. The slide
+   grows with it and keeps room at the bottom, so the title, the button and the slide counter
+   (owl-dots, 45px from the bottom) never overlap; the shadow keeps the title readable where
+   it crosses the artwork. ".hero" outweighs custom.css's min-height, so every slide still fills
+   the screen. */
+.hero .hero__item {
+  height: auto;
+  min-height: 100vh;
+  padding-top: 220px;
+  padding-bottom: 120px;
+}
+
+.hero__text h2,
+.hero .hero__text h1 {
+  font-size: 38px;
+  line-height: 1.25;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 18px rgba(8, 4, 30, 0.65);
+}
+
+.hero__text .slider-desc {
+  text-shadow: 0 1px 10px rgba(8, 4, 30, 0.7);
+}
+
+@media only screen and (max-width: 767px) {
+  .hero .hero__item {
+    padding-top: 130px;
+    padding-bottom: 110px;
+  }
+
+  .hero__text h2,
+  .hero .hero__text h1 {
+    font-size: 26px;
+    line-height: 1.3;
+    margin-bottom: 22px;
+  }
+
+  .hero__text span.slider-desc,
+  .hero__text span.slider-desc p {
+    font-size: 13px;
+    line-height: 1.7;
+    letter-spacing: 0.5px;
+  }
+
+  .hero__text span.slider-desc {
+    margin-bottom: 14px;
+  }
+
+  .hero__text span.slider-desc p {
+    margin-bottom: 0;
+  }
+
+  /* the arrows sat on top of the text; swiping and the counter still change slides */
+  .hero__slider.owl-carousel .owl-nav {
+    display: none;
+  }
+}
+
+/*---------------------
+  Contact form
+-----------------------*/
+/* full-width fields: the side margin pushed them 20px off the screen in Arabic
+   ([dir] matches the older [dir="rtl"] rules that added it, and comes later) */
+[dir] .contact__form form input,
+[dir] .contact__form form textarea,
+[dir] .contact__form form button {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/*---------------------
+  Pop-ups over the header
+-----------------------*/
+/* The fixed header (z-index 99999) sat on top of Bootstrap pop-ups (1055), hiding their top
+   edge and close button (job details). While a pop-up is open the header goes under it. */
+body.modal-open .header {
+  z-index: 1040;
+}

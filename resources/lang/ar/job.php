@@ -30,6 +30,7 @@ return [
     'remove' => 'إزالة',
     'create_new' => 'إضافة وظيفة جديدة',
     'apply_now' => 'قدّم الآن',
+    'apply_for' => 'التقديم على وظيفة :job',
     'upload_image' => 'رفع صورة',
 
     // placeholders / helpers
