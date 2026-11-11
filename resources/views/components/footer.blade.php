@@ -35,7 +35,7 @@
                            <a href="{{ route('site.about-us') }}" class="read__more">@lang('admin.read_more')</a>
                        </div>
                    </div>
-                   <div class="col-lg-2 col-md-3 col-sm-3">
+                   <div class="col-6 col-sm-3 col-lg-2">
                        <div class="footer__option__item">
                            <h5>@lang('admin.quicklinks')</h5>
                            <ul>
@@ -60,7 +60,7 @@
                            </ul>
                        </div>
                    </div>
-                   <div class="col-lg-2 col-md-3 col-sm-3">
+                   <div class="col-6 col-sm-3 col-lg-2">
                        <div class="footer__option__item">
                            <h5>@lang('admin.our_work')</h5>
 
