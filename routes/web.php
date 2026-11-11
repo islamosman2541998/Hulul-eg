@@ -10,6 +10,7 @@ use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\AboutController;
 use App\Http\Controllers\Site\ServicesController;
 use App\Http\Controllers\Site\SitemapController;
+use App\Http\Controllers\Site\LlmsTxtController;
 use App\Http\Controllers\Site\ContactUsController;
 use App\Http\Controllers\Site\PortfolioController;
 use App\Http\Controllers\Site\SubscribeController;
@@ -32,6 +33,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 // outside the localized group: one sitemap for both languages, no /ar or /en redirect
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+// a guide to the site for AI assistants (llmstxt.org); keep no public/llms.txt, it would win
+Route::get('llms.txt', [LlmsTxtController::class, 'index'])->name('llms');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -54,6 +57,7 @@ Route::group([
     Route::get('about-us', [AboutController::class, 'index'])->name('about-us');
 
     Route::get('/blogs', [BlogController::class, 'index'])->name('site.blogs.index');
+    // {blog} is the article's slug; an old numeric id redirects to it
     Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('site.blogs.show');
 
     // news, products and product categories are leftovers of the templates the site was built on

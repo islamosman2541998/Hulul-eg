@@ -11,12 +11,11 @@ return [
     'faq_title' => 'Frequently Asked Questions',
     'faq_p' => 'We’ve got answers.',
     'no_faq' => 'No faq questions',
-    'faq-index_p' => 'Answers to common questions about our products, quality, usage, and partnerships. If you don’t
-                find what you’re looking for, reach out—we’re here to help.',
+    'faq-index_p' => 'Answers to common questions about our services and how we work. If you don’t find what you’re looking for, reach out—we’re here to help.',
     'home' => 'Home',
     'faq-index' => 'Frequently Asked Questions',
     'faq-index_h3' => 'Need more help?',
-    'faq-index_pp' => 'We’d be happy to help you find the right product or ensure your safety.',
+    'faq-index_pp' => 'Our team is happy to answer your questions and help you choose the right service for your business.',
     'contact' => 'Contact',
     'read' => 'Read our blog',
     'questions' => '  Got Some <em>Questions</em> for Us?<br/>

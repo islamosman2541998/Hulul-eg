@@ -10,9 +10,9 @@
         @foreach ($page['urls'] as $locale => $alternate)
         <xhtml:link rel="alternate" hreflang="{{ $locale }}" href="{{ $alternate }}" />
         @endforeach
-        @isset($page['urls']['ar'])
-        <xhtml:link rel="alternate" hreflang="x-default" href="{{ $page['urls']['ar'] }}" />
-        @endisset
+        @if ($page['x_default'])
+        <xhtml:link rel="alternate" hreflang="x-default" href="{{ $page['x_default'] }}" />
+        @endif
     </url>
     @endforeach
 @endforeach

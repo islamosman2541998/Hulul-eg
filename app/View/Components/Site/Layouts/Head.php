@@ -140,8 +140,12 @@ class Head extends Component
             }
         }
 
-        // Arabic is the main market, so it answers visitors whose language is neither
-        $alternates['x-default'] = $alternates['ar'] ?? reset($alternates);
+        // The bare domain sends each visitor to /ar or /en by browser language (and crawlers that
+        // send none to /en), so it is the home page's x-default. Inner pages have no such page:
+        // Arabic, the main market, answers visitors whose language is neither.
+        $alternates['x-default'] = Route::currentRouteName() === 'site.home'
+            ? url('/') . '/'
+            : ($alternates['ar'] ?? reset($alternates));
 
         return array_filter($alternates);
     }

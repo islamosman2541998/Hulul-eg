@@ -126,6 +126,9 @@ class SeoContentSeeder extends Seeder
             $this->statistics();
             $this->brandNameInBlogs();
             $this->leftoverPages();
+            $this->digitalMarketingService();
+            $this->blogSlugs();
+            $this->faqs();
         });
 
         // the home page data and the menus are cached forever
@@ -234,6 +237,207 @@ class SeoContentSeeder extends Seeder
                 $this->note('updated', "page #{$id}: switched off (old template content)");
             }
         }
+    }
+
+    /**
+     * "Digital marketing services" carried the /services page's title and a description of every
+     * service, so the two pages competed for the same searches.
+     */
+    private function digitalMarketingService(): void
+    {
+        $where = fn ($locale) => ['service_cat_id' => 21, 'locale' => $locale];
+
+        $this->setIfUnchanged('service_category_translations', $where('ar'), 'meta_title',
+            'شركة تسويق إلكتروني وإعلانات ممولة وSEO',
+            ['خدمات التسويق الرقمي والتصميم وتطوير المواقع | حلول'],
+            'digital marketing service (ar): meta title');
+
+        $this->setIfUnchanged('service_category_translations', $where('en'), 'meta_title',
+            'Digital Marketing: Social Media, Paid Ads & SEO',
+            ['Digital Marketing, Design & Web Development Services | Hulul'],
+            'digital marketing service (en): meta title');
+
+        $this->setIfUnchanged('service_category_translations', $where('ar'), 'meta_desc',
+            '<p>خدمات تسويق إلكتروني من حلول في مصر والسعودية: إدارة السوشيال ميديا، الحملات الإعلانية الممولة، تحسين محركات البحث SEO، التسويق بالمحتوى والخطط التسويقية.</p>',
+            ['<p>اكتشف خدمات حلول في التسويق الرقمي، إدارة الحملات الإعلانية، التصميم، تطوير المواقع والتطبيقات، التغطية الإعلامية، إنتاج المحتوى، والطباعة لمساعدة علامتك التجارية على النمو.</p>'],
+            'digital marketing service (ar): meta description');
+
+        $this->setIfUnchanged('service_category_translations', $where('en'), 'meta_desc',
+            '<p>HULUL digital marketing in Egypt and Saudi Arabia: social media management, paid ad campaigns, SEO, content marketing and marketing plans.</p>',
+            ['<p>Explore Hulul&rsquo;s digital marketing, advertising, graphic design, website development, mobile app development, media coverage, content production, printing, and branding solutions.</p>'],
+            'digital marketing service (en): meta description');
+    }
+
+    /**
+     * Articles now live at /blogs/{slug}. A few slugs start or end with "-" (copied titles with a
+     * trailing space); they become the address, so they are tidied once before anyone links them.
+     */
+    private function blogSlugs(): void
+    {
+        $changed = 0;
+
+        foreach (DB::table('blog_translations')->get(['id', 'locale', 'slug']) as $row) {
+            $slug = trim((string) $row->slug, "- \t\n");
+
+            if ($slug === '' || $slug === $row->slug) {
+                continue;
+            }
+
+            $taken = DB::table('blog_translations')->where('slug', $slug)->where('id', '!=', $row->id)->exists();
+            if ($taken) {
+                $this->note('kept', "article slug #{$row->id}: \"{$slug}\" already used");
+                continue;
+            }
+
+            DB::table('blog_translations')->where('id', $row->id)->update(['slug' => $slug]);
+            $changed++;
+        }
+
+        $this->note($changed ? 'updated' : 'already done', "article slugs: leading/trailing dashes ({$changed} rows)");
+    }
+
+    /**
+     * The FAQ page showed the medical template's questions (Selenium ACE and Omega supplements,
+     * categories "Science", "Safety", "Events"). They are soft-deleted, so they can be restored
+     * from the database, and replaced with questions answered from what the site already states.
+     */
+    private function faqs(): void
+    {
+        $templateFaqs = DB::table('faq_translations')
+            ->where(fn ($q) => $q->where('question', 'like', '%Selenium%')->orWhere('answer', 'like', '%سيلينيوم%')->orWhere('answer', 'like', '%Selenium%'))
+            ->pluck('faq_id')->unique();
+        $removed = DB::table('faqs')->whereIn('id', $templateFaqs)->whereNull('deleted_at')->update(['deleted_at' => now(), 'status' => 0]);
+        $this->note($removed ? 'updated' : 'already done', "FAQ: template questions removed ({$removed})");
+
+        $templateCategories = DB::table('faq_category_translations')
+            ->whereIn('title', ['علوم', 'معلوم', 'الامان', 'المناسبات', 'Science', 'Sciencee', 'Safety', 'Events'])
+            ->pluck('faq_category_id')->unique();
+        $removed = DB::table('faq_categories')->whereIn('id', $templateCategories)->whereNull('deleted_at')->update(['deleted_at' => now(), 'status' => 0]);
+        $this->note($removed ? 'updated' : 'already done', "FAQ: template categories removed ({$removed})");
+
+        $content = $this->faqContent();
+        $firstQuestion = $content[0]['questions'][0]['ar'][0];
+
+        if (DB::table('faq_translations')->where('question', $firstQuestion)->exists()) {
+            $this->note('already done', 'FAQ: HULUL questions');
+            return;
+        }
+        if (DB::table('faqs')->whereNull('deleted_at')->where('status', 1)->exists()) {
+            $this->note('kept', 'FAQ: questions written in the dashboard, none added');
+            return;
+        }
+
+        $sort = 0;
+        foreach ($content as $categorySort => $category) {
+            $categoryId = DB::table('faq_categories')->insertGetId([
+                'sort' => $categorySort + 1, 'status' => 1, 'created_at' => now(), 'updated_at' => now(),
+            ]);
+            foreach (['ar', 'en'] as $locale) {
+                DB::table('faq_category_translations')->insert([
+                    'faq_category_id' => $categoryId, 'locale' => $locale, 'title' => $category['title'][$locale],
+                ]);
+            }
+
+            foreach ($category['questions'] as $question) {
+                $faqId = DB::table('faqs')->insertGetId([
+                    'faq_category_id' => $categoryId, 'sort' => ++$sort, 'status' => 1, 'created_at' => now(), 'updated_at' => now(),
+                ]);
+                foreach (['ar', 'en'] as $locale) {
+                    DB::table('faq_translations')->insert([
+                        'faq_id' => $faqId, 'locale' => $locale,
+                        'question' => $question[$locale][0], 'answer' => '<p>' . $question[$locale][1] . '</p>',
+                    ]);
+                }
+            }
+        }
+
+        $this->note('updated', "FAQ: {$sort} HULUL questions in " . count($content) . ' categories added');
+    }
+
+    /**
+     * Every answer comes from what the site already says (services, sub-services, page meta,
+     * addresses in the dashboard), with links to the page that covers it. No prices or timelines:
+     * the team adds those in the dashboard once they are settled.
+     */
+    private function faqContent(): array
+    {
+        $setting = fn ($key) => trim((string) DB::table('settings_values')->where('key', $key)->value('value'));
+
+        $services = DB::table('service_categories as c')
+            ->join('service_category_translations as t', 't.service_cat_id', '=', 'c.id')
+            ->where('c.status', 1)->orderBy('c.sort')
+            ->get(['c.id', 't.locale', 't.title', 't.slug']);
+
+        $link = function (string $locale, string $path, string $text): string {
+            return '<a href="/' . $locale . '/' . $path . '">' . e($text) . '</a>';
+        };
+        $service = function (int $id, string $locale, ?string $text = null) use ($services, $link): string {
+            $row = $services->first(fn ($s) => (int) $s->id === $id && $s->locale === $locale);
+
+            return $row && $row->slug
+                ? $link($locale, 'services/' . rawurlencode($row->slug), $text ?? $row->title)
+                : e($text ?? ($row->title ?? ''));
+        };
+        $serviceList = fn (string $locale) => $services->where('locale', $locale)
+            ->map(fn ($s) => $service($s->id, $locale))->implode($locale === 'ar' ? '، ' : ', ');
+
+        return [
+            [
+                'title' => ['ar' => 'عن حلول', 'en' => 'About HULUL'],
+                'questions' => [
+                    [
+                        'ar' => ['ما هي شركة حلول؟', 'حلول (HULUL) وكالة تسويق رقمي وإنتاج إعلامي، مكتبها في الدقي بالقاهرة وفرعها في جدة. نقدم للشركات في مصر والسعودية خدمات بناء العلامات التجارية، التسويق الإلكتروني، تطوير المواقع والتطبيقات، وإنتاج المحتوى. تعرّف علينا أكثر في صفحة ' . $link('ar', 'about-us', 'من نحن') . '.'],
+                        'en' => ['What is HULUL?', 'HULUL is a digital marketing and media production agency with an office in Dokki, Cairo and a branch in Jeddah. We help businesses in Egypt and Saudi Arabia with branding, digital marketing, website and app development, and content production. Read more on our ' . $link('en', 'about-us', 'About Us') . ' page.'],
+                    ],
+                    [
+                        'ar' => ['أين تقع مكاتب حلول؟', 'في مصر: ' . e($setting('address_ar')) . '. وفي السعودية: ' . e($setting('address_ksa_ar')) . '. أرقام التواصل وواتساب لكل فرع في صفحة ' . $link('ar', 'contact-us', 'اتصل بنا') . '.'],
+                        'en' => ['Where are HULUL\'s offices?', 'In Egypt: ' . e($setting('address_en')) . '. In Saudi Arabia: ' . e($setting('address_ksa_en')) . '. Phone and WhatsApp numbers for each office are on our ' . $link('en', 'contact-us', 'Contact Us') . ' page.'],
+                    ],
+                    [
+                        'ar' => ['هل تعملون مع شركات في السعودية؟', 'نعم. نخدم عملاءنا في السعودية من فرعنا في جدة، وعملاءنا في مصر من مكتبنا في القاهرة. شاهد نماذج من مشاريعنا في البلدين في صفحة ' . $link('ar', 'portfolio', 'أعمالنا') . '.'],
+                        'en' => ['Do you work with companies in Saudi Arabia?', 'Yes. We serve clients in Saudi Arabia from our Jeddah branch and clients in Egypt from our Cairo office. See projects from both countries in ' . $link('en', 'portfolio', 'our work') . '.'],
+                    ],
+                ],
+            ],
+            [
+                'title' => ['ar' => 'الخدمات', 'en' => 'Services'],
+                'questions' => [
+                    [
+                        'ar' => ['ما الخدمات التي تقدمها حلول؟', 'نقدم: ' . $serviceList('ar') . '.'],
+                        'en' => ['What services does HULUL offer?', 'Our services: ' . $serviceList('en') . '.'],
+                    ],
+                    [
+                        'ar' => ['هل تقدمون خدمات تحسين محركات البحث (SEO) والإعلانات الممولة؟', 'نعم، ضمن ' . $service(21, 'ar') . ': إدارة منصات التواصل الاجتماعي، التسويق بالمحتوى، الحملات الإعلانية الممولة، تحسين محركات البحث SEO، الخطط التسويقية، والتسويق بالبريد الإلكتروني.'],
+                        'en' => ['Do you offer SEO and paid advertising?', 'Yes, as part of our ' . $service(21, 'en') . ': social media management, content marketing, paid ad campaigns, SEO, marketing strategy plans and email marketing.'],
+                    ],
+                    [
+                        'ar' => ['هل تصممون المواقع الإلكترونية وتطبيقات الجوال؟', 'نعم. نصمم ونبرمج المواقع الإلكترونية والمتاجر الإلكترونية وتطبيقات الجوال، مع تصميم واجهة المستخدم وتجربة الاستخدام (UI/UX). التفاصيل في صفحة ' . $service(6, 'ar') . '.'],
+                        'en' => ['Do you build websites and mobile apps?', 'Yes. We design and develop websites, e-commerce stores and mobile apps, including UI/UX design. Details on our ' . $service(6, 'en') . ' page.'],
+                    ],
+                    [
+                        'ar' => ['هل تقدمون دورات تدريبية؟', 'نعم، نقدم دورات تدريبية عملية في التسويق الرقمي، الإعلانات، صناعة المحتوى، والتصميم. التفاصيل في صفحة ' . $service(27, 'ar') . '.'],
+                        'en' => ['Do you offer training courses?', 'Yes, we run practical training courses in digital marketing, advertising, content creation and design. Details on our ' . $service(27, 'en') . ' page.'],
+                    ],
+                ],
+            ],
+            [
+                'title' => ['ar' => 'التعامل معنا', 'en' => 'Working with us'],
+                'questions' => [
+                    [
+                        'ar' => ['كيف أطلب خدمة أو عرض سعر؟', 'املأ نموذج ' . $link('ar', 'service_request', 'طلب خدمة') . '، أو اتصل بنا أو راسلنا على واتساب من صفحة ' . $link('ar', 'contact-us', 'اتصل بنا') . '، وسيرد عليك فريقنا.'],
+                        'en' => ['How do I request a service or a quote?', 'Fill in the ' . $link('en', 'service_request', 'service request') . ' form, or call or message us on WhatsApp from our ' . $link('en', 'contact-us', 'Contact Us') . ' page, and our team will get back to you.'],
+                    ],
+                    [
+                        'ar' => ['كم تكلفة الخدمة؟', 'تختلف التكلفة حسب نوع الخدمة وحجم المشروع، لذلك نحدد السعر بعد التعرف على احتياجاتك. اطلب عرض سعر من نموذج ' . $link('ar', 'service_request', 'طلب خدمة') . '.'],
+                        'en' => ['How much do your services cost?', 'It depends on the service and the size of the project, so we price it once we understand what you need. Ask for a quote through the ' . $link('en', 'service_request', 'service request') . ' form.'],
+                    ],
+                    [
+                        'ar' => ['هل يمكنني مشاهدة أعمال سابقة لكم؟', 'نعم. في صفحة ' . $link('ar', 'portfolio', 'أعمالنا') . ' نماذج من مشاريعنا لعملاء في مصر والسعودية: هويات بصرية، تصميمات سوشيال ميديا، مواقع إلكترونية، وفيديوهات إعلانية.'],
+                        'en' => ['Can I see your previous work?', 'Yes. ' . $link('en', 'portfolio', 'Our work') . ' shows projects for clients in Egypt and Saudi Arabia: brand identities, social media designs, websites and promotional videos.'],
+                    ],
+                ],
+            ],
+        ];
     }
 
     // helpers -----------------------------------------------------------------------------

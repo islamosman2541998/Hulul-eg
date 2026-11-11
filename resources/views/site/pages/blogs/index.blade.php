@@ -78,7 +78,7 @@
                                     </li>
                                 </ul>
 
-                                <a href="{{ route('site.site.blogs.show', $blog->id) }}">
+                                <a href="{{ $blog->url() }}">
                                     @lang('admin.read_more')
                                 </a>
 

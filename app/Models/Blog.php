@@ -78,6 +78,18 @@ class Blog extends Model
         return Str::limit($text, $limit);
     }
 
+    /**
+     * The article's address in a language (the current one by default): /{locale}/blogs/{slug},
+     * or the id while that language has no slug. Old /blogs/{id} links redirect here.
+     */
+    public function url(?string $locale = null): string
+    {
+        $locale ??= app()->getLocale();
+        $slug = trim((string) $this->translations->firstWhere('locale', $locale)?->slug);
+
+        return url($locale . '/blogs/' . ($slug !== '' ? rawurlencode($slug) : $this->id));
+    }
+
     public static function staticPath(): string
     {
         return 'attachments/blogs/';

@@ -13,16 +13,16 @@ class Index extends Component
 
     public function mount($categories){
         $this->categories = $categories;
-        $this->faq_questions = Faq::with('translations', 'category.translations')->active()->get();
+        $this->faq_questions = Faq::with('translations', 'category.translations')->active()->orderBy('sort')->get();
     }
 
     public function changeCategory($id){
         $this->selectedCategory = $id;
         if($id == 0){
-            $this->faq_questions = Faq::with('translations', 'category.translations')->active()->get();
+            $this->faq_questions = Faq::with('translations', 'category.translations')->active()->orderBy('sort')->get();
         }
         else{
-            $this->faq_questions = Faq::with('translations', 'category.translations')->active()->where('faq_category_id', $id)->get();
+            $this->faq_questions = Faq::with('translations', 'category.translations')->active()->where('faq_category_id', $id)->orderBy('sort')->get();
         }
     }
 

@@ -41,7 +41,7 @@
                                                      <ul>
                                                          <li>{{ $blog->created_at->format('Y-m-d') }}</li>
                                                      </ul>
-                                                     <a href="{{ route('site.site.blogs.show', $blog->id) }}">
+                                                     <a href="{{ $blog->url() }}">
                                                          @lang('admin.read_more')
                                                      </a>
                                                  </div>
