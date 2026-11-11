@@ -3486,3 +3486,35 @@ html {
 body.modal-open .header {
   z-index: 1040;
 }
+
+/*---------------------
+  Row gutters in English
+-----------------------*/
+/* English pages load Bootstrap 4.5; Arabic ones also load Bootstrap 5 (RTL), which has the row
+   gutter classes the views use (g-*, gy-*). In English those classes did nothing, so stacked
+   cards touched on phones (home statistics, job filters and job cards). Same vertical spacing
+   as Bootstrap 5, for the English pages only. */
+html[dir="ltr"] .row.g-1,
+html[dir="ltr"] .row.gy-1 { margin-top: -0.25rem; }
+html[dir="ltr"] .row.g-1 > *,
+html[dir="ltr"] .row.gy-1 > * { margin-top: 0.25rem; }
+
+html[dir="ltr"] .row.g-2,
+html[dir="ltr"] .row.gy-2 { margin-top: -0.5rem; }
+html[dir="ltr"] .row.g-2 > *,
+html[dir="ltr"] .row.gy-2 > * { margin-top: 0.5rem; }
+
+html[dir="ltr"] .row.g-3,
+html[dir="ltr"] .row.gy-3 { margin-top: -1rem; }
+html[dir="ltr"] .row.g-3 > *,
+html[dir="ltr"] .row.gy-3 > * { margin-top: 1rem; }
+
+html[dir="ltr"] .row.g-4,
+html[dir="ltr"] .row.gy-4 { margin-top: -1.5rem; }
+html[dir="ltr"] .row.g-4 > *,
+html[dir="ltr"] .row.gy-4 > * { margin-top: 1.5rem; }
+
+html[dir="ltr"] .row.g-5,
+html[dir="ltr"] .row.gy-5 { margin-top: -3rem; }
+html[dir="ltr"] .row.g-5 > *,
+html[dir="ltr"] .row.gy-5 > * { margin-top: 3rem; }
