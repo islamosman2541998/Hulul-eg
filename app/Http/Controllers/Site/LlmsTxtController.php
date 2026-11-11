@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Models\Faq;
 use App\Models\Blog;
 use App\Support\WhatsApp;
+use App\Support\SocialLinks;
 use App\Models\ServiceCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +51,9 @@ class LlmsTxtController extends Controller
         }
         if ($email = $this->setting('email')) {
             $lines[] = '- Email: ' . strtolower($email);
+        }
+        if ($profiles = SocialLinks::profiles()) {
+            $lines[] = '- Official profiles: ' . implode(', ', $profiles);
         }
         $lines[] = '';
 

@@ -3,6 +3,7 @@
 namespace App\View\Components\Site\Layouts;
 
 use App\Support\WhatsApp;
+use App\Support\SocialLinks;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use App\Settings\SettingSingleton;
@@ -160,11 +161,7 @@ class Head extends Component
             $this->postalAddress($this->settings->getItem('address_ksa'), 'SA'),
         ]));
 
-        $sameAs = collect(['facebook', 'instagram', 'youtube', 'tiktok', 'linkedin'])
-            ->map(fn ($key) => $this->settings->getItem($key))
-            ->filter(fn ($link) => is_string($link) && Str::startsWith($link, ['http://', 'https://']))
-            ->values()
-            ->all();
+        $sameAs = SocialLinks::profiles();
 
         $organization = array_filter([
             '@type' => 'Organization',
@@ -179,20 +176,136 @@ class Head extends Component
             'sameAs' => $sameAs,
         ]);
 
-        return [
-            '@context' => 'https://schema.org',
-            '@graph' => [
-                $organization,
-                [
-                    '@type' => 'WebSite',
-                    '@id' => $home . '#website',
-                    'url' => $home,
-                    'name' => $this->siteName,
-                    'inLanguage' => $this->currentLang,
-                    'publisher' => ['@id' => $home . '#organization'],
-                ],
+        $graph = [
+            $organization,
+            [
+                '@type' => 'WebSite',
+                '@id' => $home . '#website',
+                'url' => $home,
+                'name' => $this->siteName,
+                'inLanguage' => $this->currentLang,
+                'publisher' => ['@id' => $home . '#organization'],
             ],
         ];
+
+        // the two offices, on the pages that present them (home and contact)
+        if (in_array(Route::currentRouteName(), ['site.home', 'site.contact-us'], true)) {
+            array_push($graph, ...$this->branches($home));
+        }
+
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => $graph,
+        ];
+    }
+
+    /**
+     * Each office as a local business (ProfessionalService) of the organization, for local
+     * results and the Google Business Profiles. Everything comes from the dashboard: address,
+     * phone, email, the map pin and the opening hours (Egypt office only; Jeddah has none set).
+     */
+    private function branches(string $home): array
+    {
+        $ar = $this->currentLang === 'ar';
+
+        $offices = [
+            [
+                'id' => 'dokki',
+                'name' => $ar ? 'الدقي' : 'Dokki',
+                'street' => $this->settings->getItem('address'),
+                'locality' => $ar ? 'الدقي، الجيزة' : 'Dokki, Giza',
+                'country' => 'EG',
+                'phone' => WhatsApp::tel($this->settings->getItem('mobile'), WhatsApp::EGYPT),
+                'email' => $this->settings->getItem('email'),
+                'geo' => $this->mapPin($this->settings->getItem('maps')),
+                'hours' => $this->openingHours($this->settings->getItem('openTime')),
+            ],
+            [
+                'id' => 'jeddah',
+                'name' => $ar ? 'جدة' : 'Jeddah',
+                'street' => $this->settings->getItem('address_ksa'),
+                'locality' => $ar ? 'جدة' : 'Jeddah',
+                'country' => 'SA',
+                'phone' => WhatsApp::tel($this->settings->getItem('mobile_ksa'), WhatsApp::SAUDI_ARABIA),
+                'email' => $this->settings->getItem('email_ksa') ?: $this->settings->getItem('email'),
+                'geo' => null,
+                'hours' => null,
+            ],
+        ];
+
+        $branches = [];
+        foreach ($offices as $office) {
+            $street = $this->clean($office['street']);
+            if ($street === '') {
+                continue;
+            }
+
+            $branches[] = array_filter([
+                '@type' => 'ProfessionalService',
+                '@id' => $home . '#office-' . $office['id'],
+                'name' => $this->siteName . ' - ' . $office['name'],
+                'url' => route('site.contact-us'),
+                'image' => $this->ogImage,
+                'logo' => $this->ogImage,
+                'telephone' => $office['phone'],
+                'email' => $office['email'] ? strtolower($office['email']) : null,
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => $street,
+                    'addressLocality' => $office['locality'],
+                    'addressCountry' => $office['country'],
+                ],
+                'geo' => $office['geo'],
+                'openingHoursSpecification' => $office['hours'],
+                'areaServed' => ['@type' => 'Country', 'name' => $office['country'] === 'EG' ? 'Egypt' : 'Saudi Arabia'],
+                'parentOrganization' => ['@id' => $home . '#organization'],
+            ]);
+        }
+
+        return $branches;
+    }
+
+    /** Coordinates from a Google Maps embed link ("…!2d31.2079!3d30.0513…"), or null. */
+    private function mapPin(?string $embed): ?array
+    {
+        if (! preg_match('/!3d(-?\d+(?:\.\d+)?)/', (string) $embed, $lat)
+            || ! preg_match('/!2d(-?\d+(?:\.\d+)?)/', (string) $embed, $lng)) {
+            return null;
+        }
+
+        return ['@type' => 'GeoCoordinates', 'latitude' => (float) $lat[1], 'longitude' => (float) $lng[1]];
+    }
+
+    /**
+     * Opening hours from the dashboard text, when it reads as every day between two times
+     * ("Daily from 9 am to 5 pm", "يوميا من 9 ص الى 5 م"). Any other wording is left out
+     * rather than guessed.
+     */
+    private function openingHours(?string $text): ?array
+    {
+        $text = mb_strtolower($this->clean($text));
+
+        if (! preg_match('/daily|every ?day|يومي/u', $text)) {
+            return null;
+        }
+
+        $time = '(\d{1,2})(?:[:.](\d{2}))?\s*(am|pm|ص|م)';
+        if (! preg_match('/' . $time . '.*?' . $time . '/u', $text, $m)) {
+            return null;
+        }
+
+        $format = function (string $hour, string $minutes, string $half): string {
+            $hour = (int) $hour % 12 + (in_array($half, ['pm', 'م'], true) ? 12 : 0);
+
+            return sprintf('%02d:%02d', $hour, (int) ($minutes ?: 0));
+        };
+
+        return [[
+            '@type' => 'OpeningHoursSpecification',
+            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            'opens' => $format($m[1], $m[2], $m[3]),
+            'closes' => $format($m[4], $m[5], $m[6]),
+        ]];
     }
 
     private function postalAddress(?string $address, string $country): ?array

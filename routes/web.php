@@ -36,6 +36,10 @@ Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 // a guide to the site for AI assistants (llmstxt.org); keep no public/llms.txt, it would win
 Route::get('llms.txt', [LlmsTxtController::class, 'index'])->name('llms');
 
+// project pages of the old WordPress site (/portfolio-item/printing/), still listed by Google
+// as 404s: their visitors and links go to the portfolio, in Arabic (the main market)
+Route::get('portfolio-item/{any?}', fn () => redirect('ar/portfolio', 301))->where('any', '.*');
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localize', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], // Route translate middleware

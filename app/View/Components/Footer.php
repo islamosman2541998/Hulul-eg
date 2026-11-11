@@ -52,7 +52,7 @@ class Footer extends Component
         $this->facebookLink = $this->settings->getItem('facebook') ?? 'not found';
         $this->instagramLink = $this->settings->getItem('instagram') ?? 'not found';
         $this->tiktokLink = $this->settings->getItem('tiktok') ?? 'not found';
-        $this->linkedinLink = $this->settings->getItem('linkedin') ?? 'not found';
+        $this->linkedinLink = $this->settings->getItem('linked_in') ?? 'not found';
         $this->site_name = $this->settings->getItem('site_name') ?? 'not found';
         $this->maps = $this->settings->getItem('maps') ?? 'not found';
         $this->logo = $this->settings->getItem('logo') ?? 'not found';

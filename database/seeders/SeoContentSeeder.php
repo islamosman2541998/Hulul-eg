@@ -127,6 +127,7 @@ class SeoContentSeeder extends Seeder
             $this->brandNameInBlogs();
             $this->leftoverPages();
             $this->digitalMarketingService();
+            $this->shortDescriptions();
             $this->blogSlugs();
             $this->faqs();
         });
@@ -266,6 +267,51 @@ class SeoContentSeeder extends Seeder
             '<p>HULUL digital marketing in Egypt and Saudi Arabia: social media management, paid ad campaigns, SEO, content marketing and marketing plans.</p>',
             ['<p>Explore Hulul&rsquo;s digital marketing, advertising, graphic design, website development, mobile app development, media coverage, content production, printing, and branding solutions.</p>'],
             'digital marketing service (en): meta description');
+    }
+
+    /**
+     * Descriptions longer than the 160 characters the site sends: search results showed them
+     * cut off with "...". Each is rewritten under 150 characters, saying the same thing.
+     */
+    private function shortDescriptions(): void
+    {
+        $services = [
+            5 => ['<p>Hulul connects your brand with the right influencers through strategic influencer marketing campaigns that build awareness, trust, engagement, and measurable results.</p>',
+                'HULUL runs influencer marketing campaigns in Egypt and Saudi Arabia, matching your brand with the right influencers to build awareness and trust.'],
+            6 => ['<p>Hulul develops professional websites and mobile apps with responsive design, fast performance, user-friendly experience, and SEO-friendly structure for business growth.</p>',
+                'HULUL builds fast, responsive websites and mobile apps with clear UX and an SEO-friendly structure for businesses in Egypt and Saudi Arabia.'],
+            20 => ['<p>Hulul offers professional graphic design services, including social media designs, brand identity, marketing materials, and creative visuals for strong brand communication.</p>',
+                'Graphic design by HULUL: brand identity, social media designs and marketing materials that give your brand a clear, consistent look.'],
+            22 => ['<p>Hulul provides professional media coverage for events, conferences, exhibitions, and launches through photography, video production, and engaging visual content.</p>',
+                'HULUL covers events, conferences, exhibitions and launches with professional photography, video and engaging visual content.'],
+            24 => ['<p>Hulul creates advertising content from concept and scriptwriting to filming and editing, helping brands capture attention, communicate clearly, and drive engagement.</p>',
+                'HULUL produces ad content from concept and script to filming and editing, helping brands get attention and communicate clearly.'],
+            25 => ['<p>Hulul offers high-quality printing services for brochures, flyers, business cards, banners, and branded marketing materials that support your brand communication.</p>',
+                'HULUL prints brochures, flyers, business cards, banners and branded marketing materials in high quality for your brand.'],
+        ];
+
+        foreach ($services as $id => [$old, $new]) {
+            $this->setIfUnchanged('service_category_translations', ['service_cat_id' => $id, 'locale' => 'en'], 'meta_desc',
+                '<p>' . $new . '</p>', [$old], "service #{$id} (en): meta description");
+        }
+
+        $articles = [
+            [17, 'en', '<p>Looking to increase your profits? Learn how to choose the best marketing strategy to boost your sales through social media. Click to discover more practical tips and insights from HULUL Agency.</p>',
+                'Learn how to choose a social media marketing strategy that doubles your sales, with practical tips from the HULUL team.'],
+            [17, 'ar', '<p><strong>إذا كنت تبحث عن زيادة أرباحك؟ تعلم معنا كيف تختار افضل استراتيجية تسويقية تضاعف مبيعاتك عبر السوشيال ميديا، اضغط&nbsp; للمزيد من الأسرار والنصائح العملية من وكالة حلول.&nbsp;</strong></p>',
+                'تعلّم كيف تختار أفضل استراتيجية تسويقية تضاعف مبيعاتك عبر السوشيال ميديا، مع نصائح عملية من فريق حلول.'],
+            [20, 'en', '<p dir="rtl"><strong>Discover the importance of digital marketing in driving business success&mdash;reaching customers, increasing sales, strengthening brand presence, and achieving sustainable growth</strong></p>',
+                'Why digital marketing matters for business success: reaching customers, growing sales, building your brand and growing sustainably.'],
+            [21, 'en', '<p>Discover how SMS marketing helps businesses reach customers quickly, improve communication, promote offers, and increase engagement through targeted short messages.</p>',
+                'How SMS marketing helps businesses reach customers fast, promote offers and boost engagement with short, targeted messages.'],
+            [22, 'en', '<p dir="rtl"><strong>Discover the most common SEO mistakes that can affect your website&rsquo;s search engine rankings, and learn how to avoid them, improve your visibility, and reach your target audience</strong></p>',
+                'The most common SEO mistakes that hurt your website\'s rankings, and how to avoid them to improve your visibility in search results.'],
+        ];
+
+        foreach ($articles as [$id, $locale, $old, $new]) {
+            $this->setIfUnchanged('blog_translations', ['blog_id' => $id, 'locale' => $locale], 'meta_desc',
+                '<p>' . $new . '</p>', [$old], "article #{$id} ({$locale}): meta description");
+        }
     }
 
     /**

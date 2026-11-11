@@ -27,7 +27,8 @@
                             @endswitch
                         </div>
 
-                        <h2 class="counter_num">{{ $item->count }}</h2>
+                        {{-- a number, not a heading: the page outline stays the section titles --}}
+                        <p class="counter_num stat-num">{{ $item->count }}</p>
 
                         <p>{{ $item->transNow->title }}</p>
                     </div>
@@ -87,21 +88,22 @@
     font-size: 32px;
 }
 
-.stat-card h2 {
+.stat-card .stat-num {
     color: #fff;
+    line-height: 1.2;
     font-size: 48px;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
-.stat-card p {
+.stat-card p:not(.stat-num) {
     color: rgba(255,255,255,.8);
     font-size: 16px;
     margin: 0;
 }
 
 @media(max-width:768px){
-    .stat-card h2{
+    .stat-card .stat-num{
         font-size: 36px;
     }
 }

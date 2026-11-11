@@ -17,10 +17,11 @@
                    </div>
                    <div class="col-lg-6 col-md-6">
                        <div class="footer__top__social">
-                           <a href="{{ $settings->getItem('facebook') }}"><i class="fa-brands fa-facebook-f"></i></a>
-                           <a href="{{ $settings->getItem('youtube') }}"><i class="fa-brands fa-youtube"></i></a>
-                           <a href="{{ $settings->getItem('tiktok') }}"><i class="fa-brands fa-tiktok"></i></a>
-                           <a href="{{ $settings->getItem('instagram') }}"><i class="fa-brands fa-instagram"></i></a>
+                           {{-- only networks filled in on the dashboard, so no icon links nowhere --}}
+                           @foreach (\App\Support\SocialLinks::all() as $network => $link)
+                               <a href="{{ $link }}" target="_blank" rel="noopener" aria-label="@lang('admin.' . $network)"><i
+                                       class="fa-brands {{ \App\Support\SocialLinks::NETWORKS[$network] }}"></i></a>
+                           @endforeach
                        </div>
                    </div>
                </div>
