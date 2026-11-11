@@ -62,7 +62,24 @@ class SocialLinks
             return $match[1] . '/';
         }
 
-        // a Facebook share link needs its id to work, so only its tracking part goes
-        return preg_replace('/[?#].*$/', '', $url);
+        return self::withoutTracking($url);
+    }
+
+    /**
+     * Only tracking and view parameters go; the rest of the query stays, since some profile
+     * addresses live in it (facebook.com/profile.php?id=…).
+     */
+    private static function withoutTracking(string $url): string
+    {
+        $url = preg_replace('/#.*$/', '', $url);
+        [$base, $query] = array_pad(explode('?', $url, 2), 2, '');
+
+        parse_str($query, $params);
+        $params = array_filter($params, fn ($key) => ! preg_match(
+            '/^(utm_\w+|hl|mibextid|fbclid|igshid|igsh|si|feedview|ref|rdid|share_url|locale)$/i',
+            (string) $key
+        ), ARRAY_FILTER_USE_KEY);
+
+        return $base . ($params ? '?' . http_build_query($params) : '');
     }
 }
